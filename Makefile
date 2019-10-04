@@ -43,8 +43,14 @@ C150AR = $(C150LIB)c150ids.a
 LDFLAGS = 
 INCLUDES = $(C150LIB)c150dgmsocket.h $(C150LIB)c150nastydgmsocket.h $(C150LIB)c150network.h $(C150LIB)c150exceptions.h $(C150LIB)c150debug.h $(C150LIB)c150utility.h
 
-all: nastyfiletest makedatafile sha1test
+all: endtoend nastyfiletest makedatafile sha1test
 
+
+#
+# Build the sha1test
+#
+endtoend: endtoend.cpp
+	$(CPP) -o endtoend endtoend.cpp -lssl -lcrypto
 
 #
 # Build the nastyfiletest sample
@@ -76,6 +82,6 @@ makedatafile: makedatafile.cpp
 # for forcing complete rebuild#
 
 clean:
-	 rm -f nastyfiletest sha1test makedatafile *.o 
+	 rm -f endtoend nastyfiletest sha1test makedatafile *.o 
 
 
