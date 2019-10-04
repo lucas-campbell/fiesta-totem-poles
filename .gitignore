@@ -31,5 +31,7 @@
 *.out
 *.app
 
-# Vim files
+# Vim files and emacs
+*~
+\#*\#
 .*.swp
