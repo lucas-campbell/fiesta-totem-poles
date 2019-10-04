@@ -43,32 +43,32 @@ C150AR = $(C150LIB)c150ids.a
 LDFLAGS = 
 INCLUDES = $(C150LIB)c150dgmsocket.h $(C150LIB)c150nastydgmsocket.h $(C150LIB)c150network.h $(C150LIB)c150exceptions.h $(C150LIB)c150debug.h $(C150LIB)c150utility.h
 
-all: endtoend nastyfiletest makedatafile sha1test
+all: endtoend.exe nastyfiletest.exe makedatafile.exe sha1test.exe
 
 
 #
 # Build the sha1test
 #
-endtoend: endtoend.cpp
-	$(CPP) -o endtoend endtoend.cpp -lssl -lcrypto
+endtoend.exe: endtoend.cpp
+	$(CPP) -o endtoend.exe endtoend.cpp -lssl -lcrypto
 
 #
 # Build the nastyfiletest sample
 #
-nastyfiletest: nastyfiletest.cpp  $(C150AR) $(INCLUDES)
-	$(CPP) -o nastyfiletest  $(CPPFLAGS) nastyfiletest.cpp $(C150AR)
+nastyfiletest.exe: nastyfiletest.cpp  $(C150AR) $(INCLUDES)
+	$(CPP) -o nastyfiletest.exe  $(CPPFLAGS) nastyfiletest.cpp $(C150AR)
 
 #
 # Build the sha1test
 #
-sha1test: sha1test.cpp
-	$(CPP) -o sha1test sha1test.cpp -lssl -lcrypto
+sha1test.exe: sha1test.cpp
+	$(CPP) -o sha1test.exe sha1test.cpp -lssl -lcrypto
 
 #
 # Build the makedatafile 
 #
-makedatafile: makedatafile.cpp
-	$(CPP) -o makedatafile makedatafile.cpp 
+makedatafile.exe: makedatafile.cpp
+	$(CPP) -o makedatafile.exe makedatafile.cpp 
 
 #
 # To get any .o, compile the corresponding .cpp
@@ -82,6 +82,6 @@ makedatafile: makedatafile.cpp
 # for forcing complete rebuild#
 
 clean:
-	 rm -f endtoend nastyfiletest sha1test makedatafile *.o 
+	 rm -f endtoend.exe nastyfiletest.exe sha1test.exe makedatafile.exe *.o 
 
 
