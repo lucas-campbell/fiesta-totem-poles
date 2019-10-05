@@ -27,6 +27,7 @@
 // --------------------------------------------------------------
 
 #include "sha1.h"
+#include "protocol.h"
 #include "c150dgmsocket.h"
 #include "c150debug.h"
 #include "c150nastyfile.h"        // for c150nastyfile & framework
@@ -53,7 +54,7 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 void checkDirectory(char *dirname);
 bool isFile(string fname);
 string makeFileName(string dir, string name);
-//string makeFilePilot(string hash)
+
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
