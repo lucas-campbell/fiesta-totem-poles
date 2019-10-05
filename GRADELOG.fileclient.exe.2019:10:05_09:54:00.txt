@@ -1,0 +1,2 @@
+THIS IS LOG FILE: GRADELOG.fileclient.exe.2019:10:05_09:54:00.txt
+Grading log started on 10/05/2019 09:54:00.004279 Command line = [./fileclient.exe 0 0 .]

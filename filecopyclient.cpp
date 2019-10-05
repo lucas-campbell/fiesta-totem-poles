@@ -51,7 +51,8 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 void checkAndPrintMessage(ssize_t readlen, char *buf, ssize_t bufferlen);
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 void checkDirectory(char *dirname);
-
+bool isFile(string fname);
+string makeFileName(string dir, string name);
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -67,7 +68,7 @@ void checkDirectory(char *dirname);
 const int SERVER_ARG = 1;     // server name is 1st arg
 const int NETWORK_NASTINESS_ARG = 2;        // network nastiness is 2nd arg
 const int FILE_NASTINESS_ARG = 3;        // file nastiness is 3rd arg
-const int SOURC_ARG = 4;            // source directory is 4th arg
+const int SRC_ARG = 4;            // source directory is 4th arg
 const int TIMEOUT_MS = 3000;       //ms for timeout
 
 
@@ -87,14 +88,14 @@ int main(int argc, char *argv[]) {
     char incomingMessage[512];   // received message data
     DIR *SRC;                   // Unix descriptor for open directory
     struct dirent *sourceFile;  // Directory entry for source file
-    checkDirectory(argv[2]);  //Make sure src exists
+    checkDirectory(argv[SRC_ARG]);  //Make sure src exists
 
     //
     // Open the source directory
     //
-    SRC = opendir(argv[2]);
+    SRC = opendir(argv[SRC_ARG]);
     if (SRC == NULL) {
-        fprintf(stderr,"Error opening source directory %s\n", argv[2]);     
+        fprintf(stderr,"Error opening source directory %s\n", argv[SRC_ARG]);
         exit(8);
     }
 
@@ -137,60 +138,74 @@ int main(int argc, char *argv[]) {
         bool timedout = true;
         string hash_str = "";
         unordered_map<string, string> filehash;
-        
-        while ((sourceFile = readdir(SRC)) != NULL) {
 
+
+        (void) num_tries;
+        (void) timedout;
+        (void) readlen;
+        (void) incomingMessage;
+        while ((sourceFile = readdir(SRC)) != NULL) {
             if ((strcmp(sourceFile->d_name, ".") == 0) ||
                 (strcmp(sourceFile->d_name, "..")  == 0 )) 
                 continue;          // never copy . or ..
 
-            unsigned char hash[SHA1_LEN];
-            string filename(sourceFile->d_name);
+            string filename = makeFileName(argv[SRC_ARG], sourceFile->d_name);
             
-            computeChecksum(filename, hash);
-            
-            
-            //Str constructor wasn't working, so I just copy it manually
-            for (int i = 0; i < SHA1_LEN; i++)
-                hash_str[i] = hash[i];
-            
-            // Add the file checksum to the hash table
-            filehash[filename] = hash_str;
-            
-            //TODO: Fill in message with entire packet
-            outgoingMessage = hash_str;
-
-            const char *cStyleMsg = outgoingMessage.c_str();
-            
-            while (timedout && num_tries <= 5) {
-                // Send the message to the server
-                c150debug->printf(C150APPLICATION,"%s: Writing message: \"%s\"",
-                                  argv[0], cStyleMsg);
-                // +1 includes the null
-                sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
+            if (isFile(filename)) {
+                cout << filename << endl;
+                unsigned char hash[SHA1_LEN];
+                computeChecksum(filename, hash);
                 
-                // Read the response from the server
-                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
-                                  " doing read()", argv[0]);
-                readlen = sock -> read(incomingMessage, sizeof(incomingMessage));
-                // Check for timeout
-                timedout = sock -> timedout();
-                if (timedout) {
-                    num_tries++;
-                    continue;
+                hash_str = string((const char*)hash);
+                      
+                cout << filename << ": ";
+                for (int j = 0; j < SHA1_LEN-1; j++)
+                {
+                    fprintf (stderr, "%02x", (unsigned int) hash[j]);
                 }
-                // Check and print the incoming message
-                checkAndPrintMessage(readlen, incomingMessage,
-                                     sizeof(incomingMessage));
+                cout << endl;
             }
-            
-            if (num_tries == 5)
-            {
-                throw C150NetworkException("Write to server timed out"
-                                           " too many times");     
-            }
-            
+               
         }
+        cerr << "Closing dir\n";
+        closedir(SRC);
+
+            
+        // Add the file checksum to the hash table
+        filehash[filename] = hash_str;
+        
+        //TODO: Fill in message with entire packet
+        outgoingMessage = hash_str;
+        
+        const char *cStyleMsg = outgoingMessage.c_str();
+        
+        while (timedout && num_tries <= 5) {
+            // Send the message to the server
+            c150debug->printf(C150APPLICATION,"%s: Writing message: \"%s\"",
+                              argv[0], cStyleMsg);
+            // +1 includes the null
+            sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
+            
+            // Read the response from the server
+            c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                              " doing read()", argv[0]);
+            readlen = sock -> read(incomingMessage, sizeof(incomingMessage));
+            // Check for timeout
+            timedout = sock -> timedout();
+            if (timedout) {
+                num_tries++;
+                continue;
+            }
+            // Check and print the incoming message
+            checkAndPrintMessage(readlen, incomingMessage,
+                                 sizeof(incomingMessage));
+        }
+        
+        if (num_tries == 5)
+        {
+            throw C150NetworkException("Write to server timed out"
+                                       " too many times");     
+        }   
     }
 
     
@@ -222,8 +237,7 @@ int main(int argc, char *argv[]) {
  
 
 
-void
-checkAndPrintMessage(ssize_t readlen, char *msg, ssize_t bufferlen) {
+void checkAndPrintMessage(ssize_t readlen, char *msg, ssize_t bufferlen) {
     // 
     // Except in case of timeouts, we're not expecting
     // a zero length read
@@ -367,4 +381,51 @@ checkDirectory(char *dirname) {
     fprintf(stderr,"File %s exists but is not a directory\n", dirname);
     exit(8);
   }
+}
+
+// ------------------------------------------------------
+//
+//                   isFile
+//
+//  Make sure the supplied file is not a directory or
+//  other non-regular file.
+//     
+// ------------------------------------------------------
+
+bool
+isFile(string fname) {
+  const char *filename = fname.c_str();
+  struct stat statbuf;  
+  if (lstat(filename, &statbuf) != 0) {
+    fprintf(stderr,"isFile: Error stating supplied source file %s\n", filename);
+    return false;
+  }
+
+  if (!S_ISREG(statbuf.st_mode)) {
+    fprintf(stderr,"isFile: %s exists but is not a regular file\n", filename);
+    return false;
+  }
+  return true;
+}
+
+
+// ------------------------------------------------------
+//
+//                   makeFileName
+//
+// Put together a directory and a file name, making
+// sure there's a / in between
+//
+// ------------------------------------------------------
+
+string makeFileName(string dir, string name) {
+  stringstream ss;
+
+  ss << dir;
+  // make sure dir name ends in /
+  if (dir.substr(dir.length()-1,1) != "/")
+    ss << '/';
+  ss << name;     // append file name to dir
+  return ss.str();  // return dir/name
+  
 }
