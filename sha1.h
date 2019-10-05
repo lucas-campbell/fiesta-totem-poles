@@ -2,7 +2,7 @@
 #ifndef SHA1_H
 #define SHA1_H
 
-const int SHA1_LEN = 20;
+const int SHA1_LEN = 21;
 
 /*
  * computeChecksum

@@ -1,0 +1,2 @@
+THIS IS LOG FILE: GRADELOG.fileclient.exe.2019:10:05_10:41:25.txt
+Grading log started on 10/05/2019 10:41:25.278995 Command line = [./fileclient.exe comp117-02 0 0 /h/dhoffm02/comp117/fiesta-totem-poles/]

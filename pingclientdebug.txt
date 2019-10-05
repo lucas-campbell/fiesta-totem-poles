@@ -1,0 +1,1 @@
+10/05/2019 10:47:27.730293 ./fileclient.exe: Creating C150DgmSocket

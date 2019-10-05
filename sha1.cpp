@@ -23,6 +23,7 @@ void computeChecksum(string filename, unsigned char (&hash)[SHA1_LEN])
     *buffer << t->rdbuf();
     SHA1((const unsigned char *)buffer->str().c_str(),
          (buffer->str()).length(), hash);
+    hash[20] = '\0';
 }
 
 
