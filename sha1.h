@@ -1,3 +1,5 @@
+#ifndef SHA1_H
+#define SHA1_H
 /*
  * computeChecksum
  * computes SHA1 checksum of the given file
@@ -9,4 +11,6 @@
  * Return: None
  * Assumptions: filename refers to a file which exists
  */
-void computeChecksum(string filename, unsigned char (&hash)[21]);
+void computeChecksum(std::string filename, unsigned char (&hash)[21]);
+
+#endif

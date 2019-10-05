@@ -9,6 +9,7 @@
 #include <sstream>
 #include <stdio.h>
 #include <openssl/sha.h>
+#include "sha1.h"
 
 using namespace std;
 

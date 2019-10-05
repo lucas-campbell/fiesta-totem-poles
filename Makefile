@@ -43,7 +43,11 @@ C150AR = $(C150LIB)c150ids.a
 LDFLAGS = 
 INCLUDES = $(C150LIB)c150dgmsocket.h $(C150LIB)c150nastydgmsocket.h $(C150LIB)c150network.h $(C150LIB)c150exceptions.h $(C150LIB)c150debug.h $(C150LIB)c150utility.h sha1.h
 
-all: fileserver.exe fileclient.exe nastyfiletest.exe makedatafile.exe sha1test.exe
+all: shatest.exe fileserver.exe fileclient.exe nastyfiletest.exe datafilemake.exe sha1test.exe
+
+
+shatest.exe: shatest.cpp sha1.o $(C150AR) $(INCLUDES)
+	$(CPP) -o shatest.exe $(CPPFLAGS) shatest.cpp sha1.o -lssl -lcrypto $(C150AR)
 
 #
 # Build the filecopy client
@@ -78,8 +82,8 @@ sha1test.exe: sha1test.cpp
 #
 # Build the makedatafile 
 #
-makedatafile.exe: makedatafile.cpp
-	$(CPP) -o makedatafile.exe makedatafile.cpp 
+datafilemake.exe: datafilemake.cpp
+	$(CPP) -o datafilemake.exe datafilemake.cpp 
 
 #
 # To get any .o, compile the corresponding .cpp
@@ -93,6 +97,6 @@ makedatafile.exe: makedatafile.cpp
 # for forcing complete rebuild#
 
 clean:
-	 rm -f fileclient.exe fileserver.exe nastyfiletest.exe sha1test.exe makedatafile.exe *.o 
+	 rm -f fileclient.exe fileserver.exe nastyfiletest.exe sha1test.exe datafilemake.exe *.o 
 
 
