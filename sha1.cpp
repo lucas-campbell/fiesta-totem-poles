@@ -14,17 +14,15 @@
 using namespace std;
 
 
-void computeChecksum(string filename, unsigned char (&hash)[21])
+void computeChecksum(string filename, unsigned char (&hash)[SHA1_LEN])
 {
     ifstream *t;
     stringstream *buffer;
-    //unsigned char hash[21];
     t = new ifstream(filename);
     buffer = new stringstream;
     *buffer << t->rdbuf();
-    SHA1((const unsigned char *)buffer->str().c_str(), (buffer->str()).length(),
-         hash);
-    hash[20] = '\0';
+    SHA1((const unsigned char *)buffer->str().c_str(),
+         (buffer->str()).length(), hash);
 }
 
 

@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
     string files[] = {"sha1test.cpp", "sha1.cpp", "Makefile"};
     for(int i = 0; i < 3; i++) {
         cout << files[i] << ": ";
-        unsigned char hash[21];
+        unsigned char hash[SHA1_LEN];
         computeChecksum(files[i], hash);
         for (int j = 0; j < 20; j++)
 		{

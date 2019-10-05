@@ -1,69 +1,48 @@
 // --------------------------------------------------------------
 //
-//                        pingclient2.cpp
+//                        filecopyclient.cpp
 //
-//        Author: Noah Mendelsohn         
-//        Edited 9/26/2019 by Lucas Campbell, based off of pingclient.cpp
+//        Author: Dylan Hoffmann & Lucas Campbell       
+//        Based on pieces from ping code written by Noah Mendelsohn
 //   
 //
-//        This is a simple client, designed to illustrate use of:
-//
-//            * The C150DgmSocket class, which provides 
-//              a convenient wrapper for sending and receiving
-//              UDP packets in a client/server model
-//
-//            * The c150debug interface, which provides a framework for
-//              generating a timestamped log of debugging messages.
-//              Note that the socket classes described above will
-//              write to these same logs, providing information
-//              about things like when UDP packets are sent and received.
-//              See comments section below for more information on 
-//              these logging classes and what they can do.
+//        TODO
 //
 //
 //        COMMAND LINE
 //
-//              pingclient <servername> <msgtxt>
+//              fileclient <srvrname> <networknasty#> <filenasty#> <src>
 //
 //
 //        OPERATION
 //
-//              pingclient will send a single UDP packet
-//              to the named server, and will wait (forever)
-//              for a single UDP packet response. The contents
-//              of the packet sent will be the msgtxt, including
-//              a terminating null. The response message
-//              is checked to ensure that it's null terminated.
-//              For safety, this application will use a routine 
-//              to clean up any garbage characters the server
-//              sent us, (so a malicious server can't crash us), and
-//              then print the result.
-//
-//              Note that the C150DgmSocket class will select a UDP
-//              port automatically based on the user's login, so this
-//              will (typically) work only on the test machines at Tufts
-//              and for COMP 150-IDS who are registered. See documention
-//              for the comp150ids getUserPort routine if you are 
-//              curious, but you shouldn't have to worry about it.
-//              The framework automatically runs on a separate port
-//              for each user, as long as you are registerd in the
-//              the student port mapping table (ask Noah or the TAs if
-//              the program dies because you don't have a port).
+//             TODO
 //
 //        LIMITATIONS
 //
-//              This version does not timeout or retry when packets are lost.
+//              TODO
 //
 //
-//       Copyright: 2012 Noah Mendelsohn
 //     
 // --------------------------------------------------------------
 
-
+#include "sha1.h"
 #include "c150dgmsocket.h"
 #include "c150debug.h"
-#include <fstream>
+#include "c150nastyfile.h"        // for c150nastyfile & framework
+#include "c150grading.h"
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <cstring>                // for errno string formatting
+#include <cerrno>
+#include <cstring>               // for strerro
+#include <iostream>               // for cout
+#include <fstream>                // for input files
 #include <string>
+#include <unordered_map> 
+
 
 using namespace std;          // for C++ std library
 using namespace C150NETWORK;  // for all the comp150 utilities 
@@ -71,6 +50,7 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 // forward declarations
 void checkAndPrintMessage(ssize_t readlen, char *buf, ssize_t bufferlen);
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
+void checkDirectory(char *dirname);
 
 
 
@@ -88,6 +68,7 @@ const int SERVER_ARG = 1;     // server name is 1st arg
 const int NETWORK_NASTINESS_ARG = 2;        // network nastiness is 2nd arg
 const int FILE_NASTINESS_ARG = 3;        // file nastiness is 3rd arg
 const int SOURC_ARG = 4;            // source directory is 4th arg
+const int TIMEOUT_MS = 3000;       //ms for timeout
 
 
 
@@ -97,14 +78,25 @@ const int SOURC_ARG = 4;            // source directory is 4th arg
 //
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  
-int 
-main(int argc, char *argv[]) {
-
+int main(int argc, char *argv[]) {
+    GRADEME(argc, argv);
     //
     // Variable declarations
     //
     ssize_t readlen;              // amount of data read from socket
     char incomingMessage[512];   // received message data
+    DIR *SRC;                   // Unix descriptor for open directory
+    struct dirent *sourceFile;  // Directory entry for source file
+    checkDirectory(argv[2]);  //Make sure src exists
+
+    //
+    // Open the source directory
+    //
+    SRC = opendir(argv[2]);
+    if (SRC == NULL) {
+        fprintf(stderr,"Error opening source directory %s\n", argv[2]);     
+        exit(8);
+    }
 
     //
     //  Set up debug message logging
@@ -115,8 +107,9 @@ main(int argc, char *argv[]) {
     // Make sure command line looks right
     //
     // Command line args not used
-    if (argc != 2) {
-        fprintf(stderr,"Correct syntxt is: %s <servername>\n", argv[0]);
+    if (argc != 5) {
+        fprintf(stderr,"Correct syntxt is: %s <srvrname>"
+                " <networknasty#> <filenasty#> <src>\n", argv[0]);
         exit(1);
     }
 
@@ -132,32 +125,53 @@ main(int argc, char *argv[]) {
         C150DgmSocket *sock = new C150DgmSocket();
 
         // Tell the DGMSocket which server to talk to
-        sock -> setServerName(argv[serverArg]);  
+        sock -> setServerName(argv[SERVER_ARG]);  
         
         // Timeout of 3 seconds
-        sock -> turnOnTimeouts(3000);
+        sock -> turnOnTimeouts(TIMEOUT_MS);
 
         // Loop for getting user input
-        printf("Enter a message to send to the server: ");
         string outgoingMessage;
-        getline(cin, outgoingMessage);
-        string quit = "quit";
         int num_tries = 0;
         //start at true so we "try" to send message "again"
-        bool timedout = true; 
-        while (strcmp(outgoingMessage.c_str(), quit.c_str()) != 0) {
+        bool timedout = true;
+        string hash_str = "";
+        unordered_map<string, string> filehash;
+        
+        while ((sourceFile = readdir(SRC)) != NULL) {
+
+            if ((strcmp(sourceFile->d_name, ".") == 0) ||
+                (strcmp(sourceFile->d_name, "..")  == 0 )) 
+                continue;          // never copy . or ..
+
+            unsigned char hash[SHA1_LEN];
+            string filename(sourceFile->d_name);
+            
+            computeChecksum(filename, hash);
+            
+            
+            //Str constructor wasn't working, so I just copy it manually
+            for (int i = 0; i < SHA1_LEN; i++)
+                hash_str[i] = hash[i];
+            
+            // Add the file checksum to the hash table
+            filehash[filename] = hash_str;
+            
+            //TODO: Fill in message with entire packet
+            outgoingMessage = hash_str;
 
             const char *cStyleMsg = outgoingMessage.c_str();
-
+            
             while (timedout && num_tries <= 5) {
                 // Send the message to the server
                 c150debug->printf(C150APPLICATION,"%s: Writing message: \"%s\"",
                                   argv[0], cStyleMsg);
-                sock -> write(cStyleMsg, strlen(cStyleMsg)+1); // +1 includes the null
-
+                // +1 includes the null
+                sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
+                
                 // Read the response from the server
-                c150debug->printf(C150APPLICATION,"%s: Returned from write, doing read()",
-                                  argv[0]);
+                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                                  " doing read()", argv[0]);
                 readlen = sock -> read(incomingMessage, sizeof(incomingMessage));
                 // Check for timeout
                 timedout = sock -> timedout();
@@ -166,22 +180,20 @@ main(int argc, char *argv[]) {
                     continue;
                 }
                 // Check and print the incoming message
-                checkAndPrintMessage(readlen, incomingMessage, sizeof(incomingMessage));
+                checkAndPrintMessage(readlen, incomingMessage,
+                                     sizeof(incomingMessage));
             }
-
+            
             if (num_tries == 5)
             {
-                throw C150NetworkException("Write to server timed out too many times");     
+                throw C150NetworkException("Write to server timed out"
+                                           " too many times");     
             }
-             
-            // Loop and get user message again
-            printf("Enter a message to send to the server: ");
-            getline(cin, outgoingMessage);
-            num_tries = 0;
-            timedout = true;
+            
         }
     }
 
+    
     //
     //  Handle networking errors -- for now, just print message and give up!
     //
@@ -190,10 +202,11 @@ main(int argc, char *argv[]) {
         c150debug->printf(C150ALWAYSLOG,"Caught C150NetworkException: %s\n",
                           e.formattedExplanation().c_str());
         // In case we're logging to a file, write to the console too
-        cerr << argv[0] << ": caught C150NetworkException: " << e.formattedExplanation() << endl;
+        cerr << argv[0] << ": caught C150NetworkException: "
+             << e.formattedExplanation() << endl;
     }
-
-
+    
+    
     return 0;
 }
 
@@ -331,4 +344,27 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
     //
     c150debug->enableLogging(C150APPLICATION | C150NETWORKTRAFFIC | 
                              C150NETWORKDELIVERY); 
+}
+
+
+// ------------------------------------------------------
+//
+//                   checkDirectory
+//
+//  Make sure directory exists
+//     
+// ------------------------------------------------------
+
+void
+checkDirectory(char *dirname) {
+  struct stat statbuf;  
+  if (lstat(dirname, &statbuf) != 0) {
+    fprintf(stderr,"Error stating supplied source directory %s\n", dirname);
+    exit(8);
+  }
+
+  if (!S_ISDIR(statbuf.st_mode)) {
+    fprintf(stderr,"File %s exists but is not a directory\n", dirname);
+    exit(8);
+  }
 }
