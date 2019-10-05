@@ -1,8 +1,10 @@
 // --------------------------------------------------------------
 //
-//                        pingserver.cpp
+//                        filecopyserver.cpp
 //
-//        Author: Noah Mendelsohn         
+//        Authors: Lucas Campbell and Dylan Hoffmann
+//
+//        - adapted from pingserver.cpp, written by Noah Mendelsohn
 //   
 //
 //        This is a simple server, designed to illustrate use of:
@@ -30,7 +32,7 @@
 //
 //        COMMAND LINE
 //
-//              pingserver <nastiness_number>
+//          fileserver <networknastiness> <filenastiness> <targetdir>
 //
 //
 //        OPERATION
@@ -96,7 +98,7 @@ main(int argc, char *argv[])
     //
     //  Set up debug message logging
     //
-    setUpDebugLogging("pingserverdebug.txt",argc, argv);
+    setUpDebugLogging("filecopyserverdebug.txt",argc, argv);
 
     //
     // We set a debug output indent in the server only, not the client.
@@ -121,9 +123,11 @@ main(int argc, char *argv[])
         //   c150debug->printf(C150APPLICATION,"Creating C150DgmSocket");
         //   C150DgmSocket *sock = new C150DgmSocket();
 
+        cerr << "Creating C150NastyDgmSocket(nastiness=" << nastiness <<endl;
         c150debug->printf(C150APPLICATION,"Creating C150NastyDgmSocket(nastiness=%d)",
                           nastiness);
         C150DgmSocket *sock = new C150NastyDgmSocket(nastiness);
+        cerr << "ready to accept messages\n";
         c150debug->printf(C150APPLICATION,"Ready to accept messages");
 
         //
@@ -137,6 +141,7 @@ main(int argc, char *argv[])
             //
             readlen = sock -> read(incomingMessage, sizeof(incomingMessage)-1);
             if (readlen == 0) {
+                cerr << "read zero length meassage\n";
                 c150debug->printf(C150APPLICATION,"Read zero length message, trying again");
                 continue;
             }
@@ -152,6 +157,7 @@ main(int argc, char *argv[])
             // non-printing characters to .
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes. Message=\"%s\"",
                               readlen, incoming.c_str());
+            cerr << "received message:\n" << incoming << endl;
 
             //
             //  create the message to return
