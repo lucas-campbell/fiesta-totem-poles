@@ -1,4 +1,4 @@
-// --------------------------------------------------------------
+git// --------------------------------------------------------------
 //
 //                        filecopyclient.cpp
 //
@@ -53,6 +53,7 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 void checkDirectory(char *dirname);
 bool isFile(string fname);
 string makeFileName(string dir, string name);
+//string makeFilePilot(string hash)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -166,46 +167,49 @@ int main(int argc, char *argv[]) {
                 cout << endl;
             }
                
+
+
+            
+            // Add the file checksum to the hash table
+            filehash[filename] = hash_str;
+            
+            //TODO: Fill in message with entire packet
+            outgoingMessage = hash_str;
+            
+            const char *cStyleMsg = outgoingMessage.c_str();
+            
+            while (timedout && num_tries <= 5) {
+                // Send the message to the server
+                c150debug->printf(C150APPLICATION,
+                                  "%s: Writing message: \"%s\"",
+                                  argv[0], cStyleMsg);
+                // +1 includes the null
+                sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
+                
+                // Read the response from the server
+                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                                  " doing read()", argv[0]);
+                readlen = sock -> read(incomingMessage,
+                                       sizeof(incomingMessage));
+                // Check for timeout
+                timedout = sock -> timedout();
+                if (timedout) {
+                    num_tries++;
+                    continue;
+                }
+                // Check and print the incoming message
+                checkAndPrintMessage(readlen, incomingMessage,
+                                     sizeof(incomingMessage));
+            }
+            
+            if (num_tries == 5)
+            {
+                throw C150NetworkException("Write to server timed out"
+                                           " too many times");     
+            }
         }
         cerr << "Closing dir\n";
         closedir(SRC);
-
-            
-        // Add the file checksum to the hash table
-        filehash[filename] = hash_str;
-        
-        //TODO: Fill in message with entire packet
-        outgoingMessage = hash_str;
-        
-        const char *cStyleMsg = outgoingMessage.c_str();
-        
-        while (timedout && num_tries <= 5) {
-            // Send the message to the server
-            c150debug->printf(C150APPLICATION,"%s: Writing message: \"%s\"",
-                              argv[0], cStyleMsg);
-            // +1 includes the null
-            sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
-            
-            // Read the response from the server
-            c150debug->printf(C150APPLICATION,"%s: Returned from write,"
-                              " doing read()", argv[0]);
-            readlen = sock -> read(incomingMessage, sizeof(incomingMessage));
-            // Check for timeout
-            timedout = sock -> timedout();
-            if (timedout) {
-                num_tries++;
-                continue;
-            }
-            // Check and print the incoming message
-            checkAndPrintMessage(readlen, incomingMessage,
-                                 sizeof(incomingMessage));
-        }
-        
-        if (num_tries == 5)
-        {
-            throw C150NetworkException("Write to server timed out"
-                                       " too many times");     
-        }   
     }
 
     
@@ -259,24 +263,27 @@ void checkAndPrintMessage(ssize_t readlen, char *msg, ssize_t bufferlen) {
     // at least we look for the null)
     //
     if(msg[readlen-1] != '\0') {
-        throw C150NetworkException("Client received message that was not null terminated");     
+        throw C150NetworkException("Client received message "
+                                   "that was not null terminated");     
     };
 
     //
     // Use a routine provided in c150utility.cpp to change any control
     // or non-printing characters to "." (this is just defensive programming:
-    // if the server maliciously or inadvertently sent us junk characters, then we 
-    // won't send them to our terminal -- some 
+    // if the server maliciously or inadvertently sent us junk characters,
+    // then we won't send them to our terminal -- some 
     // control characters can do nasty things!)
     //
-    // Note: cleanString wants a C++ string, not a char*, so we make a temporary one
+    // Note: cleanString wants a C++ string, not a char*,
+    // so we make a temporary one
     // here. Not super-fast, but this is just a demo program.
     string s(msg);
     cleanString(s);
 
     // Echo the response on the console
 
-    c150debug->printf(C150APPLICATION,"PRINTING RESPONSE: Response received is \"%s\"\n", s.c_str());
+    c150debug->printf(C150APPLICATION,"PRINTING RESPONSE:"
+                      " Response received is \"%s\"\n", s.c_str());
     printf("Response received is \"%s\"\n", s.c_str());
 
 }
@@ -397,7 +404,8 @@ isFile(string fname) {
   const char *filename = fname.c_str();
   struct stat statbuf;  
   if (lstat(filename, &statbuf) != 0) {
-    fprintf(stderr,"isFile: Error stating supplied source file %s\n", filename);
+      fprintf(stderr,"isFile: Error stating supplied source file %s\n",
+              filename);
     return false;
   }
 
