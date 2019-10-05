@@ -194,3 +194,419 @@
 10/05/2019 17:59:45.824985 ./fileserver.exe:     Responding with message="R©ƒÌX¹yHÜBŸê	ÿ¹"
 10/05/2019 17:59:45.825172 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.R...X.yH.B..........|
 10/05/2019 17:59:45.825445 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.R...X.yH.B..........|
+10/05/2019 18:01:52.937538 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.>3L..d<.......c..)..|
+10/05/2019 18:01:52.937794 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.>3L..d<.......c..)..|
+10/05/2019 18:01:52.938041 ./fileserver.exe:     Successfully read 21 bytes. Message=">3L°¼d<õ
+ÔÎÇcËä)·"
+10/05/2019 18:01:52.939920 ./fileserver.exe:     Responding with message=">3L°¼d<õ
+ÔÎÇcËä)·"
+10/05/2019 18:01:52.940175 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.>3L..d<.......c..)..|
+10/05/2019 18:01:52.941711 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.>3L..d<.......c..)..|
+10/05/2019 18:01:52.944083 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |i/!5z........yA....2.|
+10/05/2019 18:01:52.944271 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |i/!5z........yA....2.|
+10/05/2019 18:01:52.944445 ./fileserver.exe:     Successfully read 21 bytes. Message="i/!5z™ê“æ…yA¯Òà2"
+10/05/2019 18:01:52.944623 ./fileserver.exe:     Responding with message="i/!5z™ê“æ…yA¯Òà2"
+10/05/2019 18:01:52.944771 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |i/!5z........yA....2.|
+10/05/2019 18:01:52.944996 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |i/!5z........yA....2.|
+10/05/2019 18:01:52.946893 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..8k\....n......`5m..|
+10/05/2019 18:01:52.947035 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..8k\....n......`5m..|
+10/05/2019 18:01:52.947205 ./fileserver.exe:     Successfully read 21 bytes. Message="ù8k\ƒÈnÍ¿È‡`5mÖ"
+10/05/2019 18:01:52.947438 ./fileserver.exe:     Responding with message="ù8k\ƒÈnÍ¿È‡`5mÖ"
+10/05/2019 18:01:52.947595 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..8k\....n......`5m..|
+10/05/2019 18:01:52.947808 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..8k\....n......`5m..|
+10/05/2019 18:01:52.949682 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 18:01:52.949824 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.KDnT...=m'M..0....x.|
+10/05/2019 18:01:52.949981 ./fileserver.exe:     Successfully read 21 bytes. Message="¥KDnTÈæ×=m'M¿ç0ğx"
+10/05/2019 18:01:52.950171 ./fileserver.exe:     Responding with message="¥KDnTÈæ×=m'M¿ç0ğx"
+10/05/2019 18:01:52.950329 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 18:01:52.950602 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 18:01:52.952809 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 18:01:52.952950 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |...|...s6Y4g.!..B..$.|
+10/05/2019 18:01:52.953089 ./fileserver.exe:     Successfully read 21 bytes. Message="‘
+í|«Ôs6Y4gÛ!€Bü$"
+10/05/2019 18:01:52.953294 ./fileserver.exe:     Responding with message="‘
+í|«Ôs6Y4gÛ!€Bü$"
+10/05/2019 18:01:52.953474 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 18:01:52.953689 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 18:01:52.955767 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.........8....p......|
+10/05/2019 18:01:52.956004 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.........8....p......|
+10/05/2019 18:01:52.956173 ./fileserver.exe:     Successfully read 21 bytes. Message="’¡ßì„šÒëÛ8¶‰ÏpâÕ’»"
+10/05/2019 18:01:52.956340 ./fileserver.exe:     Responding with message="’¡ßì„šÒëÛ8¶‰ÏpâÕ’»"
+10/05/2019 18:01:52.956532 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.........8....p......|
+10/05/2019 18:01:52.956747 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.........8....p......|
+10/05/2019 18:01:52.960314 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.>{.t..V...R...On.0..|
+10/05/2019 18:01:52.960484 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.>{.t..V...R...On.0..|
+10/05/2019 18:01:52.960678 ./fileserver.exe:     Successfully read 21 bytes. Message="…>{t÷V­ı–R’OnÛ0"
+10/05/2019 18:01:52.960855 ./fileserver.exe:     Responding with message="…>{t÷V­ı–R’OnÛ0"
+10/05/2019 18:01:52.961001 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.>{.t..V...R...On.0..|
+10/05/2019 18:01:52.961228 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.>{.t..V...R...On.0..|
+10/05/2019 18:01:52.963110 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 18:01:52.963274 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.@*;..m'+..Pe..d.....|
+10/05/2019 18:01:52.963481 ./fileserver.exe:     Successfully read 21 bytes. Message="	@*;ï±m'+¡ Ped	Ê"
+10/05/2019 18:01:52.963708 ./fileserver.exe:     Responding with message="	@*;ï±m'+¡ Ped	Ê"
+10/05/2019 18:01:52.963968 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 18:01:52.964238 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 18:01:52.966491 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |W....).f0.&.o........|
+10/05/2019 18:01:52.966644 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |W....).f0.&.o........|
+10/05/2019 18:01:52.966797 ./fileserver.exe:     Successfully read 21 bytes. Message="WÊµ‘ù)¤f0Ê&ëošÔ²Ù
+ö¢"
+10/05/2019 18:01:52.966998 ./fileserver.exe:     Responding with message="WÊµ‘ù)¤f0Ê&ëošÔ²Ù
+ö¢"
+10/05/2019 18:01:52.967154 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |W....).f0.&.o........|
+10/05/2019 18:01:52.967368 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |W....).f0.&.o........|
+10/05/2019 18:01:52.969436 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 18:01:52.969612 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |2ax.a.).....^.j...v..|
+10/05/2019 18:01:52.969797 ./fileserver.exe:     Successfully read 21 bytes. Message="2axÆaŒ)ºï	^´jÃßçvù"
+10/05/2019 18:01:52.970010 ./fileserver.exe:     Responding with message="2axÆaŒ)ºï	^´jÃßçvù"
+10/05/2019 18:01:52.970158 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 18:01:52.970357 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 18:01:52.972418 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..6.4......?.........|
+10/05/2019 18:01:52.972564 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..6.4......?.........|
+10/05/2019 18:01:52.972702 ./fileserver.exe:     Successfully read 21 bytes. Message="ë–6¨4Å‰¸š‰?êÊªÒ…×­"
+10/05/2019 18:01:52.972868 ./fileserver.exe:     Responding with message="ë–6¨4Å‰¸š‰?êÊªÒ…×­"
+10/05/2019 18:01:52.973013 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..6.4......?.........|
+10/05/2019 18:01:52.973210 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..6.4......?.........|
+10/05/2019 18:01:52.975349 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 18:01:52.975516 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 18:01:52.975654 ./fileserver.exe:     Successfully read 21 bytes. Message="ùf(o:!Úä¢~ğW{#I”%a'"
+10/05/2019 18:01:52.975821 ./fileserver.exe:     Responding with message="ùf(o:!Úä¢~ğW{#I”%a'"
+10/05/2019 18:01:52.975967 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 18:01:52.976164 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 18:01:52.979873 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.d...M.}..F..?a...y..|
+10/05/2019 18:01:52.980013 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.d...M.}..F..?a...y..|
+10/05/2019 18:01:52.980150 ./fileserver.exe:     Successfully read 21 bytes. Message="däŒ®M†}ÈËFë‹?añÕåy"
+10/05/2019 18:01:52.980315 ./fileserver.exe:     Responding with message="däŒ®M†}ÈËFë‹?añÕåy"
+10/05/2019 18:01:52.980652 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.d...M.}..F..?a...y..|
+10/05/2019 18:01:52.980992 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.d...M.}..F..?a...y..|
+10/05/2019 18:01:52.989527 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..M..e..../-..*P%.F..|
+10/05/2019 18:01:52.989708 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..M..e..../-..*P%.F..|
+10/05/2019 18:01:52.989842 ./fileserver.exe:     Successfully read 21 bytes. Message="ÅˆMeëæô/-”*P%Fı"
+10/05/2019 18:01:52.990008 ./fileserver.exe:     Responding with message="ÅˆMeëæô/-”*P%Fı"
+10/05/2019 18:01:52.990151 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..M..e..../-..*P%.F..|
+10/05/2019 18:01:52.990351 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..M..e..../-..*P%.F..|
+10/05/2019 18:01:52.993111 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 18:01:52.993247 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 18:01:52.993413 ./fileserver.exe:     Successfully read 21 bytes. Message="X	Bgƒ‹Tt½ñ?wFëJÿâ,"
+10/05/2019 18:01:52.993581 ./fileserver.exe:     Responding with message="X	Bgƒ‹Tt½ñ?wFëJÿâ,"
+10/05/2019 18:01:52.993721 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 18:01:52.993912 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 18:01:52.996575 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..z......]SSx.S.I._..|
+10/05/2019 18:01:52.996711 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..z......]SSx.S.I._..|
+10/05/2019 18:01:52.996842 ./fileserver.exe:     Successfully read 21 bytes. Message="şƒzŞª
+€]SSx•SşIµ_¬"
+10/05/2019 18:01:52.997002 ./fileserver.exe:     Responding with message="şƒzŞª
+€]SSx•SşIµ_¬"
+10/05/2019 18:01:52.997141 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..z......]SSx.S.I._..|
+10/05/2019 18:01:52.997330 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..z......]SSx.S.I._..|
+10/05/2019 18:01:53.004238 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 18:01:53.004398 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.....K9?.0...2..q.1..|
+10/05/2019 18:01:53.004554 ./fileserver.exe:     Successfully read 21 bytes. Message="â«ü¾øK9?¤0àÛ2›óq…1«"
+10/05/2019 18:01:53.004741 ./fileserver.exe:     Responding with message="â«ü¾øK9?¤0àÛ2›óq…1«"
+10/05/2019 18:01:53.004882 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 18:01:53.005159 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 18:01:53.008668 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..........T-.p.k/..#.|
+10/05/2019 18:01:53.008807 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..........T-.p.k/..#.|
+10/05/2019 18:01:53.008940 ./fileserver.exe:     Successfully read 21 bytes. Message="‘–ª½•‡óËüT-Àpk/½£#"
+10/05/2019 18:01:53.009106 ./fileserver.exe:     Responding with message="‘–ª½•‡óËüT-Àpk/½£#"
+10/05/2019 18:01:53.009248 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..........T-.p.k/..#.|
+10/05/2019 18:01:53.009499 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..........T-.p.k/..#.|
+10/05/2019 18:01:53.011576 ./fileserver.exe:     C150DgmSocket::read: successful read with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 18:01:53.011715 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 18:01:53.011848 ./fileserver.exe:     Successfully read 20 bytes. Message="ãzkß|IÚ¡BoGAa1(=!ó"
+10/05/2019 18:01:53.012013 ./fileserver.exe:     Responding with message="ãzkß|IÚ¡BoGAa1(=!ó"
+10/05/2019 18:01:53.012155 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 18:01:53.012353 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 18:01:53.014347 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 18:01:53.014509 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..c|we7),\_.|*.TF....|
+10/05/2019 18:01:53.014642 ./fileserver.exe:     Successfully read 21 bytes. Message="æšc|we7),\_ê|*±TFëŒÆ"
+10/05/2019 18:01:53.014800 ./fileserver.exe:     Responding with message="æšc|we7),\_ê|*±TFëŒÆ"
+10/05/2019 18:01:53.014940 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 18:01:53.015132 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 18:01:53.017006 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.... Zz....r....L.{..|
+10/05/2019 18:01:53.017154 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.... Zz....r....L.{..|
+10/05/2019 18:01:53.017286 ./fileserver.exe:     Successfully read 21 bytes. Message="ºïò ZzÉÀr©¼“Lù{„"
+10/05/2019 18:01:53.017486 ./fileserver.exe:     Responding with message="ºïò ZzÉÀr©¼“Lù{„"
+10/05/2019 18:01:53.017632 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.... Zz....r....L.{..|
+10/05/2019 18:01:53.017877 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.... Zz....r....L.{..|
+10/05/2019 18:01:53.021141 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.r.F.....F.......|.C.|
+10/05/2019 18:01:53.021277 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.r.F.....F.......|.C.|
+10/05/2019 18:01:53.021431 ./fileserver.exe:     Successfully read 21 bytes. Message="’r†FÅí£œF½ÑÚŠ˜­|ÀC"
+10/05/2019 18:01:53.021596 ./fileserver.exe:     Responding with message="’r†FÅí£œF½ÑÚŠ˜­|ÀC"
+10/05/2019 18:01:53.021738 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.r.F.....F.......|.C.|
+10/05/2019 18:01:53.021928 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.r.F.....F.......|.C.|
+10/05/2019 18:01:53.024678 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |...@\..E.`F#R......z.|
+10/05/2019 18:01:53.024818 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |...@\..E.`F#R......z.|
+10/05/2019 18:01:53.024950 ./fileserver.exe:     Successfully read 21 bytes. Message="üî@\õşE.`F#R³.„z"
+10/05/2019 18:01:53.025115 ./fileserver.exe:     Responding with message="üî@\õşE.`F#R³.„z"
+10/05/2019 18:01:53.025257 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |...@\..E.`F#R......z.|
+10/05/2019 18:01:53.025495 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |...@\..E.`F#R......z.|
+10/05/2019 18:01:53.027498 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.....X.B.l.V......pD.|
+10/05/2019 18:01:53.027639 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.....X.B.l.V......pD.|
+10/05/2019 18:01:53.027771 ./fileserver.exe:     Successfully read 21 bytes. Message="¡Í¢ıXB±làVš†¶Ô.pD"
+10/05/2019 18:01:53.028007 ./fileserver.exe:     Responding with message="¡Í¢ıXB±làVš†¶Ô.pD"
+10/05/2019 18:01:53.028151 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.....X.B.l.V......pD.|
+10/05/2019 18:01:53.028348 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.....X.B.l.V......pD.|
+10/05/2019 18:01:53.046410 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |H.3K.O..F.#u..[....T.|
+10/05/2019 18:01:53.046556 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |H.3K.O..F.#u..[....T.|
+10/05/2019 18:01:53.046689 ./fileserver.exe:     Successfully read 21 bytes. Message="H«3KOåÊF#u[§ù´T"
+10/05/2019 18:01:53.046853 ./fileserver.exe:     Responding with message="H«3KOåÊF#u[§ù´T"
+10/05/2019 18:01:53.046996 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |H.3K.O..F.#u..[....T.|
+10/05/2019 18:01:53.047196 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |H.3K.O..F.#u..[....T.|
+10/05/2019 18:01:53.049541 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |@.X.'........t..U.qM.|
+10/05/2019 18:01:53.049677 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |@.X.'........t..U.qM.|
+10/05/2019 18:01:53.049808 ./fileserver.exe:     Successfully read 21 bytes. Message="@¨X²'± ÏŒ–©ÄtìñUğqM"
+10/05/2019 18:01:53.049967 ./fileserver.exe:     Responding with message="@¨X²'± ÏŒ–©ÄtìñUğqM"
+10/05/2019 18:01:53.050108 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |@.X.'........t..U.qM.|
+10/05/2019 18:01:53.050331 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |@.X.'........t..U.qM.|
+10/05/2019 18:01:53.052346 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |$H15",....GkQE....1,.|
+10/05/2019 18:01:53.052507 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |$H15",....GkQE....1,.|
+10/05/2019 18:01:53.052640 ./fileserver.exe:     Successfully read 21 bytes. Message="$H15",ÀĞ˜GkQEóî©1,"
+10/05/2019 18:01:53.052797 ./fileserver.exe:     Responding with message="$H15",ÀĞ˜GkQEóî©1,"
+10/05/2019 18:01:53.052937 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |$H15",....GkQE....1,.|
+10/05/2019 18:01:53.053127 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |$H15",....GkQE....1,.|
+10/05/2019 18:01:53.055169 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.....g.k......@b.g...|
+10/05/2019 18:01:53.055304 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.....g.k......@b.g...|
+10/05/2019 18:01:53.055459 ./fileserver.exe:     Successfully read 21 bytes. Message="‘ÿÇÕøg«k®éÂ¹Ç@b×gãı"
+10/05/2019 18:01:53.055623 ./fileserver.exe:     Responding with message="‘ÿÇÕøg«k®éÂ¹Ç@b×gãı"
+10/05/2019 18:01:53.055764 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.....g.k......@b.g...|
+10/05/2019 18:01:53.055953 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.....g.k......@b.g...|
+10/05/2019 18:01:53.057855 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 18:01:53.057993 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |` g}~.Q~...N....b'.U.|
+10/05/2019 18:01:53.058127 ./fileserver.exe:     Successfully read 21 bytes. Message="` g}~«Q~Ô–Nƒb'öU"
+10/05/2019 18:01:53.058285 ./fileserver.exe:     Responding with message="` g}~«Q~Ô–Nƒb'öU"
+10/05/2019 18:01:53.058509 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 18:01:53.058716 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 18:01:53.060601 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |-...q@......U.c8.....|
+10/05/2019 18:01:53.060737 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |-...q@......U.c8.....|
+10/05/2019 18:01:53.060869 ./fileserver.exe:     Successfully read 21 bytes. Message="-§öq@ó¡ÂâUÁc8ƒ‘"
+10/05/2019 18:01:53.061027 ./fileserver.exe:     Responding with message="-§öq@ó¡ÂâUÁc8ƒ‘"
+10/05/2019 18:01:53.061167 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |-...q@......U.c8.....|
+10/05/2019 18:01:53.061354 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |-...q@......U.c8.....|
+10/05/2019 18:01:53.063580 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.R...X.yH.B..........|
+10/05/2019 18:01:53.063715 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.R...X.yH.B..........|
+10/05/2019 18:01:53.063847 ./fileserver.exe:     Successfully read 21 bytes. Message="R©ƒÌX¹yHÜBŸê	ÿ¹"
+10/05/2019 18:01:53.064007 ./fileserver.exe:     Responding with message="R©ƒÌX¹yHÜBŸê	ÿ¹"
+10/05/2019 18:01:53.064147 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.R...X.yH.B..........|
+10/05/2019 18:01:53.064334 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.R...X.yH.B..........|
+10/05/2019 18:01:53.067052 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.&7L..........i......|
+10/05/2019 18:01:53.067188 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.&7L..........i......|
+10/05/2019 18:01:53.067319 ./fileserver.exe:     Successfully read 21 bytes. Message="ª&7L„
+ûõ«Ò‰iŞóÑ”"
+10/05/2019 18:01:53.067515 ./fileserver.exe:     Responding with message="ª&7L„
+ûõ«Ò‰iŞóÑ”"
+10/05/2019 18:01:53.067656 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.&7L..........i......|
+10/05/2019 18:01:53.067853 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.&7L..........i......|
+10/05/2019 18:02:50.262773 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.>3L..d<.......c..)..|
+10/05/2019 18:02:50.262852 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.>3L..d<.......c..)..|
+10/05/2019 18:02:50.262922 ./fileserver.exe:     Successfully read 21 bytes. Message=">3L°¼d<õ
+ÔÎÇcËä)·"
+10/05/2019 18:02:50.263026 ./fileserver.exe:     Responding with message=">3L°¼d<õ
+ÔÎÇcËä)·"
+10/05/2019 18:02:50.263106 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.>3L..d<.......c..)..|
+10/05/2019 18:02:50.263264 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.>3L..d<.......c..)..|
+10/05/2019 18:02:50.264180 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |i/!5z........yA....2.|
+10/05/2019 18:02:50.264250 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |i/!5z........yA....2.|
+10/05/2019 18:02:50.264316 ./fileserver.exe:     Successfully read 21 bytes. Message="i/!5z™ê“æ…yA¯Òà2"
+10/05/2019 18:02:50.264420 ./fileserver.exe:     Responding with message="i/!5z™ê“æ…yA¯Òà2"
+10/05/2019 18:02:50.264495 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |i/!5z........yA....2.|
+10/05/2019 18:02:50.264593 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |i/!5z........yA....2.|
+10/05/2019 18:02:50.265484 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..8k\....n......`5m..|
+10/05/2019 18:02:50.265555 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..8k\....n......`5m..|
+10/05/2019 18:02:50.265623 ./fileserver.exe:     Successfully read 21 bytes. Message="ù8k\ƒÈnÍ¿È‡`5mÖ"
+10/05/2019 18:02:50.265706 ./fileserver.exe:     Responding with message="ù8k\ƒÈnÍ¿È‡`5mÖ"
+10/05/2019 18:02:50.265778 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..8k\....n......`5m..|
+10/05/2019 18:02:50.265885 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..8k\....n......`5m..|
+10/05/2019 18:02:50.266751 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 18:02:50.266819 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.KDnT...=m'M..0....x.|
+10/05/2019 18:02:50.266885 ./fileserver.exe:     Successfully read 21 bytes. Message="¥KDnTÈæ×=m'M¿ç0ğx"
+10/05/2019 18:02:50.266966 ./fileserver.exe:     Responding with message="¥KDnTÈæ×=m'M¿ç0ğx"
+10/05/2019 18:02:50.267036 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 18:02:50.267131 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 18:02:50.268219 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 18:02:50.268286 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |...|...s6Y4g.!..B..$.|
+10/05/2019 18:02:50.268352 ./fileserver.exe:     Successfully read 21 bytes. Message="‘
+í|«Ôs6Y4gÛ!€Bü$"
+10/05/2019 18:02:50.268454 ./fileserver.exe:     Responding with message="‘
+í|«Ôs6Y4gÛ!€Bü$"
+10/05/2019 18:02:50.268524 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 18:02:50.268617 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 18:02:50.269500 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.........8....p......|
+10/05/2019 18:02:50.269578 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.........8....p......|
+10/05/2019 18:02:50.269645 ./fileserver.exe:     Successfully read 21 bytes. Message="’¡ßì„šÒëÛ8¶‰ÏpâÕ’»"
+10/05/2019 18:02:50.269725 ./fileserver.exe:     Responding with message="’¡ßì„šÒëÛ8¶‰ÏpâÕ’»"
+10/05/2019 18:02:50.269795 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.........8....p......|
+10/05/2019 18:02:50.269894 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.........8....p......|
+10/05/2019 18:02:50.271245 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.>{.t..V...R...On.0..|
+10/05/2019 18:02:50.271313 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.>{.t..V...R...On.0..|
+10/05/2019 18:02:50.271390 ./fileserver.exe:     Successfully read 21 bytes. Message="…>{t÷V­ı–R’OnÛ0"
+10/05/2019 18:02:50.271472 ./fileserver.exe:     Responding with message="…>{t÷V­ı–R’OnÛ0"
+10/05/2019 18:02:50.271543 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.>{.t..V...R...On.0..|
+10/05/2019 18:02:50.271636 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.>{.t..V...R...On.0..|
+10/05/2019 18:02:50.272460 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 18:02:50.272528 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.@*;..m'+..Pe..d.....|
+10/05/2019 18:02:50.272594 ./fileserver.exe:     Successfully read 21 bytes. Message="	@*;ï±m'+¡ Ped	Ê"
+10/05/2019 18:02:50.272674 ./fileserver.exe:     Responding with message="	@*;ï±m'+¡ Ped	Ê"
+10/05/2019 18:02:50.272744 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 18:02:50.272836 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 18:02:50.274274 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |W....).f0.&.o........|
+10/05/2019 18:02:50.274341 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |W....).f0.&.o........|
+10/05/2019 18:02:50.274420 ./fileserver.exe:     Successfully read 21 bytes. Message="WÊµ‘ù)¤f0Ê&ëošÔ²Ù
+ö¢"
+10/05/2019 18:02:50.274501 ./fileserver.exe:     Responding with message="WÊµ‘ù)¤f0Ê&ëošÔ²Ù
+ö¢"
+10/05/2019 18:02:50.274571 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |W....).f0.&.o........|
+10/05/2019 18:02:50.274664 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |W....).f0.&.o........|
+10/05/2019 18:02:50.275499 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 18:02:50.275567 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |2ax.a.).....^.j...v..|
+10/05/2019 18:02:50.275633 ./fileserver.exe:     Successfully read 21 bytes. Message="2axÆaŒ)ºï	^´jÃßçvù"
+10/05/2019 18:02:50.275714 ./fileserver.exe:     Responding with message="2axÆaŒ)ºï	^´jÃßçvù"
+10/05/2019 18:02:50.275784 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 18:02:50.275877 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 18:02:50.276701 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..6.4......?.........|
+10/05/2019 18:02:50.276769 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..6.4......?.........|
+10/05/2019 18:02:50.276834 ./fileserver.exe:     Successfully read 21 bytes. Message="ë–6¨4Å‰¸š‰?êÊªÒ…×­"
+10/05/2019 18:02:50.276914 ./fileserver.exe:     Responding with message="ë–6¨4Å‰¸š‰?êÊªÒ…×­"
+10/05/2019 18:02:50.276984 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..6.4......?.........|
+10/05/2019 18:02:50.277076 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..6.4......?.........|
+10/05/2019 18:02:50.277898 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 18:02:50.277966 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 18:02:50.278032 ./fileserver.exe:     Successfully read 21 bytes. Message="ùf(o:!Úä¢~ğW{#I”%a'"
+10/05/2019 18:02:50.278111 ./fileserver.exe:     Responding with message="ùf(o:!Úä¢~ğW{#I”%a'"
+10/05/2019 18:02:50.278255 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 18:02:50.278352 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 18:02:50.281778 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.S.^.e...|........H..|
+10/05/2019 18:02:50.281846 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.S.^.e...|........H..|
+10/05/2019 18:02:50.281912 ./fileserver.exe:     Successfully read 21 bytes. Message="µSĞ^e¹ˆ¼|õ½‹¾é¥H•"
+10/05/2019 18:02:50.281992 ./fileserver.exe:     Responding with message="µSĞ^e¹ˆ¼|õ½‹¾é¥H•"
+10/05/2019 18:02:50.282062 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.S.^.e...|........H..|
+10/05/2019 18:02:50.282158 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.S.^.e...|........H..|
+10/05/2019 18:02:50.286677 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..M..e..../-..*P%.F..|
+10/05/2019 18:02:50.286745 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..M..e..../-..*P%.F..|
+10/05/2019 18:02:50.286811 ./fileserver.exe:     Successfully read 21 bytes. Message="ÅˆMeëæô/-”*P%Fı"
+10/05/2019 18:02:50.286893 ./fileserver.exe:     Responding with message="ÅˆMeëæô/-”*P%Fı"
+10/05/2019 18:02:50.286963 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..M..e..../-..*P%.F..|
+10/05/2019 18:02:50.287060 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..M..e..../-..*P%.F..|
+10/05/2019 18:02:50.288299 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 18:02:50.288367 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 18:02:50.288448 ./fileserver.exe:     Successfully read 21 bytes. Message="X	Bgƒ‹Tt½ñ?wFëJÿâ,"
+10/05/2019 18:02:50.288529 ./fileserver.exe:     Responding with message="X	Bgƒ‹Tt½ñ?wFëJÿâ,"
+10/05/2019 18:02:50.288599 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 18:02:50.288697 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 18:02:50.290021 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..z......]SSx.S.I._..|
+10/05/2019 18:02:50.290089 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..z......]SSx.S.I._..|
+10/05/2019 18:02:50.290155 ./fileserver.exe:     Successfully read 21 bytes. Message="şƒzŞª
+€]SSx•SşIµ_¬"
+10/05/2019 18:02:50.290235 ./fileserver.exe:     Responding with message="şƒzŞª
+€]SSx•SşIµ_¬"
+10/05/2019 18:02:50.290306 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..z......]SSx.S.I._..|
+10/05/2019 18:02:50.290422 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..z......]SSx.S.I._..|
+10/05/2019 18:02:50.294070 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 18:02:50.294138 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.....K9?.0...2..q.1..|
+10/05/2019 18:02:50.294203 ./fileserver.exe:     Successfully read 21 bytes. Message="â«ü¾øK9?¤0àÛ2›óq…1«"
+10/05/2019 18:02:50.294283 ./fileserver.exe:     Responding with message="â«ü¾øK9?¤0àÛ2›óq…1«"
+10/05/2019 18:02:50.294362 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 18:02:50.294514 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 18:02:50.296156 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..........T-.p.k/..#.|
+10/05/2019 18:02:50.296223 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..........T-.p.k/..#.|
+10/05/2019 18:02:50.296289 ./fileserver.exe:     Successfully read 21 bytes. Message="‘–ª½•‡óËüT-Àpk/½£#"
+10/05/2019 18:02:50.296368 ./fileserver.exe:     Responding with message="‘–ª½•‡óËüT-Àpk/½£#"
+10/05/2019 18:02:50.296452 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..........T-.p.k/..#.|
+10/05/2019 18:02:50.296548 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..........T-.p.k/..#.|
+10/05/2019 18:02:50.297502 ./fileserver.exe:     C150DgmSocket::read: successful read with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 18:02:50.297569 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 18:02:50.297635 ./fileserver.exe:     Successfully read 20 bytes. Message="ãzkß|IÚ¡BoGAa1(=!ó"
+10/05/2019 18:02:50.297714 ./fileserver.exe:     Responding with message="ãzkß|IÚ¡BoGAa1(=!ó"
+10/05/2019 18:02:50.297783 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 18:02:50.297875 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 18:02:50.298860 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 18:02:50.298927 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |..c|we7),\_.|*.TF....|
+10/05/2019 18:02:50.298993 ./fileserver.exe:     Successfully read 21 bytes. Message="æšc|we7),\_ê|*±TFëŒÆ"
+10/05/2019 18:02:50.299071 ./fileserver.exe:     Responding with message="æšc|we7),\_ê|*±TFëŒÆ"
+10/05/2019 18:02:50.299208 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 18:02:50.299312 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 18:02:50.300267 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.... Zz....r....L.{..|
+10/05/2019 18:02:50.300356 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.... Zz....r....L.{..|
+10/05/2019 18:02:50.300486 ./fileserver.exe:     Successfully read 21 bytes. Message="ºïò ZzÉÀr©¼“Lù{„"
+10/05/2019 18:02:50.300616 ./fileserver.exe:     Responding with message="ºïò ZzÉÀr©¼“Lù{„"
+10/05/2019 18:02:50.300721 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.... Zz....r....L.{..|
+10/05/2019 18:02:50.300854 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.... Zz....r....L.{..|
+10/05/2019 18:02:50.321995 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.s.....Q.c.x.........|
+10/05/2019 18:02:50.322064 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.s.....Q.c.x.........|
+10/05/2019 18:02:50.322130 ./fileserver.exe:     Successfully read 21 bytes. Message="–sÊõòQcx¶€óˆ•"
+10/05/2019 18:02:50.322212 ./fileserver.exe:     Responding with message="–sÊõòQcx¶€óˆ•"
+10/05/2019 18:02:50.322282 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.s.....Q.c.x.........|
+10/05/2019 18:02:50.322403 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.s.....Q.c.x.........|
+10/05/2019 18:02:50.324396 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |R?..W-.X.....[...xfB.|
+10/05/2019 18:02:50.324467 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |R?..W-.X.....[...xfB.|
+10/05/2019 18:02:50.324540 ./fileserver.exe:     Successfully read 21 bytes. Message="R?«W-X€ı†[Õ¸±xfB"
+10/05/2019 18:02:50.324620 ./fileserver.exe:     Responding with message="R?«W-X€ı†[Õ¸±xfB"
+10/05/2019 18:02:50.324690 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |R?..W-.X.....[...xfB.|
+10/05/2019 18:02:50.324785 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |R?..W-.X.....[...xfB.|
+10/05/2019 18:02:50.325657 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.....X.B.l.V......pD.|
+10/05/2019 18:02:50.325724 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.....X.B.l.V......pD.|
+10/05/2019 18:02:50.325790 ./fileserver.exe:     Successfully read 21 bytes. Message="¡Í¢ıXB±làVš†¶Ô.pD"
+10/05/2019 18:02:50.325869 ./fileserver.exe:     Responding with message="¡Í¢ıXB±làVš†¶Ô.pD"
+10/05/2019 18:02:50.325939 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.....X.B.l.V......pD.|
+10/05/2019 18:02:50.326031 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.....X.B.l.V......pD.|
+10/05/2019 18:02:50.327286 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |H.3K.O..F.#u..[....T.|
+10/05/2019 18:02:50.327354 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |H.3K.O..F.#u..[....T.|
+10/05/2019 18:02:50.327435 ./fileserver.exe:     Successfully read 21 bytes. Message="H«3KOåÊF#u[§ù´T"
+10/05/2019 18:02:50.327515 ./fileserver.exe:     Responding with message="H«3KOåÊF#u[§ù´T"
+10/05/2019 18:02:50.327584 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |H.3K.O..F.#u..[....T.|
+10/05/2019 18:02:50.327678 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |H.3K.O..F.#u..[....T.|
+10/05/2019 18:02:50.328535 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |@.X.'........t..U.qM.|
+10/05/2019 18:02:50.328603 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |@.X.'........t..U.qM.|
+10/05/2019 18:02:50.328668 ./fileserver.exe:     Successfully read 21 bytes. Message="@¨X²'± ÏŒ–©ÄtìñUğqM"
+10/05/2019 18:02:50.328747 ./fileserver.exe:     Responding with message="@¨X²'± ÏŒ–©ÄtìñUğqM"
+10/05/2019 18:02:50.328817 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |@.X.'........t..U.qM.|
+10/05/2019 18:02:50.328911 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |@.X.'........t..U.qM.|
+10/05/2019 18:02:50.329765 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |$H15",....GkQE....1,.|
+10/05/2019 18:02:50.329832 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |$H15",....GkQE....1,.|
+10/05/2019 18:02:50.329898 ./fileserver.exe:     Successfully read 21 bytes. Message="$H15",ÀĞ˜GkQEóî©1,"
+10/05/2019 18:02:50.329977 ./fileserver.exe:     Responding with message="$H15",ÀĞ˜GkQEóî©1,"
+10/05/2019 18:02:50.330046 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |$H15",....GkQE....1,.|
+10/05/2019 18:02:50.330147 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |$H15",....GkQE....1,.|
+10/05/2019 18:02:50.331365 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.....g.k......@b.g...|
+10/05/2019 18:02:50.331447 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.....g.k......@b.g...|
+10/05/2019 18:02:50.331513 ./fileserver.exe:     Successfully read 21 bytes. Message="‘ÿÇÕøg«k®éÂ¹Ç@b×gãı"
+10/05/2019 18:02:50.331593 ./fileserver.exe:     Responding with message="‘ÿÇÕøg«k®éÂ¹Ç@b×gãı"
+10/05/2019 18:02:50.331663 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.....g.k......@b.g...|
+10/05/2019 18:02:50.331756 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.....g.k......@b.g...|
+10/05/2019 18:02:50.332595 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 18:02:50.332663 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |` g}~.Q~...N....b'.U.|
+10/05/2019 18:02:50.332728 ./fileserver.exe:     Successfully read 21 bytes. Message="` g}~«Q~Ô–Nƒb'öU"
+10/05/2019 18:02:50.332808 ./fileserver.exe:     Responding with message="` g}~«Q~Ô–Nƒb'öU"
+10/05/2019 18:02:50.332877 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 18:02:50.332968 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 18:02:50.334132 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |-...q@......U.c8.....|
+10/05/2019 18:02:50.334200 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |-...q@......U.c8.....|
+10/05/2019 18:02:50.334265 ./fileserver.exe:     Successfully read 21 bytes. Message="-§öq@ó¡ÂâUÁc8ƒ‘"
+10/05/2019 18:02:50.334344 ./fileserver.exe:     Responding with message="-§öq@ó¡ÂâUÁc8ƒ‘"
+10/05/2019 18:02:50.334484 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |-...q@......U.c8.....|
+10/05/2019 18:02:50.334593 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |-...q@......U.c8.....|
+10/05/2019 18:02:50.335751 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.R...X.yH.B..........|
+10/05/2019 18:02:50.335818 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.R...X.yH.B..........|
+10/05/2019 18:02:50.335884 ./fileserver.exe:     Successfully read 21 bytes. Message="R©ƒÌX¹yHÜBŸê	ÿ¹"
+10/05/2019 18:02:50.335964 ./fileserver.exe:     Responding with message="R©ƒÌX¹yHÜBŸê	ÿ¹"
+10/05/2019 18:02:50.336035 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.R...X.yH.B..........|
+10/05/2019 18:02:50.336131 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.R...X.yH.B..........|
+10/05/2019 18:02:50.337289 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.&7L..........i......|
+10/05/2019 18:02:50.337357 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.&7L..........i......|
+10/05/2019 18:02:50.337437 ./fileserver.exe:     Successfully read 21 bytes. Message="ª&7L„
+ûõ«Ò‰iŞóÑ”"
+10/05/2019 18:02:50.337517 ./fileserver.exe:     Responding with message="ª&7L„
+ûõ«Ò‰iŞóÑ”"
+10/05/2019 18:02:50.337586 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.&7L..........i......|
+10/05/2019 18:02:50.337686 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.&7L..........i......|
+10/05/2019 18:02:50.339592 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |.4....b4...Q..H07BE..|
+10/05/2019 18:02:50.339659 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |.4....b4...Q..H07BE..|
+10/05/2019 18:02:50.339725 ./fileserver.exe:     Successfully read 21 bytes. Message="ú4Çûéb4ÃQöH07BE"
+10/05/2019 18:02:50.339805 ./fileserver.exe:     Responding with message="ú4Çûéb4ÃQöH07BE"
+10/05/2019 18:02:50.339874 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |.4....b4...Q..H07BE..|
+10/05/2019 18:02:50.339964 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |.4....b4...Q..H07BE..|
+10/05/2019 18:02:50.341673 ./fileserver.exe:     C150DgmSocket::read: successful read with len=21 |...h...74Se....B...z.|
+10/05/2019 18:02:50.341741 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 21 |...h...74Se....B...z.|
+10/05/2019 18:02:50.341807 ./fileserver.exe:     Successfully read 21 bytes. Message="µÀh½ö74Se•£°Bîz"
+10/05/2019 18:02:50.341886 ./fileserver.exe:     Responding with message="µÀh½ö74Se•£°Bîz"
+10/05/2019 18:02:50.341961 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=21 |...h...74Se....B...z.|
+10/05/2019 18:02:50.342055 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=21 |...h...74Se....B...z.|

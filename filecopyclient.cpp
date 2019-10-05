@@ -199,7 +199,7 @@ int main(int argc, char *argv[]) {
                     // Check and print the incoming message
                     checkAndPrintMessage(readlen, incomingMessage,
                                          sizeof(incomingMessage));
-                    if (strncmp(incomingMessage, cStyleMsg, SHA1_LEN-1) == 0)
+                    if (strcmp(incomingMessage, cStyleMsg) == 0)
                         cout << "OK, received message matches sent\n";
                     else {
                         cout << "ERROR, received message differs ( "
