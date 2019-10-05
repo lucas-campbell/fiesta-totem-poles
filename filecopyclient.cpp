@@ -84,8 +84,11 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 //
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-const int serverArg = 1;     // server name is 1st arg
-const int msgArg = 2;        // message text is 2nd arg
+const int SERVER_ARG = 1;     // server name is 1st arg
+const int NETWORK_NASTINESS_ARG = 2;        // network nastiness is 2nd arg
+const int FILE_NASTINESS_ARG = 3;        // file nastiness is 3rd arg
+const int SOURC_ARG = 4;            // source directory is 4th arg
+
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
