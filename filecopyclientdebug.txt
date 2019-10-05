@@ -1,314 +1,222 @@
-10/05/2019 17:41:21.115391 ./fileclient.exe: Creating C150DgmSocket
-10/05/2019 17:41:21.123540 ./fileclient.exe: ./fileclient.exe: Writing message: ">3L∞ºd<ı
+10/05/2019 17:59:45.640194 ./fileclient.exe: Creating C150DgmSocket
+10/05/2019 17:59:45.654419 ./fileclient.exe: ./fileclient.exe: Writing message: ">3L∞ºd<ı
 ‘Œ«cÀ‰)∑"
-10/05/2019 17:41:21.123608 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.>3L..d<.......c..)..|
-10/05/2019 17:41:21.123706 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.>3L..d<.......c..)..|
-10/05/2019 17:41:21.123763 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.124480 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .>3L..d<.......c..).. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.124575 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .>3L..d<.......c..).. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.654624 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.>3L..d<.......c..)..|
+10/05/2019 17:59:45.654903 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.>3L..d<.......c..)..|
+10/05/2019 17:59:45.655136 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.656895 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.>3L..d<.......c..)..|
+10/05/2019 17:59:45.657122 ./fileclient.exe: PRINTING RESPONSE: Response received is ".>3L..d<.......c..)."
 
-10/05/2019 17:41:21.138563 ./fileclient.exe: ./fileclient.exe: Writing message: "i/!5zôçÍìÊÅÖyAØ“‡2"
-10/05/2019 17:41:21.138664 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |i/!5z........yA....2.|
-10/05/2019 17:41:21.138829 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |i/!5z........yA....2.|
-10/05/2019 17:41:21.138945 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.139463 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said i/!5z........yA....2. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.139561 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said i/!5z........yA....2. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.658665 ./fileclient.exe: ./fileclient.exe: Writing message: "i/!5zôçÍìÊÅÖyAØ“‡2"
+10/05/2019 17:59:45.658860 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |i/!5z........yA....2.|
+10/05/2019 17:59:45.659184 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |i/!5z........yA....2.|
+10/05/2019 17:59:45.659369 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.660279 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |i/!5z........yA....2.|
+10/05/2019 17:59:45.660466 ./fileclient.exe: PRINTING RESPONSE: Response received is "i/!5z........yA....2"
 
-10/05/2019 17:41:21.156712 ./fileclient.exe: ./fileclient.exe: Writing message: "˘8k\É»nÕø»á`5m÷"
-10/05/2019 17:41:21.156830 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..8k\....n......`5m..|
-10/05/2019 17:41:21.157012 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..8k\....n......`5m..|
-10/05/2019 17:41:21.157101 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.157655 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ..8k\....n......`5m.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.157752 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ..8k\....n......`5m.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.662071 ./fileclient.exe: ./fileclient.exe: Writing message: "˘8k\É»nÕø»á`5m÷"
+10/05/2019 17:59:45.662273 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..8k\....n......`5m..|
+10/05/2019 17:59:45.662550 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..8k\....n......`5m..|
+10/05/2019 17:59:45.662735 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.663624 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |..8k\....n......`5m..|
+10/05/2019 17:59:45.663811 ./fileclient.exe: PRINTING RESPONSE: Response received is "..8k\....n......`5m."
 
-10/05/2019 17:41:21.168032 ./fileclient.exe: ./fileclient.exe: Writing message: "•KDnT»Ê◊=m'MøÁ0x"
-10/05/2019 17:41:21.168135 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.KDnT...=m'M..0....x.|
-10/05/2019 17:41:21.168264 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.KDnT...=m'M..0....x.|
-10/05/2019 17:41:21.168356 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.168874 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .KDnT...=m'M..0....x. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.168985 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .KDnT...=m'M..0....x. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.665440 ./fileclient.exe: ./fileclient.exe: Writing message: "•KDnT»Ê◊=m'MøÁ0x"
+10/05/2019 17:59:45.665638 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 17:59:45.665914 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 17:59:45.666146 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.667064 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.KDnT...=m'M..0....x.|
+10/05/2019 17:59:45.667253 ./fileclient.exe: PRINTING RESPONSE: Response received is ".KDnT...=m'M..0....x"
 
-10/05/2019 17:41:21.182460 ./fileclient.exe: ./fileclient.exe: Writing message: "ë
+10/05/2019 17:59:45.668980 ./fileclient.exe: ./fileclient.exe: Writing message: "ë
 Ì|´‘s6Y4g€!ÄB¸$"
-10/05/2019 17:41:21.182581 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |...|...s6Y4g.!..B..$.|
-10/05/2019 17:41:21.182728 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |...|...s6Y4g.!..B..$.|
-10/05/2019 17:41:21.182821 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.183348 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ...|...s6Y4g.!..B..$. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.183446 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ...|...s6Y4g.!..B..$. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.669184 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 17:59:45.669458 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 17:59:45.669642 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.670610 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |...|...s6Y4g.!..B..$.|
+10/05/2019 17:59:45.670800 ./fileclient.exe: PRINTING RESPONSE: Response received is "...|...s6Y4g.!..B..$"
 
-10/05/2019 17:41:21.200426 ./fileclient.exe: ./fileclient.exe: Writing message: "í°ﬂÏÑö“Î€8∂âœp‚’íª"
-10/05/2019 17:41:21.200546 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.........8....p......|
-10/05/2019 17:41:21.200727 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.........8....p......|
-10/05/2019 17:41:21.200821 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.201423 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .........8....p...... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.201521 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .........8....p...... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.672446 ./fileclient.exe: ./fileclient.exe: Writing message: "í°ﬂÏÑö“Î€8∂âœp‚’íª"
+10/05/2019 17:59:45.672644 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.........8....p......|
+10/05/2019 17:59:45.672974 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.........8....p......|
+10/05/2019 17:59:45.673166 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.674076 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.........8....p......|
+10/05/2019 17:59:45.674265 ./fileclient.exe: PRINTING RESPONSE: Response received is ".........8....p....."
 
-10/05/2019 17:41:21.214419 ./fileclient.exe: ./fileclient.exe: Writing message: "ÕãVŒ:ıı≈Àá≠ªåmîgÉ"
-10/05/2019 17:41:21.214523 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..V..:..........m.g..|
-10/05/2019 17:41:21.214652 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..V..:..........m.g..|
-10/05/2019 17:41:21.214746 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.215218 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ..V..:..........m.g.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.215315 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ..V..:..........m.g.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.675914 ./fileclient.exe: ./fileclient.exe: Writing message: "s⁄qê¬}‹0_»üïª§nuÎ´"
+10/05/2019 17:59:45.676168 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |s.q..}.0_.......nu...|
+10/05/2019 17:59:45.676450 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |s.q..}.0_.......nu...|
+10/05/2019 17:59:45.676637 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.677535 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |s.q..}.0_.......nu...|
+10/05/2019 17:59:45.677722 ./fileclient.exe: PRINTING RESPONSE: Response received is "s.q..}.0_.......nu.."
 
-10/05/2019 17:41:21.229122 ./fileclient.exe: ./fileclient.exe: Writing message: "	@*;Ô±m'+°†Ped	 "
-10/05/2019 17:41:21.229227 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.@*;..m'+..Pe..d.....|
-10/05/2019 17:41:21.229359 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.@*;..m'+..Pe..d.....|
-10/05/2019 17:41:21.229454 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.229976 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .@*;..m'+..Pe..d..... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.230073 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .@*;..m'+..Pe..d..... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.679124 ./fileclient.exe: ./fileclient.exe: Writing message: "	@*;Ô±m'+°†Ped	 "
+10/05/2019 17:59:45.679321 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 17:59:45.679597 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 17:59:45.679783 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.680672 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.@*;..m'+..Pe..d.....|
+10/05/2019 17:59:45.680858 ./fileclient.exe: PRINTING RESPONSE: Response received is ".@*;..m'+..Pe..d...."
 
-10/05/2019 17:41:21.239521 ./fileclient.exe: ./fileclient.exe: Writing message: "õ/¨4	∂vÁí_‹à1Ê‡^÷"
-10/05/2019 17:41:21.239588 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |./.4..v..._..1....^..|
-10/05/2019 17:41:21.239726 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |./.4..v..._..1....^..|
-10/05/2019 17:41:21.239834 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.240364 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ./.4..v..._..1....^.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.240463 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ./.4..v..._..1....^.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.693611 ./fileclient.exe: ./fileclient.exe: Writing message: "W µë˘)§f0 &Îoö‘≤Ÿ
+ˆ¢"
+10/05/2019 17:59:45.693808 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |W....).f0.&.o........|
+10/05/2019 17:59:45.694179 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |W....).f0.&.o........|
+10/05/2019 17:59:45.694361 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.695321 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |W....).f0.&.o........|
+10/05/2019 17:59:45.695503 ./fileclient.exe: PRINTING RESPONSE: Response received is "W....).f0.&.o......."
 
-10/05/2019 17:41:21.251804 ./fileclient.exe: ./fileclient.exe: Writing message: "2ax∆aå)ù∫Ô	^¥j√ﬂÁv˘"
-10/05/2019 17:41:21.251870 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |2ax.a.).....^.j...v..|
-10/05/2019 17:41:21.252045 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |2ax.a.).....^.j...v..|
-10/05/2019 17:41:21.252150 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.252739 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said 2ax.a.).....^.j...v.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.252826 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said 2ax.a.).....^.j...v.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.697101 ./fileclient.exe: ./fileclient.exe: Writing message: "2ax∆aå)ù∫Ô	^¥j√ﬂÁv˘"
+10/05/2019 17:59:45.697301 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 17:59:45.697573 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 17:59:45.697753 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.698769 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |2ax.a.).....^.j...v..|
+10/05/2019 17:59:45.698982 ./fileclient.exe: PRINTING RESPONSE: Response received is "2ax.a.).....^.j...v."
 
-10/05/2019 17:41:21.266193 ./fileclient.exe: ./fileclient.exe: Writing message: "Îñ6®4≈â∏öâ?Í ™“Ö◊≠"
-10/05/2019 17:41:21.266259 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..6.4......?.........|
-10/05/2019 17:41:21.266367 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..6.4......?.........|
-10/05/2019 17:41:21.266434 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.266974 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ..6.4......?......... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.267074 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ..6.4......?......... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.700370 ./fileclient.exe: ./fileclient.exe: Writing message: "Îñ6®4≈â∏öâ?Í ™“Ö◊≠"
+10/05/2019 17:59:45.700562 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..6.4......?.........|
+10/05/2019 17:59:45.700830 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..6.4......?.........|
+10/05/2019 17:59:45.701076 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.702038 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |..6.4......?.........|
+10/05/2019 17:59:45.702227 ./fileclient.exe: PRINTING RESPONSE: Response received is "..6.4......?........"
 
-10/05/2019 17:41:21.268466 ./fileclient.exe: ./fileclient.exe: Writing message: "˘f(o:!⁄‰¢~W{#Iî%a'"
-10/05/2019 17:41:21.268529 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.f.(o:!...~.W{#I.%a'.|
-10/05/2019 17:41:21.268614 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.f.(o:!...~.W{#I.%a'.|
-10/05/2019 17:41:21.268671 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.269258 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .f.(o:!...~.W{#I.%a'. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.269365 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .f.(o:!...~.W{#I.%a'. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.703832 ./fileclient.exe: ./fileclient.exe: Writing message: "˘f(o:!⁄‰¢~W{#Iî%a'"
+10/05/2019 17:59:45.704084 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 17:59:45.704363 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 17:59:45.704548 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.705565 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.f.(o:!...~.W{#I.%a'.|
+10/05/2019 17:59:45.705750 ./fileclient.exe: PRINTING RESPONSE: Response received is ".f.(o:!...~.W{#I.%a'"
 
-10/05/2019 17:41:21.273316 ./fileclient.exe: ./fileclient.exe: Writing message: "åõQ§!È≤[[˙k
-Fv¿∫ª"
-10/05/2019 17:41:21.273381 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..Q..!...[[.k.F.v....|
-10/05/2019 17:41:21.273478 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..Q..!...[[.k.F.v....|
-10/05/2019 17:41:21.273538 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.274021 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ..Q..!...[[.k.F.v.... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.274125 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ..Q..!...[[.k.F.v.... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.719013 ./fileclient.exe: ./fileclient.exe: Writing message: "g•2®=æV€≈–ÊÂ¸Ñ¢:›#∞"
+10/05/2019 17:59:45.719226 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |g.2.=..V........:.#..|
+10/05/2019 17:59:45.719521 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |g.2.=..V........:.#..|
+10/05/2019 17:59:45.719707 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.720730 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |g.2.=..V........:.#..|
+10/05/2019 17:59:45.720956 ./fileclient.exe: PRINTING RESPONSE: Response received is "g.2.=..V........:.#."
 
-10/05/2019 17:41:21.300780 ./fileclient.exe: ./fileclient.exe: Writing message: "X	BgÉãTêtΩÒ?wFÎJˇ‚,"
-10/05/2019 17:41:21.300850 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |X.Bg...T.t..?wF.J..,.|
-10/05/2019 17:41:21.300967 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |X.Bg...T.t..?wF.J..,.|
-10/05/2019 17:41:21.301027 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.301656 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said X.Bg...T.t..?wF.J..,. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.301754 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said X.Bg...T.t..?wF.J..,. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.732002 ./fileclient.exe: ./fileclient.exe: Writing message: "{¡f}‰∞’z£Ñù¡ïÉπÂ¬UÔ"
+10/05/2019 17:59:45.732212 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |{.f}...z..........U..|
+10/05/2019 17:59:45.732498 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |{.f}...z..........U..|
+10/05/2019 17:59:45.732684 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.733761 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |{.f}...z..........U..|
+10/05/2019 17:59:45.733972 ./fileclient.exe: PRINTING RESPONSE: Response received is "{.f}...z..........U."
 
-10/05/2019 17:41:21.328664 ./fileclient.exe: ./fileclient.exe: Writing message: "˛Ézêﬁ™
+10/05/2019 17:59:45.736391 ./fileclient.exe: ./fileclient.exe: Writing message: "X	BgÉãTêtΩÒ?wFÎJˇ‚,"
+10/05/2019 17:59:45.736586 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 17:59:45.736862 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 17:59:45.737099 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.738090 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |X.Bg...T.t..?wF.J..,.|
+10/05/2019 17:59:45.738273 ./fileclient.exe: PRINTING RESPONSE: Response received is "X.Bg...T.t..?wF.J..,"
+
+10/05/2019 17:59:45.740683 ./fileclient.exe: ./fileclient.exe: Writing message: "˛Ézêﬁ™
 Ä]SSxïS˛Iµ_¨"
-10/05/2019 17:41:21.328735 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..z......]SSx.S.I._..|
-10/05/2019 17:41:21.328838 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..z......]SSx.S.I._..|
-10/05/2019 17:41:21.328896 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.329618 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ..z......]SSx.S.I._.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.329678 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ..z......]SSx.S.I._.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.740877 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..z......]SSx.S.I._..|
+10/05/2019 17:59:45.741280 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..z......]SSx.S.I._..|
+10/05/2019 17:59:45.741467 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.742356 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |..z......]SSx.S.I._..|
+10/05/2019 17:59:45.742538 ./fileclient.exe: PRINTING RESPONSE: Response received is "..z......]SSx.S.I._."
 
-10/05/2019 17:41:21.337769 ./fileclient.exe: ./fileclient.exe: Writing message: "h°˚7jÅ√‹x
-–πû"
-10/05/2019 17:41:21.337834 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |h...7j........x......|
-10/05/2019 17:41:21.337938 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |h...7j........x......|
-10/05/2019 17:41:21.337998 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.338570 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said h...7j........x...... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.338662 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said h...7j........x...... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.754813 ./fileclient.exe: ./fileclient.exe: Writing message: "‚´¸æ¯K9?§0‡€2õÛqÖ1´"
+10/05/2019 17:59:45.755096 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 17:59:45.755383 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 17:59:45.755565 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.756606 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.....K9?.0...2..q.1..|
+10/05/2019 17:59:45.756789 ./fileclient.exe: PRINTING RESPONSE: Response received is ".....K9?.0...2..q.1."
 
-10/05/2019 17:41:21.378702 ./fileclient.exe: ./fileclient.exe: Writing message: "ëñ™ΩïáÛÀ¸T-¿pùk/Ω£#"
-10/05/2019 17:41:21.378773 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..........T-.p.k/..#.|
-10/05/2019 17:41:21.378893 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..........T-.p.k/..#.|
-10/05/2019 17:41:21.379022 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.379711 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ..........T-.p.k/..#. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.379771 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ..........T-.p.k/..#. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.760405 ./fileclient.exe: ./fileclient.exe: Writing message: "ëñ™ΩïáÛÀ¸T-¿pùk/Ω£#"
+10/05/2019 17:59:45.760599 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..........T-.p.k/..#.|
+10/05/2019 17:59:45.760875 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..........T-.p.k/..#.|
+10/05/2019 17:59:45.761106 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.762206 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |..........T-.p.k/..#.|
+10/05/2019 17:59:45.762394 ./fileclient.exe: PRINTING RESPONSE: Response received is "..........T-.p.k/..#"
 
-10/05/2019 17:41:21.395230 ./fileclient.exe: ./fileclient.exe: Writing message: "„zkﬂ|I⁄°BoGAa1(=!çÛ"
-10/05/2019 17:41:21.395295 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=20 |.zk.|I..BoGAa1(=!...|
-10/05/2019 17:41:21.395406 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=20 |.zk.|I..BoGAa1(=!...|
-10/05/2019 17:41:21.395504 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.396044 ./fileclient.exe: C150DgmSocket::read: successful read with len=68 |You said .zk.|I..BoGAa1(=!... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.396110 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .zk.|I..BoGAa1(=!... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.763982 ./fileclient.exe: ./fileclient.exe: Writing message: "„zkﬂ|I⁄°BoGAa1(=!çÛ"
+10/05/2019 17:59:45.764185 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 17:59:45.764439 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 17:59:45.764621 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.765716 ./fileclient.exe: C150DgmSocket::read: successful read with len=20 |.zk.|I..BoGAa1(=!...|
+10/05/2019 17:59:45.765900 ./fileclient.exe: PRINTING RESPONSE: Response received is ".zk.|I..BoGAa1(=!.."
 
-10/05/2019 17:41:21.405009 ./fileclient.exe: ./fileclient.exe: Writing message: "Êöc|we7),\_Í|*±TFÎå∆"
-10/05/2019 17:41:21.405073 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..c|we7),\_.|*.TF....|
-10/05/2019 17:41:21.405158 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..c|we7),\_.|*.TF....|
-10/05/2019 17:41:21.405215 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.405729 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ..c|we7),\_.|*.TF.... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.405788 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ..c|we7),\_.|*.TF.... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.767436 ./fileclient.exe: ./fileclient.exe: Writing message: "Êöc|we7),\_Í|*±TFÎå∆"
+10/05/2019 17:59:45.767631 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 17:59:45.767904 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 17:59:45.768152 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.769459 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |..c|we7),\_.|*.TF....|
+10/05/2019 17:59:45.769643 ./fileclient.exe: PRINTING RESPONSE: Response received is "..c|we7),\_.|*.TF..."
 
-10/05/2019 17:41:21.417819 ./fileclient.exe: ./fileclient.exe: Writing message: "≈†≈ÀãdIöt*˛€JRÉ˝^^É"
-10/05/2019 17:41:21.417884 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |......dI.t*..JR..^^..|
-10/05/2019 17:41:21.418000 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |......dI.t*..JR..^^..|
-10/05/2019 17:41:21.418058 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.418558 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ......dI.t*..JR..^^.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.418617 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ......dI.t*..JR..^^.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.771033 ./fileclient.exe: ./fileclient.exe: Writing message: "∫ÔÚÅ Zz…¿r©ºèìL˘{Ñ"
+10/05/2019 17:59:45.771232 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.... Zz....r....L.{..|
+10/05/2019 17:59:45.771501 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.... Zz....r....L.{..|
+10/05/2019 17:59:45.771682 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.772618 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.... Zz....r....L.{..|
+10/05/2019 17:59:45.772802 ./fileclient.exe: PRINTING RESPONSE: Response received is ".... Zz....r....L.{."
 
-10/05/2019 17:41:21.420022 ./fileclient.exe: ./fileclient.exe: Writing message: ":h{j◊ü8ÊO6¶#8‡"
-10/05/2019 17:41:21.420085 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.:.h{..j....8.O6.#8..|
-10/05/2019 17:41:21.420175 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.:.h{..j....8.O6.#8..|
-10/05/2019 17:41:21.420232 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.420643 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .:.h{..j....8.O6.#8.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.420703 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .:.h{..j....8.O6.#8.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.774466 ./fileclient.exe: ./fileclient.exe: Writing message: "⁄9£Ó^kK2UøÔï`êØÿ	"
+10/05/2019 17:59:45.774670 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.9..^kK.2U...`.......|
+10/05/2019 17:59:45.774961 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.9..^kK.2U...`.......|
+10/05/2019 17:59:45.775173 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.776152 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.9..^kK.2U...`.......|
+10/05/2019 17:59:45.776335 ./fileclient.exe: PRINTING RESPONSE: Response received is ".9..^kK.2U...`......"
 
-10/05/2019 17:41:21.423116 ./fileclient.exe: ./fileclient.exe: Writing message: "˙bè»úï~„ïoüz¡{Àbá"
-10/05/2019 17:41:21.423178 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.b......~..o.z..{.b..|
-10/05/2019 17:41:21.423262 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.b......~..o.z..{.b..|
-10/05/2019 17:41:21.423320 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.423716 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .b......~..o.z..{.b.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.423775 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .b......~..o.z..{.b.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.778635 ./fileclient.exe: ./fileclient.exe: Writing message: "lq=>‰XÁû¡{b‡ŸÒ}Å·i"
+10/05/2019 17:59:45.778831 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |l.q=>.X...{b....}..i.|
+10/05/2019 17:59:45.779133 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |l.q=>.X...{b....}..i.|
+10/05/2019 17:59:45.779316 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.780337 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |l.q=>.X...{b....}..i.|
+10/05/2019 17:59:45.780521 ./fileclient.exe: PRINTING RESPONSE: Response received is "l.q=>.X...{b....}..i"
 
-10/05/2019 17:41:21.434882 ./fileclient.exe: ./fileclient.exe: Writing message: "°Õ¢˝XB±l‡VöÜ∂‘.pD"
-10/05/2019 17:41:21.434971 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.....X.B.l.V......pD.|
-10/05/2019 17:41:21.435062 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.....X.B.l.V......pD.|
-10/05/2019 17:41:21.435120 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.435706 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .....X.B.l.V......pD. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.435768 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .....X.B.l.V......pD. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.782007 ./fileclient.exe: ./fileclient.exe: Writing message: "°Õ¢˝XB±l‡VöÜ∂‘.pD"
+10/05/2019 17:59:45.782210 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.....X.B.l.V......pD.|
+10/05/2019 17:59:45.782481 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.....X.B.l.V......pD.|
+10/05/2019 17:59:45.782664 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.783607 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.....X.B.l.V......pD.|
+10/05/2019 17:59:45.783791 ./fileclient.exe: PRINTING RESPONSE: Response received is ".....X.B.l.V......pD"
 
-10/05/2019 17:41:21.442803 ./fileclient.exe: ./fileclient.exe: Writing message: "≈@’ö~Æò§u‚•≥ÈyoC6‚Å"
-10/05/2019 17:41:21.442865 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.@..~...u....yoC6....|
-10/05/2019 17:41:21.442966 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.@..~...u....yoC6....|
-10/05/2019 17:41:21.443025 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.443417 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .@..~...u....yoC6.... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.443477 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .@..~...u....yoC6.... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.803456 ./fileclient.exe: ./fileclient.exe: Writing message: "Ÿ"¬…,ı›ˆ%’¶‡qY‡pr‡"
+10/05/2019 17:59:45.803657 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |."...,...%...q.Y.pr..|
+10/05/2019 17:59:45.803996 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |."...,...%...q.Y.pr..|
+10/05/2019 17:59:45.804342 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.805178 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |."...,...%...q.Y.pr..|
+10/05/2019 17:59:45.805363 ./fileclient.exe: PRINTING RESPONSE: Response received is "."...,...%...q.Y.pr."
 
-10/05/2019 17:41:21.451943 ./fileclient.exe: ./fileclient.exe: Writing message: "’·~≈¥Ùr˛*Ÿ‹Mp*·{£"
-10/05/2019 17:41:21.452051 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |....~....r.*..Mp*.{..|
-10/05/2019 17:41:21.452149 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |....~....r.*..Mp*.{..|
-10/05/2019 17:41:21.452211 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.452668 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ....~....r.*..Mp*.{.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.452727 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ....~....r.*..Mp*.{.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.806862 ./fileclient.exe: ./fileclient.exe: Writing message: "@®X≤'±†œåñç©ƒtÏÒUqM"
+10/05/2019 17:59:45.807130 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |@.X.'........t..U.qM.|
+10/05/2019 17:59:45.807405 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |@.X.'........t..U.qM.|
+10/05/2019 17:59:45.807588 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.808498 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |@.X.'........t..U.qM.|
+10/05/2019 17:59:45.808683 ./fileclient.exe: PRINTING RESPONSE: Response received is "@.X.'........t..U.qM"
 
-10/05/2019 17:41:21.466986 ./fileclient.exe: ./fileclient.exe: Writing message: "3ﬁ‡Z4¨Wª?¿zAä(∑Jq]"
-10/05/2019 17:41:21.467056 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |3..Z4.W..?.zA.(.Jq.].|
-10/05/2019 17:41:21.467157 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |3..Z4.W..?.zA.(.Jq.].|
-10/05/2019 17:41:21.467215 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.467757 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said 3..Z4.W..?.zA.(.Jq.]. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.467816 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said 3..Z4.W..?.zA.(.Jq.]. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.810135 ./fileclient.exe: ./fileclient.exe: Writing message: "$H15",¿–òGkQEÅÛÓ©1,"
+10/05/2019 17:59:45.810330 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |$H15",....GkQE....1,.|
+10/05/2019 17:59:45.810606 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |$H15",....GkQE....1,.|
+10/05/2019 17:59:45.810789 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.811660 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |$H15",....GkQE....1,.|
+10/05/2019 17:59:45.811900 ./fileclient.exe: PRINTING RESPONSE: Response received is "$H15",....GkQE....1,"
 
-10/05/2019 17:41:21.477455 ./fileclient.exe: ./fileclient.exe: Writing message: "6¢€˛úîIDYqéÒç/—y"
-10/05/2019 17:41:21.477522 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |6......IDYq.../...y..|
-10/05/2019 17:41:21.477631 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |6......IDYq.../...y..|
-10/05/2019 17:41:21.477689 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.478298 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said 6......IDYq.../...y.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.478380 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said 6......IDYq.../...y.. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.813304 ./fileclient.exe: ./fileclient.exe: Writing message: "ëˇ«’¯g´kÆÈ¬éπ«@b◊g„˝"
+10/05/2019 17:59:45.813497 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.....g.k......@b.g...|
+10/05/2019 17:59:45.813769 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.....g.k......@b.g...|
+10/05/2019 17:59:45.813995 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.814877 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.....g.k......@b.g...|
+10/05/2019 17:59:45.815108 ./fileclient.exe: PRINTING RESPONSE: Response received is ".....g.k......@b.g.."
 
-10/05/2019 17:41:21.492093 ./fileclient.exe: ./fileclient.exe: Writing message: "”\`ò5=V˚à©ám¡‚"
-10/05/2019 17:41:21.492163 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=17 |.\`...5=V....m...|
-10/05/2019 17:41:21.492280 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=17 |.\`...5=V....m...|
-10/05/2019 17:41:21.492375 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.493010 ./fileclient.exe: C150DgmSocket::read: successful read with len=65 |You said .\`...5=V....m... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.493099 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .\`...5=V....m... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.816511 ./fileclient.exe: ./fileclient.exe: Writing message: "` g}~´Q~‘ñNÉÅb'ˆU"
+10/05/2019 17:59:45.816704 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 17:59:45.817007 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 17:59:45.817196 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.818081 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |` g}~.Q~...N....b'.U.|
+10/05/2019 17:59:45.818266 ./fileclient.exe: PRINTING RESPONSE: Response received is "` g}~.Q~...N....b'.U"
 
-10/05/2019 17:41:21.503213 ./fileclient.exe: ./fileclient.exe: Writing message: "Y–!wZ$∑1<\"
-10/05/2019 17:41:21.503277 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=11 |Y.!wZ$.1<\.|
-10/05/2019 17:41:21.503386 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=11 |Y.!wZ$.1<\.|
-10/05/2019 17:41:21.503484 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.504084 ./fileclient.exe: C150DgmSocket::read: successful read with len=59 |You said Y.!wZ$.1<\. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.504149 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said Y.!wZ$.1<\. Don't you know how to play ping pong?"
+10/05/2019 17:59:45.819731 ./fileclient.exe: ./fileclient.exe: Writing message: "-ßˆq@Ûè°ù¬‚U¡c8Éë"
+10/05/2019 17:59:45.819978 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |-...q@......U.c8.....|
+10/05/2019 17:59:45.820417 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |-...q@......U.c8.....|
+10/05/2019 17:59:45.820680 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.821432 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |-...q@......U.c8.....|
+10/05/2019 17:59:45.821615 ./fileclient.exe: PRINTING RESPONSE: Response received is "-...q@......U.c8...."
 
-10/05/2019 17:41:21.519292 ./fileclient.exe: ./fileclient.exe: Writing message: "˘Á|≥ıåKπŒIwÓBR"
-10/05/2019 17:41:21.519362 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |...|...K..I...w..BR..|
-10/05/2019 17:41:21.519514 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |...|...K..I...w..BR..|
-10/05/2019 17:41:21.519610 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.520234 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ...|...K..I...w..BR.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.520300 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ...|...K..I...w..BR.. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.528503 ./fileclient.exe: ./fileclient.exe: Writing message: "ÎDôÒï+FÛt_≤FH‘Eß"
-10/05/2019 17:41:21.528568 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.D......+.F.t_.FH.E..|
-10/05/2019 17:41:21.528664 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.D......+.F.t_.FH.E..|
-10/05/2019 17:41:21.528767 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.529319 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .D......+.F.t_.FH.E.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.529385 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .D......+.F.t_.FH.E.. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.544454 ./fileclient.exe: ./fileclient.exe: Writing message: "y∂^Ò∑l†-n⁄[πâÍ∞4.Œ"
-10/05/2019 17:41:21.544524 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |y.^...l.-n..[....4...|
-10/05/2019 17:41:21.544651 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |y.^...l.-n..[....4...|
-10/05/2019 17:41:21.544748 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.545358 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said y.^...l.-n..[....4... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.545427 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said y.^...l.-n..[....4... Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.553432 ./fileclient.exe: ./fileclient.exe: Writing message: "EÕ1”{Â+eMä…≈Rè§≤1Kg"
-10/05/2019 17:41:21.553495 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |E.1..{.+eM...R...1Kg.|
-10/05/2019 17:41:21.553599 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |E.1..{.+eM...R...1Kg.|
-10/05/2019 17:41:21.553702 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.554258 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said E.1..{.+eM...R...1Kg. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.554325 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said E.1..{.+eM...R...1Kg. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.563245 ./fileclient.exe: ./fileclient.exe: Writing message: "Ã¯ã(˛¿>≥ŸQ$¨T«œ∑Re"
-10/05/2019 17:41:21.563310 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |....(..>..Q$.T....Re.|
-10/05/2019 17:41:21.563425 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |....(..>..Q$.T....Re.|
-10/05/2019 17:41:21.563526 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.564114 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ....(..>..Q$.T....Re. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.564188 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ....(..>..Q$.T....Re. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.572342 ./fileclient.exe: ./fileclient.exe: Writing message: "ÍËì≥™\´§~"
-10/05/2019 17:41:21.572406 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=11 |.....\...~.|
-10/05/2019 17:41:21.572500 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=11 |.....\...~.|
-10/05/2019 17:41:21.572598 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.573170 ./fileclient.exe: C150DgmSocket::read: successful read with len=59 |You said .....\...~. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.573236 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .....\...~. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.579534 ./fileclient.exe: ./fileclient.exe: Writing message: "7àF.≥ú$I… IIßsNÄAÔ "
-10/05/2019 17:41:21.579597 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |7.F...$I...II.sN.A. .|
-10/05/2019 17:41:21.579681 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |7.F...$I...II.sN.A. .|
-10/05/2019 17:41:21.579775 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.580310 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said 7.F...$I...II.sN.A. . Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.580408 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said 7.F...$I...II.sN.A. . Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.589903 ./fileclient.exe: ./fileclient.exe: Writing message: "˜À≠E˝PHÍEL|À¢70û[÷"
-10/05/2019 17:41:21.589997 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |...E.PH..EL|...70.[..|
-10/05/2019 17:41:21.590101 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |...E.PH..EL|...70.[..|
-10/05/2019 17:41:21.590205 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.590756 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ...E.PH..EL|...70.[.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.590822 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ...E.PH..EL|...70.[.. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.606610 ./fileclient.exe: ./fileclient.exe: Writing message: "_L´Æ$º§¨‰≤ñ8wR2∞ƒP“3"
-10/05/2019 17:41:21.606676 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |_L..$......8wR2..P.3.|
-10/05/2019 17:41:21.606775 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |_L..$......8wR2..P.3.|
-10/05/2019 17:41:21.606873 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.607469 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said _L..$......8wR2..P.3. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.607535 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said _L..$......8wR2..P.3. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.621985 ./fileclient.exe: ./fileclient.exe: Writing message: "ÏÏîŸ)I:”Eù/ÁL>"b"
-10/05/2019 17:41:21.622053 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.....).I:.E./.L>.."b.|
-10/05/2019 17:41:21.622161 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.....).I:.E./.L>.."b.|
-10/05/2019 17:41:21.622259 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.622852 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .....).I:.E./.L>.."b. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.622932 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .....).I:.E./.L>.."b. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.638448 ./fileclient.exe: ./fileclient.exe: Writing message: "Ñ@q9!q'ÊòA=k5H"ÆXƒ>Ø"
-10/05/2019 17:41:21.638530 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.@q9!q'..A=k5H".X.>..|
-10/05/2019 17:41:21.638659 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.@q9!q'..A=k5H".X.>..|
-10/05/2019 17:41:21.638741 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.639379 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .@q9!q'..A=k5H".X.>.. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.639461 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .@q9!q'..A=k5H".X.>.. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.648316 ./fileclient.exe: ./fileclient.exe: Writing message: "ƒHÖƒPG˝/82d®ì fÈT"
-10/05/2019 17:41:21.648382 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.H...PG./8.2d....f.T.|
-10/05/2019 17:41:21.648480 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.H...PG./8.2d....f.T.|
-10/05/2019 17:41:21.648573 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.649164 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .H...PG./8.2d....f.T. Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.649244 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .H...PG./8.2d....f.T. Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.663201 ./fileclient.exe: ./fileclient.exe: Writing message: "‘§B·C!∞)[Ù7KO‹˚ÿ<¨œ±"
-10/05/2019 17:41:21.663269 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |..B.C!.)[.7KO...<....|
-10/05/2019 17:41:21.663387 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |..B.C!.)[.7KO...<....|
-10/05/2019 17:41:21.663485 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.664065 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said ..B.C!.)[.7KO...<.... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.664142 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said ..B.C!.)[.7KO...<.... Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.665864 ./fileclient.exe: ./fileclient.exe: Writing message: "„mˆz-íô#∏ºÈS«7^âíì"
-10/05/2019 17:41:21.665947 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.m.z-..#...S..7^.....|
-10/05/2019 17:41:21.666061 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.m.z-..#...S..7^.....|
-10/05/2019 17:41:21.666169 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.666663 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said .m.z-..#...S..7^..... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.666742 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said .m.z-..#...S..7^..... Don't you know how to play ping pong?"
-
-10/05/2019 17:41:21.668235 ./fileclient.exe: ./fileclient.exe: Writing message: "eP¡:∞ªmŸÛrÎÛÎ∂˚Ë"
-10/05/2019 17:41:21.668297 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |eP.:...m..r..........|
-10/05/2019 17:41:21.668404 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |eP.:...m..r..........|
-10/05/2019 17:41:21.668510 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 17:41:21.668975 ./fileclient.exe: C150DgmSocket::read: successful read with len=69 |You said eP.:...m..r.......... Don't you know how to play ping pong?.|
-10/05/2019 17:41:21.669050 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said eP.:...m..r.......... Don't you know how to play ping pong?"
+10/05/2019 17:59:45.823811 ./fileclient.exe: ./fileclient.exe: Writing message: "R©ÉÃXπyH‹BüÍ	ˇπ"
+10/05/2019 17:59:45.824054 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=21 |.R...X.yH.B..........|
+10/05/2019 17:59:45.824329 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=21 |.R...X.yH.B..........|
+10/05/2019 17:59:45.824510 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/05/2019 17:59:45.825526 ./fileclient.exe: C150DgmSocket::read: successful read with len=21 |.R...X.yH.B..........|
+10/05/2019 17:59:45.825734 ./fileclient.exe: PRINTING RESPONSE: Response received is ".R...X.yH.B........."
 

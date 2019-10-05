@@ -142,10 +142,6 @@ int main(int argc, char *argv[]) {
         unordered_map<string, string> filehash;
 
 
-        (void) num_tries;
-        (void) timedout;
-        (void) readlen;
-        (void) incomingMessage;
         while ((sourceFile = readdir(SRC)) != NULL) {
             if ((strcmp(sourceFile->d_name, ".") == 0) ||
                 (strcmp(sourceFile->d_name, "..")  == 0 )) 
@@ -203,6 +199,14 @@ int main(int argc, char *argv[]) {
                     // Check and print the incoming message
                     checkAndPrintMessage(readlen, incomingMessage,
                                          sizeof(incomingMessage));
+                    if (strncmp(incomingMessage, cStyleMsg, SHA1_LEN-1) == 0)
+                        cout << "OK, received message matches sent\n";
+                    else {
+                        cout << "ERROR, received message differs ( "
+                            << cStyleMsg << " vs " << incomingMessage 
+                            << " )\n";
+                        
+                    }
                     cout << "end of send/receive loop:\n"
                         << "timedout: " << timedout
                         << ", num_tries: " << num_tries

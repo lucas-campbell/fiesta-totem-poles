@@ -153,20 +153,15 @@ main(int argc, char *argv[])
             string incoming(incomingMessage); // Convert to C++ string ...it's slightly
             // easier to work with, and cleanString
             // expects it
-            cleanString(incoming);            // c150ids-supplied utility: changes
-            // non-printing characters to .
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes. Message=\"%s\"",
                               readlen, incoming.c_str());
             cerr << "received message:\n" << incoming << endl;
 
             //
-            //  create the message to return
+            //  create the message to return. At this point, just return what
+            //  we received.
             // 
-            string response = "You said " + incoming;
-            if (incoming=="ping" || incoming == "Ping" || incoming == "PING") 
-                response += " and I say PONG. Thank you for playing!";
-            else
-                response += ". Don't you know how to play ping pong?";
+            string response = incoming;
 
             //
             // write the return message
