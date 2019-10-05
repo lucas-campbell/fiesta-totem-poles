@@ -1,8 +1,0 @@
-10/05/2019 11:11:30.130055 ./fileclient.exe: Creating C150DgmSocket
-10/05/2019 11:11:30.142480 ./fileclient.exe: ./fileclient.exe: Writing message: ""
-10/05/2019 11:11:30.142644 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=1 |.|
-10/05/2019 11:11:30.142910 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=1 |.|
-10/05/2019 11:11:30.143087 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/05/2019 11:11:30.144496 ./fileclient.exe: C150DgmSocket::read: successful read with len=49 |You said . Don't you know how to play ping pong?.|
-10/05/2019 11:11:30.144651 ./fileclient.exe: PRINTING RESPONSE: Response received is "You said . Don't you know how to play ping pong?"
-
