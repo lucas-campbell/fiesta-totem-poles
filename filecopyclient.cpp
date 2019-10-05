@@ -154,59 +154,67 @@ int main(int argc, char *argv[]) {
             string filename = makeFileName(argv[SRC_ARG], sourceFile->d_name);
             
             if (isFile(filename)) {
-                cout << filename << endl;
+                //cout << filename << endl;
                 unsigned char hash[SHA1_LEN];
                 computeChecksum(filename, hash);
                 
                 hash_str = string((const char*)hash);
                       
-                cout << filename << ": ";
-                for (int j = 0; j < SHA1_LEN-1; j++)
-                {
-                    fprintf (stderr, "%02x", (unsigned int) hash[j]);
-                }
-                cout << endl;
-            }
-               
-
-
+                //cout << filename << ": ";
+                //for (int j = 0; j < SHA1_LEN-1; j++)
+                //{
+                //    fprintf (stderr, "%02x", (unsigned int) hash[j]);
+                //}
+                //cout << endl;
             
-            // Add the file checksum to the hash table
-            filehash[filename] = hash_str;
-            
-            //TODO: Fill in message with entire packet
-            outgoingMessage = hash_str;
-            
-            const char *cStyleMsg = outgoingMessage.c_str();
-            
-            while (timedout && num_tries <= 5) {
-                // Send the message to the server
-                c150debug->printf(C150APPLICATION,
-                                  "%s: Writing message: \"%s\"",
-                                  argv[0], cStyleMsg);
-                // +1 includes the null
-                sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
+                // Add the file checksum to the hash table
+                filehash[filename] = hash_str;
                 
-                // Read the response from the server
-                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
-                                  " doing read()", argv[0]);
-                readlen = sock -> read(incomingMessage,
-                                       sizeof(incomingMessage));
-                // Check for timeout
-                timedout = sock -> timedout();
-                if (timedout) {
-                    num_tries++;
-                    continue;
+                //TODO: Fill in message with entire packet
+                outgoingMessage = hash_str;
+                cout << "Preparing to send outgoing: " << outgoingMessage << endl;
+                
+                const char *cStyleMsg = outgoingMessage.c_str();
+                cout << "cstyle version: " << cStyleMsg << endl;
+                
+                while (timedout && num_tries <= 5) {
+                    cout << "In send/receive loop:\n"
+                        << "timedout: " << timedout
+                        << ", num_tries: " << num_tries
+                        << ", message: " << cStyleMsg << endl;
+                    // Send the message to the server
+                    c150debug->printf(C150APPLICATION,
+                                      "%s: Writing message: \"%s\"",
+                                      argv[0], cStyleMsg);
+                    // +1 includes the null
+                    sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
+                    
+                    // Read the response from the server
+                    c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                                      " doing read()", argv[0]);
+                    readlen = sock -> read(incomingMessage,
+                                           sizeof(incomingMessage));
+                    // Check for timeout
+                    timedout = sock -> timedout();
+                    if (timedout) {
+                        num_tries++;
+                        continue;
+                    }
+                    // Check and print the incoming message
+                    checkAndPrintMessage(readlen, incomingMessage,
+                                         sizeof(incomingMessage));
+                    cout << "end of send/receive loop:\n"
+                        << "timedout: " << timedout
+                        << ", num_tries: " << num_tries
+                        << ", received message: " << incomingMessage << endl;
                 }
-                // Check and print the incoming message
-                checkAndPrintMessage(readlen, incomingMessage,
-                                     sizeof(incomingMessage));
-            }
-            
-            if (num_tries == 5)
-            {
-                throw C150NetworkException("Write to server timed out"
-                                           " too many times");     
+                
+                if (num_tries == 5)
+                {
+                    throw C150NetworkException("Write to server timed out"
+                                               " too many times");     
+                }
+                timedout = true; // reset for next message send
             }
         }
         cerr << "Closing dir\n";
