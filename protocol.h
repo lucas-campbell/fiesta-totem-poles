@@ -6,6 +6,9 @@
 #define PROTOCOL_H
 
 #include <string>
+
+const int MAX_FILENUM = 7;
+const int MAX_PACKNUM = 7;
 /*
  * makeFilePilot
  * Constructs the pilot packet for files
@@ -17,8 +20,8 @@
  * Return: string - packet with metadata packed into sting
  * Assumptions: TODO
  */  
-std::string makeFilePilot(int num_packets, std::string fname, int file_ID,
-                         std::string hash);
+std::string makeFilePilot(int num_packets, int file_ID, std::string hash,
+                          std::string fname);
 
 /*
  * makeDirPilot
