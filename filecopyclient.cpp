@@ -30,17 +30,6 @@
 #include "protocol.h"
 #include "c150dgmsocket.h"
 #include "c150debug.h"
-#include "c150nastyfile.h"        // for c150nastyfile & framework
-#include "c150grading.h"
-#include <dirent.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <cstring>                // for errno string formatting
-#include <cerrno>
-#include <cstring>               // for strerro
-#include <iostream>               // for cout
-#include <fstream>                // for input files
 #include <string>
 #include <unordered_map> 
 
@@ -51,9 +40,6 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 // forward declarations
 void checkAndPrintMessage(ssize_t readlen, char *buf, ssize_t bufferlen);
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
-void checkDirectory(char *dirname);
-bool isFile(string fname);
-string makeFileName(string dir, string name);
 
 
 
@@ -89,7 +75,6 @@ int main(int argc, char *argv[]) {
     ssize_t readlen;              // amount of data read from socket
     char incomingMessage[512];   // received message data
     DIR *SRC;                   // Unix descriptor for open directory
-    struct dirent *sourceFile;  // Directory entry for source file
     checkDirectory(argv[SRC_ARG]);  //Make sure src exists
 
     //
@@ -138,89 +123,70 @@ int main(int argc, char *argv[]) {
         int num_tries = 0;
         //start at true so we "try" to send message "again"
         bool timedout = true;
-        string hash_str = "";
         unordered_map<string, string> filehash;
 
+        fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
+        
+        //TODO: Fill in message with entire packet, enclose following in a loop through hashtable
+        
+        for (auto iter = filehash.begin(); iter != filehash.end(); iter++) {
 
-        while ((sourceFile = readdir(SRC)) != NULL) {
-            if ((strcmp(sourceFile->d_name, ".") == 0) ||
-                (strcmp(sourceFile->d_name, "..")  == 0 )) 
-                continue;          // never copy . or ..
-
-            string filename = makeFileName(argv[SRC_ARG], sourceFile->d_name);
+            outgoingMessage = iter->first; //filename
+            outgoingMessage += ", ";
+            outgoingMessage += iter->second;
+            cout << "Preparing to send outgoing: " << outgoingMessage << endl;
             
-            if (isFile(filename)) {
-                //cout << filename << endl;
-                unsigned char hash[SHA1_LEN];
-                computeChecksum(filename, hash);
-                
-                hash_str = string((const char*)hash);
-                      
-                //cout << filename << ": ";
-                //for (int j = 0; j < SHA1_LEN-1; j++)
-                //{
-                //    fprintf (stderr, "%02x", (unsigned int) hash[j]);
-                //}
-                //cout << endl;
+            const char *cStyleMsg = outgoingMessage.c_str();
+            cout << "cstyle version: " << cStyleMsg << endl;
             
-                // Add the file checksum to the hash table
-                filehash[filename] = hash_str;
+            while (timedout && num_tries <= 5) {
+                cout << "In send/receive loop:\n"
+                    << "timedout: " << timedout
+                    << ", num_tries: " << num_tries
+                    << ", message: " << cStyleMsg << endl;
+                // Send the message to the server
+                c150debug->printf(C150APPLICATION,
+                                  "%s: Writing message: \"%s\"",
+                                  argv[0], cStyleMsg);
+                // +1 includes the null
+                sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
                 
-                //TODO: Fill in message with entire packet
-                outgoingMessage = hash_str;
-                cout << "Preparing to send outgoing: " << outgoingMessage << endl;
-                
-                const char *cStyleMsg = outgoingMessage.c_str();
-                cout << "cstyle version: " << cStyleMsg << endl;
-                
-                while (timedout && num_tries <= 5) {
-                    cout << "In send/receive loop:\n"
-                        << "timedout: " << timedout
-                        << ", num_tries: " << num_tries
-                        << ", message: " << cStyleMsg << endl;
-                    // Send the message to the server
-                    c150debug->printf(C150APPLICATION,
-                                      "%s: Writing message: \"%s\"",
-                                      argv[0], cStyleMsg);
-                    // +1 includes the null
-                    sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
+                // Read the response from the server
+                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                                  " doing read()", argv[0]);
+                readlen = sock -> read(incomingMessage,
+                                       sizeof(incomingMessage));
+                // Check for timeout
+                timedout = sock -> timedout();
+                if (timedout) {
+                    num_tries++;
+                    continue;
+                }
+                // Check and print the incoming message
+                checkAndPrintMessage(readlen, incomingMessage,
+                                     sizeof(incomingMessage));
+                if (strcmp(incomingMessage, cStyleMsg) == 0)
+                    cout << "OK, received message matches sent\n";
+                else {
+                    cout << "ERROR, received message differs ( "
+                        << cStyleMsg << " vs " << incomingMessage 
+                        << " )\n";
                     
-                    // Read the response from the server
-                    c150debug->printf(C150APPLICATION,"%s: Returned from write,"
-                                      " doing read()", argv[0]);
-                    readlen = sock -> read(incomingMessage,
-                                           sizeof(incomingMessage));
-                    // Check for timeout
-                    timedout = sock -> timedout();
-                    if (timedout) {
-                        num_tries++;
-                        continue;
-                    }
-                    // Check and print the incoming message
-                    checkAndPrintMessage(readlen, incomingMessage,
-                                         sizeof(incomingMessage));
-                    if (strcmp(incomingMessage, cStyleMsg) == 0)
-                        cout << "OK, received message matches sent\n";
-                    else {
-                        cout << "ERROR, received message differs ( "
-                            << cStyleMsg << " vs " << incomingMessage 
-                            << " )\n";
-                        
-                    }
-                    cout << "end of send/receive loop:\n"
-                        << "timedout: " << timedout
-                        << ", num_tries: " << num_tries
-                        << ", received message: " << incomingMessage << endl;
                 }
-                
-                if (num_tries == 5)
-                {
-                    throw C150NetworkException("Write to server timed out"
-                                               " too many times");     
-                }
-                timedout = true; // reset for next message send
+                cout << "end of send/receive loop:\n"
+                    << "timedout: " << timedout
+                    << ", num_tries: " << num_tries
+                    << ", received message: " << incomingMessage << endl;
             }
+            
+            if (num_tries == 5)
+            {
+                throw C150NetworkException("Write to server timed out"
+                                           " too many times");     
+            }
+            timedout = true; // reset for next message send
         }
+    
         cerr << "Closing dir\n";
         closedir(SRC);
     }
@@ -378,75 +344,4 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
     //
     c150debug->enableLogging(C150APPLICATION | C150NETWORKTRAFFIC | 
                              C150NETWORKDELIVERY); 
-}
-
-
-// ------------------------------------------------------
-//
-//                   checkDirectory
-//
-//  Make sure directory exists
-//     
-// ------------------------------------------------------
-
-void
-checkDirectory(char *dirname) {
-  struct stat statbuf;  
-  if (lstat(dirname, &statbuf) != 0) {
-    fprintf(stderr,"Error stating supplied source directory %s\n", dirname);
-    exit(8);
-  }
-
-  if (!S_ISDIR(statbuf.st_mode)) {
-    fprintf(stderr,"File %s exists but is not a directory\n", dirname);
-    exit(8);
-  }
-}
-
-// ------------------------------------------------------
-//
-//                   isFile
-//
-//  Make sure the supplied file is not a directory or
-//  other non-regular file.
-//     
-// ------------------------------------------------------
-
-bool
-isFile(string fname) {
-  const char *filename = fname.c_str();
-  struct stat statbuf;  
-  if (lstat(filename, &statbuf) != 0) {
-      fprintf(stderr,"isFile: Error stating supplied source file %s\n",
-              filename);
-    return false;
-  }
-
-  if (!S_ISREG(statbuf.st_mode)) {
-    fprintf(stderr,"isFile: %s exists but is not a regular file\n", filename);
-    return false;
-  }
-  return true;
-}
-
-
-// ------------------------------------------------------
-//
-//                   makeFileName
-//
-// Put together a directory and a file name, making
-// sure there's a / in between
-//
-// ------------------------------------------------------
-
-string makeFileName(string dir, string name) {
-  stringstream ss;
-
-  ss << dir;
-  // make sure dir name ends in /
-  if (dir.substr(dir.length()-1,1) != "/")
-    ss << '/';
-  ss << name;     // append file name to dir
-  return ss.str();  // return dir/name
-  
 }
