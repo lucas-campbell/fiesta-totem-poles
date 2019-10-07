@@ -20,11 +20,11 @@
 //
 //    Command line:
 //
-//         nastyfile <nastiness> <sourceDir> <targetDir>
+//         nastyfile <nastiness> <source_dir> <target_dir>
 //
-//    Copies all files in sourceDir into targetDir.
+//    Copies all files in source_dir into target_dir.
 //
-//    targetDir must be an existing directory. Copied files
+//    target_dir must be an existing directory. Copied files
 //    are added to the target, and existing files of the
 //    same name are overwritten.
 //
@@ -52,7 +52,7 @@
 //
 using namespace C150NETWORK;
 
-void copyFile(string sourceDir, string fileName, string targetDir, int nastiness); // fwd decl
+void copyFile(string source_dir, string file_name, string target_dir, int nastiness); // fwd decl
 bool isFile(string fname);
 void checkDirectory(char *dirname);
 
@@ -66,7 +66,7 @@ main(int argc, char *argv[]) {
   int nastiness;
   DIR *SRC;                   // Unix descriptor for open directory
   DIR *TARGET;                // Unix descriptor for target
-  struct dirent *sourceFile;  // Directory entry for source file
+  struct dirent *sourgceFile;  // Directory entry for source file
 
   //
   //  DO THIS FIRST OR YOUR ASSIGNMENT WON'T BE GRADED!
@@ -219,7 +219,7 @@ isFile(string fname) {
 // ------------------------------------------------------
 
 void
-copyFile(string sourceDir, string fileName, string targetDir, int nastiness) {
+copyFile(string source_dir, string file_name, string target_dir, int nastiness) {
 
   //
   //  Misc variables, mostly for return codes
@@ -234,19 +234,19 @@ copyFile(string sourceDir, string fileName, string targetDir, int nastiness) {
   //
   // Put together directory and filenames SRC/file TARGET/file
   //
-  string sourceName = makeFileName(sourceDir, fileName);
-  string targetName = makeFileName(targetDir, fileName);
+  string source_name = makeFileName(source_dir, file_name);
+  string targetName = makeFileName(target_dir, file_name);
 
   //
   // make sure the file we're copying is not a directory
   // 
-  if (!isFile(sourceName)) {
-    cerr << "Input file " << sourceName << " is a directory or other non-regular file. Skipping" << endl;
+  if (!isFile(source_name)) {
+    cerr << "Input file " << source_name << " is a directory or other non-regular file. Skipping" << endl;
     return;
   }
   
 
-  cout << "Copying " << sourceName << " to " << targetName << endl;
+  cout << "Copying " << source_name << " to " << targetName << endl;
 
   // - - - - - - - - - - - - - - - - - - - - -
   // LOOK HERE! This demonstrates the 
@@ -258,8 +258,8 @@ copyFile(string sourceDir, string fileName, string targetDir, int nastiness) {
     //
     // Read whole input file 
     //
-    if (lstat(sourceName.c_str(), &statbuf) != 0) {
-      fprintf(stderr,"copyFile: Error stating supplied source file %s\n", sourceName.c_str());
+    if (lstat(source_name.c_str(), &statbuf) != 0) {
+      fprintf(stderr,"copyFile: Error stating supplied source file %s\n", source_name.c_str());
      exit(20);
     }
   
@@ -288,13 +288,13 @@ copyFile(string sourceDir, string fileName, string targetDir, int nastiness) {
                                          // typedef C150NastyFile NASTYFILE
   
     // do an fopen on the input file
-    fopenretval = inputFile.fopen(sourceName.c_str(), "rb");  
+    fopenretval = inputFile.fopen(source_name.c_str(), "rb");  
                                          // wraps Unix fopen
                                          // Note rb gives "read, binary"
                                          // which avoids line end munging
   
     if (fopenretval == NULL) {
-      cerr << "Error opening input file " << sourceName << 
+      cerr << "Error opening input file " << source_name << 
 	      " errno=" << strerror(errno) << endl;
       exit(12);
     }
@@ -305,7 +305,7 @@ copyFile(string sourceDir, string fileName, string targetDir, int nastiness) {
     //
     len = inputFile.fread(buffer, 1, sourceSize);
     if (len != sourceSize) {
-      cerr << "Error reading file " << sourceName << 
+      cerr << "Error reading file " << source_name << 
 	      "  errno=" << strerror(errno) << endl;
       exit(16);
     }

@@ -1,7 +1,7 @@
 //
 //                            makedatafile
 //
-//           Author: Noah Mendelsohn
+//           Author: _noah Mendelsohn
 //
 //     A simple program to fill a file with numbers
 //
@@ -17,42 +17,42 @@ using namespace std;
 int
 main(int argc, char *argv[]) {
 
-  int linesToWrite;
-  int lineNumber;
-  int numberNumber;
-  int outputNumber =0;
+  int lines_to_write;
+  int line_number;
+  int number_number;
+  int output_number =0;
   char *filename;
-  int NUMBERSPERLINE=10;
+  int nums_per_line=10;
 
   if (argc != 3) {
-    fprintf(stderr,"Correct syntax is %s <filename> <linesToWrite>\n", argv[0]);
+    fprintf(stderr,"Correct syntax is %s <filename> <lines_to_write>\n", argv[0]);
     exit (4);
   }
 
   filename = argv[1];
-  linesToWrite = atoi(argv[2]);
+  lines_to_write = atoi(argv[2]);
 
-  if (linesToWrite <= 0) {
-    fprintf(stderr,"Correct syntax is %s <filename> <linesToWrite>\n", argv[0]);    
+  if (lines_to_write <= 0) {
+    fprintf(stderr,"Correct syntax is %s <filename> <lines_to_write>\n", argv[0]);    
     exit (4);
   }
 
-  printf("Writing %d lines to file %s\n", linesToWrite, filename);
+  printf("Writing %d lines to file %s\n", lines_to_write, filename);
 
   ofstream of(filename);
 
-  outputNumber = 0;
+  output_number = 0;
 
-  for (lineNumber = 0; lineNumber < linesToWrite; lineNumber++) {
-    for (numberNumber = 0; numberNumber< NUMBERSPERLINE; numberNumber++) {
-      of << setw(6) << (outputNumber++) << ' '; 
+  for (line_number = 0; line_number < lines_to_write; line_number++) {
+    for (number_number = 0; number_number< nums_per_line; number_number++) {
+      of << setw(6) << (output_number++) << ' '; 
     }
     of << endl;
   }
 
   of.close();
 
-  printf("Wrote %d lines to file %s\n", linesToWrite, filename);
+  printf("Wrote %d lines to file %s\n", lines_to_write, filename);
 
   
 }
