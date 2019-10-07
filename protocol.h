@@ -6,7 +6,6 @@
 #define PROTOCOL_H
 
 #include <string>
-#inclde <sstream> //for tokenized unpacking
 
 // number of digits allowed for number of files
 const int MAX_FILENUM = 7; 

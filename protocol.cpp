@@ -6,10 +6,10 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
-#include <sstream>
 #include <stdio.h>
 #include <iostream>
 #include "protocol.h"
+#include "sha1.h"
 
 using namespace std;
 
@@ -43,17 +43,46 @@ string makeFilePilot(FilePilot pilot_packet)
 
 FilePilot unpackFilePilot(string packet)
 {
-    FilePilot pilot;
+    int packet_length = packet.length();
+    // FilePilot pilot;
     // NEEDSWORK add error check for correct packet type
-    stringstream packet_s(packet);
-    string intermediate;
+    string curr_string = "";
     // get past packet type number
-    getline(packet_s, intermediate, ' ');
+    int index = 2;
+
+    // Get number of packets
     for (int i = 0; i < MAX_PACKNUM; index++, i++)
         curr_string += packet[index];
-    pilot.num_packets = stoi(curr_string);
+    int num_packets = stoi(curr_string);
+    curr_string = "";
     index++; // skip past next space
-        
+
+    // Get File ID
+    for (int i = 0; i < MAX_FILENUM; index++, i++)
+        curr_string += packet[index];
+    int file_ID = stoi(curr_string);
+    curr_string = "";
+    index++; // skip past next space
+
+    // Get hash value
+    for (int i = 0; i < SHA1_LEN-1; index++, i++)
+        curr_string += packet[index];
+    string hash = curr_string;
+    curr_string = "";
+    index++; // skip past next space
+
+    // Get hash value
+    for (int i = 0; i < SHA1_LEN-1; index++, i++)
+        curr_string += packet[index];
+    string hash = curr_string;
+    curr_string = "";
+    index++; // skip past next space
+
+    for (index; index < packet_length; index++)
+        curr_string += packet[index];
+    string fname = curr_string;
+
+    return FilePacket(num_packets, file_ID, hash, fname);      
 
 }
 
