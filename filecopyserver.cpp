@@ -64,6 +64,10 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 
+const int NETWORK_NASTINESS_ARG = 1;
+const int FILE_NASTINESS_ARG = 2;
+const int TARGET_ARG = 3;
+
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 //
@@ -74,32 +78,54 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 int
 main(int argc, char *argv[])
 {
-
+    GRADEME(argc, argv);
     //
     // Variable declarations
     //
     ssize_t readlen;             // amount of data read from socket
     char incomingMessage[512];   // received message data
-    int nastiness;               // how aggressively do we drop packets, etc?
+    int network_nastiness;       // how aggressively do we drop packets, etc?
+    int file_nastiness;
 
     //
     // Check command line and parse arguments
     //
-    if (argc != 2)  {
-        fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);
+    if (argc != 4)  {
+        fprintf(stderr,"Correct syntxt is: %s <network nastiness>"
+                        "<file nastiness> <target directory>\n", argv[0]);
         exit(1);
     }
-    if (strspn(argv[1], "0123456789") != strlen(argv[1])) {
-        fprintf(stderr,"Nastiness %s is not numeric\n", argv[1]);     
+    if (strspn(argv[NETWORK_NASTINESS_ARG], "0123456789") != 
+        strlen(argv[NETWORK_NASTINESS_ARG])) {
+        fprintf(stderr,"Nastiness %s is not numeric\n",
+                argv[NETWORK_NASTINESS_ARG]);     
         fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);     
         exit(4);
     }
-    nastiness = atoi(argv[1]);   // convert command line string to integer
+    if (strspn(argv[FILE_NASTINESS_ARG], "0123456789") !=
+        strlen(argv[FILE_NASTINESS_ARG])) {
+        fprintf(stderr,"Nastiness %s is not numeric\n",
+                argv[FILE_NASTINESS_ARG]);     
+        fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);     
+        exit(4);
+    }
+    // convert command line string to integer
+    network_nastiness = atoi(argv[NETWORK_NASTINESS_ARG]);   
+    file_nastiness = atoi(argv[FILE_NASTINESS_ARG]);   
        
     //
     //  Set up debug message logging
     //
     setUpDebugLogging("filecopyserverdebug.txt",argc, argv);
+
+    //
+    // Open the target directory
+    //
+    TRG = opendir(argv[TARGET_ARG]);
+    if (TRG == NULL) {
+        fprintf(stderr,"Error opening source directory %s\n", argv[TARGET_ARG]);
+        exit(8);
+    }
 
     //
     // We set a debug output indent in the server only, not the client.
@@ -117,6 +143,12 @@ main(int argc, char *argv[])
     c150debug->setIndent("    ");              // if we merge client and server
     // logs, server stuff will be indented
 
+
+
+    unordered_map<string, string> filehash;
+    fillChecksumTable(filehash, TRG, argv[TARGET_ARG]);
+
+
     //
     // Create socket, loop receiving and responding
     //
@@ -124,10 +156,10 @@ main(int argc, char *argv[])
         //   c150debug->printf(C150APPLICATION,"Creating C150DgmSocket");
         //   C150DgmSocket *sock = new C150DgmSocket();
 
-        cerr << "Creating C150NastyDgmSocket(nastiness=" << nastiness <<endl;
+        cerr << "Creating C150NastyDgmSocket(nastiness=" << network_nastiness <<endl;
         c150debug->printf(C150APPLICATION,"Creating C150NastyDgmSocket(nastiness=%d)",
-                          nastiness);
-        C150DgmSocket *sock = new C150NastyDgmSocket(nastiness);
+                          network_nastiness);
+        C150DgmSocket *sock = new C150NastyDgmSocket(network_nastiness);
         cerr << "ready to accept messages\n";
         c150debug->printf(C150APPLICATION,"Ready to accept messages");
 

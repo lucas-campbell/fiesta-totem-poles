@@ -131,5 +131,10 @@ void fillChecksumTable(std::unordered_map<std::string, std::string> &filehash,
     }
 }
 
-
-
+void printHash(char *hash)
+{
+    for (i = 0; i < 20; i++)
+    {
+        printf ("%02x", (unsigned int) hash[i]);
+    }
+}
