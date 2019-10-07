@@ -24,12 +24,12 @@
 using namespace std;
 
 
-void computeChecksum(std::string filename, unsigned char (&hash)[SHA1_LEN])
+void computeChecksum(string filename, unsigned char (&hash)[SHA1_LEN])
 {
     ifstream *t;
-    std::stringstream *buffer;
+    stringstream *buffer;
     t = new ifstream(filename);
-    buffer = new std::stringstream;
+    buffer = new stringstream;
     *buffer << t->rdbuf();
     SHA1((const unsigned char *)buffer->str().c_str(),
          (buffer->str()).length(), hash);
@@ -67,7 +67,7 @@ void checkDirectory(char *dirname)
 //     
 // ------------------------------------------------------
 
-bool isFile(std::string fname)
+bool isFile(string fname)
 {
   const char *filename = fname.c_str();
   struct stat statbuf;  
@@ -94,9 +94,9 @@ bool isFile(std::string fname)
 //
 // ------------------------------------------------------
 
-std::string makeFileName(std::string dir, std::string name) 
+string makeFileName(string dir, string name) 
 {
-    std::stringstream ss;
+    stringstream ss;
 
   ss << dir;
   // make sure dir name ends in /
@@ -107,7 +107,7 @@ std::string makeFileName(std::string dir, std::string name)
   
 }
 
-void fillChecksumTable(std::unordered_map<std::string, std::string> &filehash,
+void fillChecksumTable(unordered_map<string, string> &filehash,
                         DIR *SRC, const char* sourceDir)
 {
     struct dirent *sourceFile;  // Directory entry for source file
@@ -117,7 +117,7 @@ void fillChecksumTable(std::unordered_map<std::string, std::string> &filehash,
                  (strcmp(sourceFile->d_name, "..")  == 0 ) ) 
                 continue;          // never copy . or ..
 
-            std::string filename = makeFileName(sourceDir, sourceFile->d_name);
+            string filename = makeFileName(sourceDir, sourceFile->d_name);
             
             // check that is a regular file
             if (!isFile(filename))
@@ -126,7 +126,7 @@ void fillChecksumTable(std::unordered_map<std::string, std::string> &filehash,
             unsigned char hash[SHA1_LEN];
             computeChecksum(filename, hash);
             
-            std::string hash_str = std::string((const char*)hash);
+            string hash_str = string((const char*)hash);
             filehash[filename] = hash_str;
     }
 }
@@ -137,4 +137,30 @@ void printHash(char *hash)
     {
         printf ("%02x", (unsigned int) hash[i]);
     }
+}
+
+/*
+ * computeDirChecksum
+ * Writes the file checksum map to a file (outside src) and calculates
+ * the SHA1 checksum of that file, which equates to the SHA1 checksum of
+ * the source directory
+ *
+ * Args:
+ * * &unordered_map<str, str>: the hashmap of filename:SHA1hash pairs
+ *
+ * Return: string which is the directory hash
+ */ 
+string getDirHash(unordered_map<string, string> filehash)
+{
+    string file = tmpnam(nullptr);
+    ofstream stream(file);
+    for(auto& kv : filehash) {
+        stream << kv.second << endl;
+    }
+    unsigned char hash[SHA1_LEN];
+    computeChecksum(file, hash);
+    string hash_str = string((const char*)hash);
+    stream.close();
+    remove(file.c_str());
+    return hash_str;
 }

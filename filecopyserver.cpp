@@ -86,7 +86,8 @@ main(int argc, char *argv[])
     char incoming_msg[512];   // received message data
     int network_nastiness;       // how aggressively do we drop packets, etc?
     int file_nastiness;
-
+    DIR* TRG;
+    (void) file_nastiness;
     //
     // Check command line and parse arguments
     //

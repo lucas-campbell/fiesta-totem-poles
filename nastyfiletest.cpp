@@ -43,7 +43,7 @@
 #include <unistd.h>
 #include <cstring>                // for errno string formatting
 #include <cerrno>
-#include <cstring>               // for strerro
+#include <cstring>                // for strerro
 #include <iostream>               // for cout
 #include <fstream>                // for input files
 
@@ -52,7 +52,8 @@
 //
 using namespace C150NETWORK;
 
-void copyFile(string source_dir, string file_name, string target_dir, int nastiness); // fwd decl
+void copyFile(string source_dir, string file_name, string target_dir,
+              int nastiness); // fwd decl
 bool isFile(string fname);
 void checkDirectory(char *dirname);
 
@@ -60,13 +61,13 @@ void checkDirectory(char *dirname);
 //                   Main program
 // ------------------------------------------------------
 
-int
-main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
   int nastiness;
   DIR *SRC;                   // Unix descriptor for open directory
   DIR *TARGET;                // Unix descriptor for target
-  struct dirent *sourgceFile;  // Directory entry for source file
+  struct dirent *src_file;  // Directory entry for source file
 
   //
   //  DO THIS FIRST OR YOUR ASSIGNMENT WON'T BE GRADED!
@@ -78,13 +79,15 @@ main(int argc, char *argv[]) {
   // Check command line and parse arguments
   //
   if (argc != 4)  {
-    fprintf(stderr,"Correct syntxt is: %s <nastiness_number> <SRC dir> (TARGET dir>\n", argv[0]);
+      fprintf(stderr,"Correct syntxt is: %s <nastiness_number> "
+              "<SRC dir> (TARGET dir>\n", argv[0]);
        exit(1);
   }
 
   if (strspn(argv[1], "0123456789") != strlen(argv[1])) {
     fprintf(stderr,"Nastiness %s is not numeric\n", argv[1]);     
-    fprintf(stderr,"Correct syntxt is: %s <nastiness_number> <SRC dir> (TARGET dir>\n", argv[0]);     
+    fprintf(stderr,"Correct syntxt is: %s <nastiness_number>"
+            " <SRC dir> (TARGET dir>\n", argv[0]);     
      exit(4);
   }
 
@@ -123,15 +126,15 @@ main(int argc, char *argv[]) {
   //
   //    copyfile takes name of target file
   //
-  while ((sourceFile = readdir(SRC)) != NULL) {
+  while ((src_file = readdir(SRC)) != NULL) {
     // skip the . and .. names
-    if ((strcmp(sourceFile->d_name, ".") == 0) ||
-	(strcmp(sourceFile->d_name, "..")  == 0 )) 
+    if ((strcmp(src_file->d_name, ".") == 0) ||
+	(strcmp(src_file->d_name, "..")  == 0 )) 
       continue;          // never copy . or ..
 
     // do the copy -- this will check for and 
     // skip subdirectories
-    copyFile(argv[2], sourceFile->d_name,  argv[3], nastiness);
+    copyFile(argv[2], src_file->d_name,  argv[3], nastiness);
   }
   closedir(SRC);
 }
@@ -147,8 +150,8 @@ main(int argc, char *argv[]) {
 //
 // ------------------------------------------------------
 
-string
-makeFileName(string dir, string name) {
+string makeFileName(string dir, string name)
+{
   stringstream ss;
 
   ss << dir;
@@ -169,8 +172,8 @@ makeFileName(string dir, string name) {
 //     
 // ------------------------------------------------------
 
-void
-checkDirectory(char *dirname) {
+void checkDirectory(char *dirname)
+{
   struct stat statbuf;  
   if (lstat(dirname, &statbuf) != 0) {
     fprintf(stderr,"Error stating supplied source directory %s\n", dirname);
@@ -193,8 +196,8 @@ checkDirectory(char *dirname) {
 //     
 // ------------------------------------------------------
 
-bool
-isFile(string fname) {
+bool isFile(string fname)
+{
   const char *filename = fname.c_str();
   struct stat statbuf;  
   if (lstat(filename, &statbuf) != 0) {
@@ -218,8 +221,8 @@ isFile(string fname) {
 //
 // ------------------------------------------------------
 
-void
-copyFile(string source_dir, string file_name, string target_dir, int nastiness) {
+void copyFile(string source_dir, string file_name, string target_dir,
+         int nastiness){
 
   //
   //  Misc variables, mostly for return codes
@@ -229,7 +232,7 @@ copyFile(string source_dir, string file_name, string target_dir, int nastiness) 
   string errorString;
   char *buffer;
   struct stat statbuf;  
-  size_t sourceSize;
+  size_t src_size;
 
   //
   // Put together directory and filenames SRC/file TARGET/file
@@ -241,7 +244,8 @@ copyFile(string source_dir, string file_name, string target_dir, int nastiness) 
   // make sure the file we're copying is not a directory
   // 
   if (!isFile(source_name)) {
-    cerr << "Input file " << source_name << " is a directory or other non-regular file. Skipping" << endl;
+      cerr << "Input file " << source_name << " is a directory or "
+          "other non-regular file. Skipping" << endl;
     return;
   }
   
@@ -259,7 +263,8 @@ copyFile(string source_dir, string file_name, string target_dir, int nastiness) 
     // Read whole input file 
     //
     if (lstat(source_name.c_str(), &statbuf) != 0) {
-      fprintf(stderr,"copyFile: Error stating supplied source file %s\n", source_name.c_str());
+        fprintf(stderr,"copyFile: Error stating supplied "
+                "source file %s\n", source_name.c_str());
      exit(20);
     }
   
@@ -267,8 +272,8 @@ copyFile(string source_dir, string file_name, string target_dir, int nastiness) 
     // Make an input buffer large enough for
     // the whole file
     //
-    sourceSize = statbuf.st_size;
-    buffer = (char *)malloc(sourceSize);
+    src_size = statbuf.st_size;
+    buffer = (char *)malloc(src_size);
 
     //
     // Define the wrapped file descriptors
@@ -303,8 +308,8 @@ copyFile(string source_dir, string file_name, string target_dir, int nastiness) 
     // 
     // Read the whole file
     //
-    len = inputFile.fread(buffer, 1, sourceSize);
-    if (len != sourceSize) {
+    len = inputFile.fread(buffer, 1, src_size);
+    if (len != src_size) {
       cerr << "Error reading file " << source_name << 
 	      "  errno=" << strerror(errno) << endl;
       exit(16);
@@ -328,8 +333,8 @@ copyFile(string source_dir, string file_name, string target_dir, int nastiness) 
     //
     // Write the whole file
     //
-    len = outputFile.fwrite(buffer, 1, sourceSize);
-    if (len != sourceSize) {
+    len = outputFile.fwrite(buffer, 1, src_size);
+    if (len != src_size) {
       cerr << "Error writing file " << targetName << 
 	      "  errno=" << strerror(errno) << endl;
       exit(16);

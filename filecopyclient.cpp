@@ -40,7 +40,8 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 // forward declarations
 void checkAndPrintMessage(ssize_t readlen, char *buf, ssize_t bufferlen);
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
-
+bool sendDirPilot(int num_files, string hash);
+bool sendFilePilot(int num_packets, int file_ID, string hash, string fname); //TODO
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -58,6 +59,7 @@ const int NETWORK_NASTINESS_ARG = 2;        // network nastiness is 2nd arg
 const int FILE_NASTINESS_ARG = 3;        // file nastiness is 3rd arg
 const int SRC_ARG = 4;            // source directory is 4th arg
 const int TIMEOUT_MS = 3000;       //ms for timeout
+
 
 
 
@@ -132,9 +134,14 @@ int main(int argc, char *argv[]) {
         fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
         
         //TODO: Fill in message with entire packet
+
+        int num files = filehash.size();
+        string dirChecksum = getDirChecksum(filehash);
+        bool dir_sent = sendDirPilot(files, dirCheckSum);
         
         for (auto iter = filehash.begin(); iter != filehash.end(); iter++) {
 
+            string pilot_pack = makeFilePilot(FilePilot());
             outgoing_msg = iter->first; //filename
             outgoing_msg += ", ";
             outgoing_msg += iter->second;
@@ -348,4 +355,13 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
     //
     c150debug->enableLogging(C150APPLICATION | C150NETWORKTRAFFIC | 
                              C150NETWORKDELIVERY); 
+}
+
+
+/*
+ *
+ */
+bool sendDirPilot(int num_files, string hash)
+{
+
 }
