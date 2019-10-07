@@ -28,11 +28,13 @@ std::string makeFilePilot(int num_packets, int file_ID, std::string hash,
  * Constructs the pilot packet for directories
  * Args:
  * * int num_files: # files in this directory
+ * * string hash: SHA1 hash of the directory
  * * string target: name of copy target directory
  * Return: string - packet with metadata packed into sting
  * Assumptions: TODO
  */  
-std::string makeDirPilot(int num_files, std::string TARGET);
+std::string makeDirPilot(int num_files, std:: string hash,
+                         std::string TARGET);
 
 /*
  * makeFilePacket

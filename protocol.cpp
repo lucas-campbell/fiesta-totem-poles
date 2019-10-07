@@ -11,7 +11,7 @@
 #include <iostream>
 #include "protocol.h"
 
-using namespace std;
+using namespace std;11
 
 /*
  * Our UDP File Pilot packet is in the following format
@@ -44,18 +44,21 @@ string makeFilePilot(int num_packets, int file_ID, string hash, string fname)
 
 /*
  * Our UDP Directory Pilot packet is in the following format
- * "D ####### T..."
+ * "D ####### HHHHHHHHHHHHHHHHHHHH T..."
  * Where:
  * D is the packet type indicator for a Directory pilot packet
  * # is the number of files in the directory
- * T... is a variable length field for the Target path (up to 495 bytes long)
+ * H is the SHA1 hash of the directory
+ * T... is a variable length field for the Target path (up to 465 bytes long)
  */
-string makeDirPilot(int num_files, string TARGET)
+string makeDirPilot(int num_files, string hash, string TARGET)
 {
     string pack = "0 ";
     string num = to_string(num_files);
     int zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
+    pack += " ";
+    pack += hash;
     pack += " ";
     pack += TARGET;
     return pack;
