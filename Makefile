@@ -43,8 +43,10 @@ C150AR = $(C150LIB)c150ids.a
 LDFLAGS = 
 INCLUDES = $(C150LIB)c150dgmsocket.h $(C150LIB)c150nastydgmsocket.h $(C150LIB)c150network.h $(C150LIB)c150exceptions.h $(C150LIB)c150debug.h $(C150LIB)c150utility.h sha1.h protocol.h
 
-all: shatest.exe fileserver.exe fileclient.exe nastyfiletest.exe datafilemake.exe sha1test.exe
+all: protocoltest.exe shatest.exe fileserver.exe fileclient.exe nastyfiletest.exe datafilemake.exe sha1test.exe
 
+protocoltest.exe: test_protocol.cpp protocol.o $(C150AR) $(INCLUDES)
+	$(CPP) -o protocoltest.exe $(CPPFLAGS) test_protocol.cpp protocol.o $(C150AR)
 
 shatest.exe: shatest.cpp sha1.o $(C150AR) $(INCLUDES)
 	$(CPP) -o shatest.exe $(CPPFLAGS) shatest.cpp sha1.o -lssl -lcrypto $(C150AR)
