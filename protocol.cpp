@@ -11,7 +11,7 @@
 #include <iostream>
 #include "protocol.h"
 
-using namespace std;11
+using namespace std;
 
 /*
  * Our UDP File Pilot packet is in the following format
@@ -23,21 +23,21 @@ using namespace std;11
  * H is the SHA1 hash of the file
  * F... is a variable length field for the file name (up to 480 bytes long)
  */
-string makeFilePilot(int num_packets, int file_ID, string hash, string fname)
+std::string makeFilePilot(FilePilot pilot_packet)
 {
     string pack = "1 ";
-    string num = to_string(num_packets);
+    string num = to_string(pilot_packet.num_packets);
     int zeros = MAX_PACKNUM - num.length();
     pack += string(zeros, '0').append(num);
-    cout << pack << endl;
     pack += " ";
-    num = to_string(file_ID);
+    num = to_string(pilot_packet.file_ID);
     zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
-    pack += hash;
+    pack += pilot_packet.hash;
     pack += " ";
-    pack += fname;
+    pack += pilot_packet.fname;
+    cout << pack << endl;
     return pack;
 }
 
@@ -51,16 +51,17 @@ string makeFilePilot(int num_packets, int file_ID, string hash, string fname)
  * H is the SHA1 hash of the directory
  * T... is a variable length field for the Target path (up to 465 bytes long)
  */
-string makeDirPilot(int num_files, string hash, string TARGET)
+std::string makeDirPilot(DirPilot pilot_packet)
 {
     string pack = "0 ";
-    string num = to_string(num_files);
+    string num = to_string(pilot_packet.num_files);
     int zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
-    pack += hash;
+    pack += pilot_packet.hash;
     pack += " ";
-    pack += TARGET;
+    pack += pilot_packet.TARGET;
+    cout << pack << endl;
     return pack;
 }
 
@@ -74,17 +75,18 @@ string makeDirPilot(int num_files, string hash, string TARGET)
  * P is the file ID
  * D... is a variable length field for the file data (up to 480 bytes long)
  */
-string makeFilePacket(int packet_num, int file_ID, string data)
+std::string makeFilePacket(FilePacket packet)
 {
     string pack = "2 ";
-    string num = to_string(packet_num);
+    string num = to_string(packet.packet_num);
     int zeros = MAX_PACKNUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
-    num = to_string(file_ID);
+    num = to_string(packet.file_ID);
     zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
-    pack += data;
+    pack += packet.data;
+    cout << pack << endl;
     return pack;
 }

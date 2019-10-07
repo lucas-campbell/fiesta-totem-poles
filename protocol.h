@@ -7,8 +7,10 @@
 
 #include <string>
 
-const int MAX_FILENUM = 7;
-const int MAX_PACKNUM = 7;
+const int MAX_FILENUM = 7; // number of digits allowed for number of files
+const int MAX_PACKNUM = 7; // number of digits allowed for number of packets
+
+
 /*
  * makeFilePilot
  * Constructs the pilot packet for files
@@ -20,8 +22,15 @@ const int MAX_PACKNUM = 7;
  * Return: string - packet with metadata packed into sting
  * Assumptions: TODO
  */  
-std::string makeFilePilot(int num_packets, int file_ID, std::string hash,
-                          std::string fname);
+struct FilePilot {
+    int num_packets;
+    int file_ID;
+    std::string hash;
+    std::string fname;
+    FilePilot(int p, int i, std::string h, std::string f) :
+        num_packets(p), file_ID(i), hash(h), fname(f) {}
+};
+std::string makeFilePilot(FilePilot pilot_packet);
 
 /*
  * makeDirPilot
@@ -33,8 +42,14 @@ std::string makeFilePilot(int num_packets, int file_ID, std::string hash,
  * Return: string - packet with metadata packed into sting
  * Assumptions: TODO
  */  
-std::string makeDirPilot(int num_files, std:: string hash,
-                         std::string TARGET);
+struct DirPilot {
+    int num_files;
+    std::string hash;
+    std::string TARGET;
+    DirPilot(int n, std::string h, std::string T) :
+        num_files(n), hash(h), TARGET(T) {}
+};
+std::string makeDirPilot(DirPilot pilot_packet);
 
 /*
  * makeFilePacket
@@ -48,6 +63,13 @@ std::string makeDirPilot(int num_files, std:: string hash,
  * Additional info: the data payload is always 420 bytes except for the
  * final packet for a file, which may be shorter
  */  
-std::string makeFilePacket(int packet_num, int file_ID, std::string data);
+struct FilePacket {
+    int packet_num;
+    int file_ID;
+    std::string data;
+    FilePacket(int p, int f, std::string d) :
+        packet_num(p), file_ID(f), data(d) {}
+};
+std::string makeFilePacket(FilePacket packet);
 
 #endif

@@ -8,10 +8,12 @@
 using namespace std;
 
 int main() {
-    string dirpack = makeDirPilot(4, "c/p/ath/to/file");
+    
+    string dirpack = makeDirPilot(DirPilot(4, "c/p/ath/to/file",
+                "92a1dfec849ad2ebdb3819b689cf700be2d592bb"));
     string filepilotpack =
-        makeFilePilot(4, 10, "92a1dfec849ad2ebdb3819b689cf700be2d592bb",
-                      "sha1test.cpp");
+        makeFilePilot(FilePilot(4, 10, "92a1dfec849ad2ebdb3819b689cf700be2d592bb",
+                      "sha1test.cpp"));
      string filedatapack =
-        makeFilePacket(4, 10, "sfsgdfgsdfgdfjsfalfknkfwefEWAEFAAAWFAWFAWFAWFAWFWAWEFWAEFAFAFWFEFWRERGWERGWERGWEGEGAFWFQWKFBQWFBQWBQWQWBGKQWFBQWFFBJKFBAWFBAJFKBAFLKASJFBASKDJFBAKDFBASKLDBFAJKSBWKJBAKNERNVVNWEVNPEVNINWRUIBRJNBSLNBSDKFVJNDLFVDFKJSLDFNVNVUARIADDCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCASsdslkjsnvvaeesdjksndfgjklnfkdjnjksndbkldnfbsjkblndfkjnbsdbkjsdbsdbgjkdsfkljsdfkjladfdfssdfffffgfgafgadfglakjdfgnlfnagklanpp");
+        makeFilePacket(FilePacket(4, 10, "sfsgdfgsdfgdfjsfalfknkfwefEWAEFAAAWFAWFAWFAWFAWFWAWEFWAEFAFAFWFEFWRERGWERGWERGWEGEGAFWFQWKFBQWFBQWBQWQWBGKQWFBQWFFBJKFBAWFBAJFKBAFLKASJFBASKDJFBAKDFBASKLDBFAJKSBWKJBAKNERNVVNWEVNPEVNINWRUIBRJNBSLNBSDKFVJNDLFVDFKJSLDFNVNVUARIADDCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCASsdslkjsnvvaeesdjksndfgjklnfkdjnjksndbkldnfbsjkblndfkjnbsdbkjsdbsdbgjkdsfkljsdfkjladfdfssdfffffgfgafgadfglakjdfgnlfnagklanpp"));
 }
