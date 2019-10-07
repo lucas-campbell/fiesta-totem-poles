@@ -73,8 +73,10 @@ int main(int argc, char *argv[]) {
     // Variable declarations
     //
     ssize_t readlen;              // amount of data read from socket
-    char incomingMessage[512];   // received message data
+    char incoming_msg[512];   // received message data
     DIR *SRC;                   // Unix descriptor for open directory
+
+
     checkDirectory(argv[SRC_ARG]);  //Make sure src exists
 
     //
@@ -119,7 +121,7 @@ int main(int argc, char *argv[]) {
         sock -> turnOnTimeouts(TIMEOUT_MS);
 
         // Loop for getting user input
-        string outgoingMessage;
+        string outgoing_msg;
         int num_tries = 0;
         //start at true so we "try" to send message "again"
         bool timedout = true;
@@ -133,31 +135,31 @@ int main(int argc, char *argv[]) {
         
         for (auto iter = filehash.begin(); iter != filehash.end(); iter++) {
 
-            outgoingMessage = iter->first; //filename
-            outgoingMessage += ", ";
-            outgoingMessage += iter->second;
-            cout << "Preparing to send outgoing: " << outgoingMessage << endl;
+            outgoing_msg = iter->first; //filename
+            outgoing_msg += ", ";
+            outgoing_msg += iter->second;
+            cout << "Preparing to send outgoing: " << outgoing_msg << endl;
             
-            const char *cStyleMsg = outgoingMessage.c_str();
-            cout << "cstyle version: " << cStyleMsg << endl;
+            const char *c_style_msg = outgoing_msg.c_str();
+            cout << "cstyle version: " << c_style_msg << endl;
             
             while (timedout && num_tries <= 5) {
                 cout << "In send/receive loop:\n"
                     << "timedout: " << timedout
                     << ", num_tries: " << num_tries
-                    << ", message: " << cStyleMsg << endl;
+                    << ", message: " << c_style_msg << endl;
                 // Send the message to the server
                 c150debug->printf(C150APPLICATION,
                                   "%s: Writing message: \"%s\"",
-                                  argv[0], cStyleMsg);
+                                  argv[0], c_style_msg);
                 // +1 includes the null
-                sock -> write(cStyleMsg, strlen(cStyleMsg)+1); 
+                sock -> write(c_style_msg, strlen(c_style_msg)+1); 
                 
                 // Read the response from the server
                 c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                                   " doing read()", argv[0]);
-                readlen = sock -> read(incomingMessage,
-                                       sizeof(incomingMessage));
+                readlen = sock -> read(incoming_msg,
+                                       sizeof(incoming_msg));
                 // Check for timeout
                 timedout = sock -> timedout();
                 if (timedout) {
@@ -165,20 +167,20 @@ int main(int argc, char *argv[]) {
                     continue;
                 }
                 // Check and print the incoming message
-                checkAndPrintMessage(readlen, incomingMessage,
-                                     sizeof(incomingMessage));
-                if (strcmp(incomingMessage, cStyleMsg) == 0)
+                checkAndPrintMessage(readlen, incoming_msg,
+                                     sizeof(incoming_msg));
+                if (strcmp(incoming_msg, c_style_msg) == 0)
                     cout << "OK, received message matches sent\n";
                 else {
                     cout << "ERROR, received message differs ( "
-                        << cStyleMsg << " vs " << incomingMessage 
+                        << c_style_msg << " vs " << incoming_msg 
                         << " )\n";
                     
                 }
                 cout << "end of send/receive loop:\n"
                     << "timedout: " << timedout
                     << ", num_tries: " << num_tries
-                    << ", received message: " << incomingMessage << endl;
+                    << ", received message: " << incoming_msg << endl;
             }
             
             if (num_tries == 5)
