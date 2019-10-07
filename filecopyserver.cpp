@@ -83,7 +83,7 @@ main(int argc, char *argv[])
     // Variable declarations
     //
     ssize_t readlen;             // amount of data read from socket
-    char incomingMessage[512];   // received message data
+    char incoming_msg[512];   // received message data
     int network_nastiness;       // how aggressively do we drop packets, etc?
     int file_nastiness;
 
@@ -99,14 +99,14 @@ main(int argc, char *argv[])
         strlen(argv[NETWORK_NASTINESS_ARG])) {
         fprintf(stderr,"Nastiness %s is not numeric\n",
                 argv[NETWORK_NASTINESS_ARG]);     
-        fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);     
+        fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);
         exit(4);
     }
     if (strspn(argv[FILE_NASTINESS_ARG], "0123456789") !=
         strlen(argv[FILE_NASTINESS_ARG])) {
         fprintf(stderr,"Nastiness %s is not numeric\n",
                 argv[FILE_NASTINESS_ARG]);     
-        fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);     
+        fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);
         exit(4);
     }
     // convert command line string to integer
@@ -156,8 +156,10 @@ main(int argc, char *argv[])
         //   c150debug->printf(C150APPLICATION,"Creating C150DgmSocket");
         //   C150DgmSocket *sock = new C150DgmSocket();
 
-        cerr << "Creating C150NastyDgmSocket(nastiness=" << network_nastiness <<endl;
-        c150debug->printf(C150APPLICATION,"Creating C150NastyDgmSocket(nastiness=%d)",
+        cerr << "Creating C150NastyDgmSocket(nastiness=" <<
+            network_nastiness <<endl;
+        c150debug->printf(C150APPLICATION,"Creating "
+                          "C150NastyDgmSocket(nastiness=%d)",
                           network_nastiness);
         C150DgmSocket *sock = new C150NastyDgmSocket(network_nastiness);
         cerr << "ready to accept messages\n";
@@ -172,22 +174,22 @@ main(int argc, char *argv[])
             // Read a packet
             // -1 in size below is to leave room for null
             //
-            readlen = sock -> read(incomingMessage, sizeof(incomingMessage)-1);
+            readlen = sock -> read(incoming_msg, sizeof(incoming_msg)-1);
             if (readlen == 0) {
                 cerr << "read zero length meassage\n";
-                c150debug->printf(C150APPLICATION,"Read zero length message, trying again");
+                c150debug->printf(C150APPLICATION,"Read zero length message,"
+                                  " trying again");
                 continue;
             }
 
             //
             // Clean up the message in case it contained junk
             //
-            incomingMessage[readlen] = '\0'; // make sure null terminated
-            string incoming(incomingMessage); // Convert to C++ string ...it's slightly
-            // easier to work with, and cleanString
-            // expects it
-            c150debug->printf(C150APPLICATION,"Successfully read %d bytes. Message=\"%s\"",
-                              readlen, incoming.c_str());
+            incoming_msg[readlen] = '\0'; // make sure null terminated
+            string incoming(incoming_msg); // Convert to C++ string
+            // ...it's slightly easier to work with, and cleanString expects it
+            c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
+                              " Message=\"%s\"", readlen, incoming.c_str());
             cerr << "received message:\n" << incoming << endl;
 
             //
@@ -210,7 +212,8 @@ main(int argc, char *argv[])
         c150debug->printf(C150ALWAYSLOG,"Caught C150NetworkException: %s\n",
                           e.formattedExplanation().c_str());
         // In case we're logging to a file, write to the console too
-        cerr << argv[0] << ": caught C150NetworkException: " << e.formattedExplanation() << endl;
+        cerr << argv[0] << ": caught C150NetworkException: "
+             << e.formattedExplanation() << endl;
     }
 
     // This only executes if there was an error caught above
