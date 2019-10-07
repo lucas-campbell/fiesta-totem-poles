@@ -6,20 +6,24 @@
 #define PROTOCOL_H
 
 #include <string>
+#inclde <sstream> //for tokenized unpacking
 
-const int MAX_FILENUM = 7; // number of digits allowed for number of files
-const int MAX_PACKNUM = 7; // number of digits allowed for number of packets
+// number of digits allowed for number of files
+const int MAX_FILENUM = 7; 
+// number of digits allowed for number of packets
+const int MAX_PACKNUM = 7; 
+// number of fields in file pilot packet, including packet type
+const int FILE_PILOT_FIELDS = 5; 
 
 
 /*
- * makeFilePilot
- * Constructs the pilot packet for files
- * Args:
+ * FilePilot
+ * The pilot packet for files
+ * Constructor args:
  * * int num_packets: # packets for this file = file_size / PACKET_DATA_SIZE
  * * string fname: name of the file
  * * int file_ID: numerical id of this file (incrememntal)
  * * string hash: SHA1 hash of file contents
- * Return: string - packet with metadata packed into sting
  * Assumptions: TODO
  */  
 struct FilePilot {
@@ -30,35 +34,49 @@ struct FilePilot {
     FilePilot(int p, int i, std::string h, std::string f) :
         num_packets(p), file_ID(i), hash(h), fname(f) {}
 };
+/*
+ * Args: a struct containing pilot packet info for a file
+ * Returns: a string - packet with metadata of the pilot packet
+ * */
 std::string makeFilePilot(FilePilot pilot_packet);
+/*
+ * Args: a string containing pilot packet metadata
+ * Returns: a corresponding FilePilot struct with the same metadata
+ * */
+FilePilot unpackFilePilot(std::string packet);
 
 /*
- * makeDirPilot
- * Constructs the pilot packet for directories
- * Args:
+ * DirPilot
+ * The pilot packet for directories
+ * Constructor args:
  * * int num_files: # files in this directory
  * * string hash: SHA1 hash of the directory
- * * string target: name of copy target directory
- * Return: string - packet with metadata packed into sting
  * Assumptions: TODO
  */  
 struct DirPilot {
     int num_files;
     std::string hash;
-    std::string TARGET;
-    DirPilot(int n, std::string h, std::string T) :
-        num_files(n), hash(h), TARGET(T) {}
+    DirPilot(int n, std::string h) :
+        num_files(n), hash(h) {}
 };
+/*
+ * Args: a struct containing pilot packet info for a directory
+ * Returns: a string - packet with metadata of the pilot packet
+ * */
 std::string makeDirPilot(DirPilot pilot_packet);
+/*
+ * Args: a string containing pilot packet metadata
+ * Returns: a corresponding FilePilot struct with the same metadata
+ * */
+DirPilot unpackDirPilot(std::string packet);
 
 /*
- * makeFilePacket
- * Constructs the data packet for files
- * Args:
+ * FilePacket
+ * The data packet for files
+ * Constructor args:
  * * int packet_num: which packet in order this packet is TODO: fix this <--
  * * int file_ID: numerical id of this file (incrememntal)
  * * string data: file data payload -- 420 bytes except final packet
- * Return: string - packet with metadata packed into sting
  * Assumptions: TODO
  * Additional info: the data payload is always 420 bytes except for the
  * final packet for a file, which may be shorter
@@ -70,6 +88,16 @@ struct FilePacket {
     FilePacket(int p, int f, std::string d) :
         packet_num(p), file_ID(f), data(d) {}
 };
+/*
+ * Args: a struct containing info for a single data packet
+ * Returns: a string - packet with metadata of the pilot packet
+ * */
 std::string makeFilePacket(FilePacket packet);
+/*
+ * Args: a string containing pilot packet metadata
+ * Returns: a corresponding FilePilot struct with the same metadata
+ * */
+FilePacket unpackFilePacket(std::string packet);
+
 
 #endif

@@ -23,7 +23,7 @@ using namespace std;
  * H is the SHA1 hash of the file
  * F... is a variable length field for the file name (up to 480 bytes long)
  */
-std::string makeFilePilot(FilePilot pilot_packet)
+string makeFilePilot(FilePilot pilot_packet)
 {
     string pack = "1 ";
     string num = to_string(pilot_packet.num_packets);
@@ -41,6 +41,23 @@ std::string makeFilePilot(FilePilot pilot_packet)
     return pack;
 }
 
+FilePilot unpackFilePilot(string packet)
+{
+    FilePilot pilot;
+    // NEEDSWORK add error check for correct packet type
+    stringstream packet_s(packet);
+    string intermediate;
+    // get past packet type number
+    getline(packet_s, intermediate, ' ');
+    for (int i = 0; i < MAX_PACKNUM; index++, i++)
+        curr_string += packet[index];
+    pilot.num_packets = stoi(curr_string);
+    index++; // skip past next space
+        
+
+}
+
+
 
 /*
  * Our UDP Directory Pilot packet is in the following format
@@ -51,7 +68,7 @@ std::string makeFilePilot(FilePilot pilot_packet)
  * H is the SHA1 hash of the directory
  * T... is a variable length field for the Target path (up to 465 bytes long)
  */
-std::string makeDirPilot(DirPilot pilot_packet)
+string makeDirPilot(DirPilot pilot_packet)
 {
     string pack = "0 ";
     string num = to_string(pilot_packet.num_files);
@@ -59,8 +76,6 @@ std::string makeDirPilot(DirPilot pilot_packet)
     pack += string(zeros, '0').append(num);
     pack += " ";
     pack += pilot_packet.hash;
-    pack += " ";
-    pack += pilot_packet.TARGET;
     cout << pack << endl;
     return pack;
 }
@@ -75,7 +90,7 @@ std::string makeDirPilot(DirPilot pilot_packet)
  * P is the file ID
  * D... is a variable length field for the file data (up to 480 bytes long)
  */
-std::string makeFilePacket(FilePacket packet)
+string makeFilePacket(FilePacket packet)
 {
     string pack = "2 ";
     string num = to_string(packet.packet_num);
