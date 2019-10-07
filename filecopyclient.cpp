@@ -125,9 +125,11 @@ int main(int argc, char *argv[]) {
         bool timedout = true;
         unordered_map<string, string> filehash;
 
+        // loop through source directory, create hashtable with filenames
+        // as keys and checksums as values
         fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
         
-        //TODO: Fill in message with entire packet, enclose following in a loop through hashtable
+        //TODO: Fill in message with entire packet
         
         for (auto iter = filehash.begin(); iter != filehash.end(); iter++) {
 
