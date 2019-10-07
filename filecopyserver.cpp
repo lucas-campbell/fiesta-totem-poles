@@ -55,6 +55,7 @@
 
 #include "c150nastydgmsocket.h"
 #include "c150debug.h"
+#include "sha1.h"
 #include <fstream>
 #include <cstdlib> 
 
