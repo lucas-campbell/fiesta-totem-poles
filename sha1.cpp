@@ -33,7 +33,7 @@ void computeChecksum(string filename, unsigned char (&hash)[SHA1_LEN])
     *buffer << t->rdbuf();
     SHA1((const unsigned char *)buffer->str().c_str(),
          (buffer->str()).length(), hash);
-    hash[20] = '\0';
+    hash[SHA1_LEN-1] = '\0';
 }
 
 // ------------------------------------------------------
@@ -131,9 +131,9 @@ void fillChecksumTable(unordered_map<string, string> &filehash,
     }
 }
 
-void printHash(char *hash)
+void printHash(const unsigned char *hash)
 {
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < SHA1_LEN-1; i++)
     {
         printf ("%02x", (unsigned int) hash[i]);
     }
@@ -150,17 +150,19 @@ void printHash(char *hash)
  *
  * Return: string which is the directory hash
  */ 
-string getDirHash(unordered_map<string, string> filehash)
-{
-    string file = tmpnam(nullptr);
-    ofstream stream(file);
-    for(auto& kv : filehash) {
-        stream << kv.second << endl;
-    }
-    unsigned char hash[SHA1_LEN];
-    computeChecksum(file, hash);
-    string hash_str = string((const char*)hash);
-    stream.close();
-    remove(file.c_str());
-    return hash_str;
-}
+//TODO currently commented out because of compiler error about using tmpnam,
+//  advises to use mkstemp instead
+//string getDirHash(unordered_map<string, string> filehash)
+//{
+//    string file = tmpnam(nullptr);
+//    ofstream stream(file);
+//    for(auto& kv : filehash) {
+//        stream << kv.second << endl;
+//    }
+//    unsigned char hash[SHA1_LEN];
+//    computeChecksum(file, hash);
+//    string hash_str = string((const char*)hash);
+//    stream.close();
+//    remove(file.c_str());
+//    return hash_str;
+//}

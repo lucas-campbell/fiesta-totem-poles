@@ -45,8 +45,8 @@ INCLUDES = $(C150LIB)c150dgmsocket.h $(C150LIB)c150nastydgmsocket.h $(C150LIB)c1
 
 all: protocoltest.exe shatest.exe fileserver.exe fileclient.exe nastyfiletest.exe datafilemake.exe sha1test.exe
 
-protocoltest.exe: test_protocol.cpp protocol.o $(C150AR) $(INCLUDES)
-	$(CPP) -o protocoltest.exe $(CPPFLAGS) test_protocol.cpp protocol.o $(C150AR)
+protocoltest.exe: test_protocol.cpp protocol.o sha1.o $(C150AR) $(INCLUDES)
+	$(CPP) -o protocoltest.exe $(CPPFLAGS) sha1.o test_protocol.cpp protocol.o -lssl -lcrypto $(C150AR)
 
 shatest.exe: shatest.cpp sha1.o $(C150AR) $(INCLUDES)
 	$(CPP) -o shatest.exe $(CPPFLAGS) shatest.cpp sha1.o -lssl -lcrypto $(C150AR)
@@ -99,6 +99,6 @@ datafilemake.exe: datafilemake.cpp
 # for forcing complete rebuild#
 
 clean:
-	 rm -f fileclient.exe fileserver.exe nastyfiletest.exe sha1test.exe datafilemake.exe *.o 
+	 rm -f protocoltest.exe shatest.exe fileclient.exe fileserver.exe nastyfiletest.exe sha1test.exe datafilemake.exe *.o 
 
 

@@ -24,6 +24,6 @@ std::string makeFileName(std::string dir, std::string name);
 void fillChecksumTable(std::unordered_map<std::string, std::string> &filehash,
                        DIR *SRC, const char* sourceDir);
 std::string getDirHash(std::unordered_map<std::string, std::string> filehash);
-void printHash(char *hash);
+void printHash(const unsigned char *hash);
 
 #endif

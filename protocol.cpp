@@ -35,58 +35,32 @@ string makeFilePilot(FilePilot pilot_packet)
     pack += string(zeros, '0').append(num);
     pack += " ";
     pack += pilot_packet.hash;
+    //printHash((const unsigned char *)(pilot_packet.hash.c_str()));
     pack += " ";
     pack += pilot_packet.fname;
-    cout << pack << endl;
     return pack;
 }
 
 FilePilot unpackFilePilot(string packet)
 {
-    int packet_length = packet.length();
-    // FilePilot pilot;
+    //cout << "unpacking from packet:\n" << packet << endl;
     // NEEDSWORK add error check for correct packet type
-    string curr_string = "";
-    // get past packet type number
-    int index = 2;
 
     // Get number of packets
-    for (int i = 0; i < MAX_PACKNUM; index++, i++)
-        curr_string += packet[index];
-    int num_packets = stoi(curr_string);
-    curr_string = "";
-    index++; // skip past next space
+    int num_packets = stoi(packet.substr(2, MAX_PACKNUM));
 
     // Get File ID
-    for (int i = 0; i < MAX_FILENUM; index++, i++)
-        curr_string += packet[index];
-    int file_ID = stoi(curr_string);
-    curr_string = "";
-    index++; // skip past next space
-
+    int file_ID = stoi(packet.substr(10, MAX_FILENUM));
+    
     // Get hash value
-    for (int i = 0; i < SHA1_LEN-1; index++, i++)
-        curr_string += packet[index];
-    string hash = curr_string;
-    curr_string = "";
-    index++; // skip past next space
+    string hash = packet.substr(18, SHA1_LEN-1);
 
-    // Get hash value
-    for (int i = 0; i < SHA1_LEN-1; index++, i++)
-        curr_string += packet[index];
-    string hash = curr_string;
-    curr_string = "";
-    index++; // skip past next space
+    // Get file name
+    string fname = packet.substr(39);
 
-    for (index; index < packet_length; index++)
-        curr_string += packet[index];
-    string fname = curr_string;
-
-    return FilePacket(num_packets, file_ID, hash, fname);      
+    return FilePilot(num_packets, file_ID, hash, fname);      
 
 }
-
-
 
 /*
  * Our UDP Directory Pilot packet is in the following format
@@ -100,13 +74,27 @@ FilePilot unpackFilePilot(string packet)
 string makeDirPilot(DirPilot pilot_packet)
 {
     string pack = "0 ";
+    //cout << pack;
     string num = to_string(pilot_packet.num_files);
     int zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
+    //cout << string(zeros, '0').append(num) << " ";
     pack += " ";
     pack += pilot_packet.hash;
-    cout << pack << endl;
+    //printHash((const unsigned char *)(pilot_packet.hash.c_str()));
+    //cout << endl;
     return pack;
+}
+
+DirPilot unpackDirPilot(string packet)
+{
+    // Get number of files
+    int num_files = stoi(packet.substr(2, MAX_FILENUM));
+
+    // Get hash value for the directory
+    string hash = packet.substr(10);
+
+    return DirPilot(num_files, hash);
 }
 
 
@@ -131,6 +119,20 @@ string makeFilePacket(FilePacket packet)
     pack += string(zeros, '0').append(num);
     pack += " ";
     pack += packet.data;
-    cout << pack << endl;
+    //cout << pack << endl;
     return pack;
+}
+
+FilePacket unpackFilePacket(std::string packet)
+{
+    // Packet number
+    int packet_num = stoi(packet.substr(2, MAX_PACKNUM));
+
+    // File ID
+    int file_ID = stoi(packet.substr(10, MAX_FILENUM));
+
+    // Actual data
+    string data  = packet.substr(18);
+
+    return FilePacket(packet_num, file_ID, data);
 }
