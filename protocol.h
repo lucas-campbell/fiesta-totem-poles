@@ -20,9 +20,9 @@ const int FILE_PILOT_FIELDS = 5;
  * The pilot packet for files
  * Constructor args:
  * * int num_packets: # packets for this file = file_size / PACKET_DATA_SIZE
- * * string fname: name of the file
  * * int file_ID: numerical id of this file (incrememntal)
  * * string hash: SHA1 hash of file contents
+ * * string fname: name of the file
  * Assumptions: TODO
  */  
 struct FilePilot {

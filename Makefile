@@ -43,25 +43,27 @@ C150AR = $(C150LIB)c150ids.a
 LDFLAGS = 
 INCLUDES = $(C150LIB)c150dgmsocket.h $(C150LIB)c150nastydgmsocket.h $(C150LIB)c150network.h $(C150LIB)c150exceptions.h $(C150LIB)c150debug.h $(C150LIB)c150utility.h sha1.h protocol.h
 
+UTILS = sha1.o protocol.o
+
 all: protocoltest.exe shatest.exe fileserver.exe fileclient.exe nastyfiletest.exe datafilemake.exe sha1test.exe
 
-protocoltest.exe: test_protocol.cpp protocol.o sha1.o $(C150AR) $(INCLUDES)
-	$(CPP) -o protocoltest.exe $(CPPFLAGS) sha1.o test_protocol.cpp protocol.o -lssl -lcrypto $(C150AR)
+protocoltest.exe: test_protocol.cpp $(UTILS) $(C150AR) $(INCLUDES)
+	$(CPP) -o protocoltest.exe $(CPPFLAGS) test_protocol.cpp $(UTILS) -lssl -lcrypto $(C150AR)
 
-shatest.exe: shatest.cpp sha1.o $(C150AR) $(INCLUDES)
-	$(CPP) -o shatest.exe $(CPPFLAGS) shatest.cpp sha1.o -lssl -lcrypto $(C150AR)
+shatest.exe: shatest.cpp $(UTILS) $(C150AR) $(INCLUDES)
+	$(CPP) -o shatest.exe $(CPPFLAGS) shatest.cpp $(UTILS) -lssl -lcrypto $(C150AR)
 
 #
 # Build the filecopy client
 #
-fileserver.exe: filecopyserver.cpp sha1.o $(C150AR) $(INCLUDES)
-	$(CPP) -o fileserver.exe $(CPPFLAGS) filecopyserver.cpp sha1.o -lssl -lcrypto $(C150AR)
+fileserver.exe: filecopyserver.cpp $(UTILS) $(C150AR) $(INCLUDES)
+	$(CPP) -o fileserver.exe $(CPPFLAGS) filecopyserver.cpp $(UTILS) -lssl -lcrypto $(C150AR)
 
 #
 # Build the filecopy client
 #
 fileclient.exe: filecopyclient.cpp sha1.o $(C150AR) $(INCLUDES)
-	$(CPP) -o fileclient.exe $(CPPFLAGS) filecopyclient.cpp sha1.o -lssl -lcrypto $(C150AR)
+	$(CPP) -o fileclient.exe $(CPPFLAGS) filecopyclient.cpp $(UTILS) -lssl -lcrypto $(C150AR)
 
 #
 # Build the sha1test

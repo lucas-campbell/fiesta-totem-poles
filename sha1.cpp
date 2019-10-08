@@ -151,18 +151,21 @@ void printHash(const unsigned char *hash)
  * Return: string which is the directory hash
  */ 
 //TODO currently commented out because of compiler error about using tmpnam,
-//  advises to use mkstemp instead
-//string getDirHash(unordered_map<string, string> filehash)
-//{
-//    string file = tmpnam(nullptr);
-//    ofstream stream(file);
-//    for(auto& kv : filehash) {
-//        stream << kv.second << endl;
-//    }
-//    unsigned char hash[SHA1_LEN];
-//    computeChecksum(file, hash);
-//    string hash_str = string((const char*)hash);
-//    stream.close();
-//    remove(file.c_str());
-//    return hash_str;
-//}
+// advises to use mkstemp instead
+string getDirHash(unordered_map<string, string> filehash)
+{
+    string file = tmpnam(nullptr);
+    //char name[] = "/tmp/fileXXXXXX";
+    //int file = mkstemp(name);
+    //FILE* file = fdopen(fd, "w");
+    ofstream stream(file);
+    for(auto& kv : filehash) {
+        stream << kv.second << endl;
+    }
+    unsigned char hash[SHA1_LEN];
+    computeChecksum(file, hash);
+    string hash_str = string((const char*)hash);
+    stream.close();
+    remove(file.c_str());
+    return hash_str;
+}

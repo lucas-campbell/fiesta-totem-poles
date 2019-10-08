@@ -77,6 +77,9 @@ int main(int argc, char *argv[]) {
     ssize_t readlen;              // amount of data read from socket
     char incoming_msg[512];   // received message data
     DIR *SRC;                   // Unix descriptor for open directory
+    int DUMMY_PACKET_NUM = 10;
+    int DUMMY_FILE_ID = 4;
+    
 
 
     checkDirectory(argv[SRC_ARG]);  //Make sure src exists
@@ -135,13 +138,14 @@ int main(int argc, char *argv[]) {
         
         //TODO: Fill in message with entire packet
 
-        int num files = filehash.size();
-        string dirChecksum = getDirChecksum(filehash);
-        bool dir_sent = sendDirPilot(files, dirCheckSum);
-        
+        int num_files = filehash.size();
+        string dir_checksum = getDirHash(filehash);
+        bool dir_sent = sendDirPilot(num_files, dir_checksum);
+        (void) dir_sent;
         for (auto iter = filehash.begin(); iter != filehash.end(); iter++) {
-
-            string pilot_pack = makeFilePilot(FilePilot());
+            FilePilot pilot_struct = FilePilot(DUMMY_PACKET_NUM, DUMMY_FILE_ID,
+                                               iter->second, iter->first);
+            string pilot_pack = makeFilePilot(pilot_struct);
             outgoing_msg = iter->first; //filename
             outgoing_msg += ", ";
             outgoing_msg += iter->second;
@@ -363,5 +367,5 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
  */
 bool sendDirPilot(int num_files, string hash)
 {
-
+    return false;
 }
