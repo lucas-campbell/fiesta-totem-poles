@@ -1,8 +1,8 @@
-10/08/2019 11:13:34.536588 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=0)
-10/08/2019 11:13:34.539752 ./fileserver.exe:     Ready to accept messages
-10/08/2019 11:13:36.633051 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |0 0000011 ...Ux..9.......8...A.|
-10/08/2019 11:13:36.633283 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |0 0000011 ...Ux..9.......8...A.|
-10/08/2019 11:13:36.633491 ./fileserver.exe:     Successfully read 31 bytes. Message="0 0000011 ˛ÇìUx≥á9Ÿ°Âç±Ç8Æ’ÔA"
-10/08/2019 11:13:36.635323 ./fileserver.exe:     Responding with message="DirHashError"
-10/08/2019 11:13:36.635532 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=13 |DirHashError.|
-10/08/2019 11:13:36.635860 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=13 |DirHashError.|
+10/08/2019 11:28:08.602306 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=0)
+10/08/2019 11:28:08.613663 ./fileserver.exe:     Ready to accept messages
+10/08/2019 11:28:10.975890 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |0 0000011 %MG.7 ..;..Nd%.&...x.|
+10/08/2019 11:28:10.976084 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |0 0000011 %MG.7 ..;..Nd%.&...x.|
+10/08/2019 11:28:10.976243 ./fileserver.exe:     Successfully read 31 bytes. Message="0 0000011 %MG˝7 ç;≥Nd%±&Êx"
+10/08/2019 11:28:10.981507 ./fileserver.exe:     Responding with message="DirHashOK"
+10/08/2019 11:28:10.981684 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=10 |DirHashOK.|
+10/08/2019 11:28:10.981997 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=10 |DirHashOK.|

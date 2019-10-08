@@ -1,8 +1,8 @@
-10/08/2019 11:13:36.551239 ./fileclient.exe: Creating C150DgmSocket
-10/08/2019 11:13:36.632119 ./fileclient.exe: ./fileclient.exe: Writing message: "0 0000011 ˛ÇìUx≥á9Ÿ°Âç±Ç8Æ’ÔA"
-10/08/2019 11:13:36.632299 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |0 0000011 ...Ux..9.......8...A.|
-10/08/2019 11:13:36.632568 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |0 0000011 ...Ux..9.......8...A.|
-10/08/2019 11:13:36.632777 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 11:13:36.636120 ./fileclient.exe: C150DgmSocket::read: successful read with len=13 |DirHashError.|
-10/08/2019 11:13:36.636279 ./fileclient.exe: PRINTING RESPONSE: Response received is "DirHashError"
+10/08/2019 11:28:10.909896 ./fileclient.exe: Creating C150DgmSocket
+10/08/2019 11:28:10.975097 ./fileclient.exe: ./fileclient.exe: Writing message: "0 0000011 %MG˝7 ç;≥Nd%±&Êx"
+10/08/2019 11:28:10.975266 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |0 0000011 %MG.7 ..;..Nd%.&...x.|
+10/08/2019 11:28:10.975568 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |0 0000011 %MG.7 ..;..Nd%.&...x.|
+10/08/2019 11:28:10.975795 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 11:28:10.982243 ./fileclient.exe: C150DgmSocket::read: successful read with len=10 |DirHashOK.|
+10/08/2019 11:28:10.982430 ./fileclient.exe: PRINTING RESPONSE: Response received is "DirHashOK"
 

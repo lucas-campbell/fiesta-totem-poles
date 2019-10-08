@@ -31,7 +31,6 @@
 #include "c150dgmsocket.h"
 #include "c150debug.h"
 #include <string>
-#include <unordered_map> 
 
 
 using namespace std;          // for C++ std library
@@ -133,7 +132,7 @@ int main(int argc, char *argv[]) {
         int num_tries = 0;
         //start at true so we "try" to send message "again"
         bool timedout = true;
-        unordered_map<string, string> filehash;
+        map<string, string> filehash;
 
         // loop through source directory, create hashtable with filenames
         // as keys and checksums as values
@@ -142,7 +141,7 @@ int main(int argc, char *argv[]) {
         //TODO: Fill in message with entire packet
 
         int num_files = filehash.size();
-        string dir_checksum = getDirHash(filehash);
+        string dir_checksum = getDirHash(filehash, false);
         bool dir_sent = sendDirPilot(num_files, dir_checksum, sock, argv);
         (void) dir_sent;
 

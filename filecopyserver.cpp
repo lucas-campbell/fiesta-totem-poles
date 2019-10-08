@@ -148,7 +148,7 @@ main(int argc, char *argv[])
 
 
 
-    unordered_map<string, string> filehash;
+    map<string, string> filehash;
     fillChecksumTable(filehash, TRG, argv[TARGET_ARG]);
 
 
@@ -198,7 +198,7 @@ main(int argc, char *argv[])
             DirPilot dir_pilot = unpackDirPilot(incoming);
 
             // checksum of target directory
-            string target_dir_hash = getDirHash(filehash);
+            string target_dir_hash = getDirHash(filehash, true);
 
             printf("target_dir_hash: ");
             printHash((const unsigned char *)target_dir_hash.c_str());
