@@ -41,6 +41,9 @@
 using namespace C150NETWORK;  // for all the comp150 utilities 
 
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
+void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *sock);
+void handleFilePilot(string incoming, map<string, string> filehash, C150DgmSocket *sock);
+void handleData(string incoming, C150DgmSocket *sock);
 
 const int NETWORK_NASTINESS_ARG = 1;
 const int FILE_NASTINESS_ARG = 2;
@@ -174,48 +177,17 @@ main(int argc, char *argv[])
             char pack_type = incoming[0];
             switch (pack_type) {
             case 'D':
-                handleDir(incoming);
+                handleDir(incoming, filehash, sock);
                 break;
 
             case 'P':
-                handleFilePilot(incoming);
+                handleFilePilot(incoming, filehash, sock);
                 break;
             case 'F':
-                handleData(incoming);
+                handleData(incoming, sock);
                 break;
             }
-            DirPilot dir_pilot = unpackDirPilot(incoming);
-
-            // checksum of target directory
-            string target_dir_hash = getDirHash(filehash, true);
-
-            printf("target_dir_hash: ");
-            printHash((const unsigned char *)target_dir_hash.c_str());
-            printf("\n");
-
-            printf("unpacked dir_pilot.hash: ");
-            printHash((const unsigned char *)dir_pilot.hash.c_str());
-            printf("\n");
-
-
-            bool hashes_match = (target_dir_hash == dir_pilot.hash);
-
-            //
-            //  create the message to return. At this point, just return what
-            //  we received.
-            // 
-            string response;
-            if (hashes_match)
-                response = "DirHashOK";
-            else
-                response = "DirHashError";
-
-            //
-            // write the return message
-            //
-            c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
-                              response.c_str());
-            sock -> write(response.c_str(), response.length()+1);
+            
         }
     }
 
@@ -317,28 +289,24 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
  * handleDir
  * TODO: FUNCTION CONTRACT
  */
-void handleDir(string incoming)
+void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *sock)
 {
     DirPilot dir_pilot = unpackDirPilot(incoming);
     
     // checksum of target directory
-    string target_dir_hash = getDirHash(filehash, true);
+    string target_dir_hash = getDirHash(filehash);
     
-    printf("target_dir_hash: ");
-    printHash((const unsigned char *)target_dir_hash.c_str());
-    printf("\n");
+    // printf("target_dir_hash: ");
+    // printHash((const unsigned char *)target_dir_hash.c_str());
+    // printf("\n");
     
-    printf("unpacked dir_pilot.hash: ");
-    printHash((const unsigned char *)dir_pilot.hash.c_str());
-    printf("\n");
+    // printf("unpacked dir_pilot.hash: ");
+    // printHash((const unsigned char *)dir_pilot.hash.c_str());
+    // printf("\n");
     
     
     bool hashes_match = (target_dir_hash == dir_pilot.hash);
     
-            //
-            //  create the message to return. At this point, just return what
-            //  we received.
-            // 
     string response;
     if (hashes_match)
         response = "DirHashOK";
@@ -357,33 +325,29 @@ void handleDir(string incoming)
  * handleFilePilot
  * TODO: FUNCTION CONTRACT
  */
-void handleFilePilot(string incoming)
+void handleFilePilot(string incoming, map<string, string> filehash,
+                     C150DgmSocket *sock)
 {
-    DirPilot dir_pilot = unpackDirPilot(incoming);
+    FilePilot file_pilot = unpackFilePilot(incoming);
 
-    // checksum of target directory
-    string target_dir_hash = getDirHash(filehash, true);
+    string trg_file_hash = filehash[file_pilot.fname];
     
-    printf("target_dir_hash: ");
-    printHash((const unsigned char *)target_dir_hash.c_str());
-    printf("\n");
+    // printf("target_file_hash: ");
+    // printHash((const unsigned char *)target_dir_hash.c_str());
+    // printf("\n");
     
-    printf("unpacked dir_pilot.hash: ");
-    printHash((const unsigned char *)dir_pilot.hash.c_str());
-    printf("\n");
+    // printf("unpacked file_pilot.hash: ");
+    // printHash((const unsigned char *)dir_pilot.hash.c_str());
+    // printf("\n");
     
     
-    bool hashes_match = (target_dir_hash == dir_pilot.hash);
+    bool hashes_match = (trg_file_hash == file_pilot.hash);
     
-    //
-    //  create the message to return. At this point, just return what
-    //  we received.
-    // 
     string response;
     if (hashes_match)
-        response = "DirHashOK";
+        response = "FileHashOK";
     else
-        response = "DirHashError";
+        response = "FileHashError";
     
     //
     // write the return message
@@ -392,3 +356,13 @@ void handleFilePilot(string incoming)
                       response.c_str());
     sock -> write(response.c_str(), response.length()+1);
 }
+
+/*
+ * handleFilePilot
+ * TODO: FUNCTION CONTRACT
+ */
+void handleData(string incoming, C150DgmSocket *sock)
+{
+    return;
+}
+

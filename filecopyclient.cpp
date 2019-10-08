@@ -141,13 +141,12 @@ int main(int argc, char *argv[]) {
         //TODO: Fill in message with entire packet
 
         int num_files = filehash.size();
-        string dir_checksum = getDirHash(filehash, false);
+        string dir_checksum = getDirHash(filehash);
         bool dir_sent = sendDirPilot(num_files, dir_checksum, sock, argv);
         (void) dir_sent;
 
         cout << "Dir hash check: " << dir_sent << endl;
 
-        return 0;
     
         for (auto iter = filehash.begin(); iter != filehash.end(); iter++) {
             FilePilot pilot_struct = FilePilot(DUMMY_PACKET_NUM, DUMMY_FILE_ID,
@@ -187,6 +186,8 @@ int main(int argc, char *argv[]) {
                 // Check and print the incoming message
                 checkAndPrintMessage(readlen, incoming_msg,
                                      sizeof(incoming_msg));
+                bool file_hash_eq = (strcmp(incoming_msg, "FileHashOk") == 0);
+                (void) file_hash_eq;
                 if (strcmp(incoming_msg, c_style_msg) == 0)
                     cout << "OK, received message matches sent\n";
                 else {

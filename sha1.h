@@ -79,7 +79,7 @@ std::string getDirHash(std::map<std::string, std::string> filehash);
  * *const unsigned char* hash: the hash to be printed
  * 
  * Return: none
- */
+  */
 void printHash(const unsigned char *hash);
 
 #endif
