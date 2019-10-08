@@ -166,6 +166,7 @@ string getDirHash(unordered_map<string, string> filehash)
     computeChecksum(file, hash);
     string hash_str = string((const char*)hash);
     stream.close();
-    remove(file.c_str());
+    cout << file << endl;
+    //remove(file.c_str());
     return hash_str;
 }

@@ -56,6 +56,7 @@
 #include "c150nastydgmsocket.h"
 #include "c150debug.h"
 #include "sha1.h"
+#include "protocol.h"
 #include <fstream>
 #include <cstdlib> 
 
@@ -88,6 +89,7 @@ main(int argc, char *argv[])
     int file_nastiness;
     DIR* TRG;
     (void) file_nastiness;
+
     //
     // Check command line and parse arguments
     //
@@ -169,7 +171,7 @@ main(int argc, char *argv[])
         //
         // infinite loop processing messages
         //
-        while(1)        {
+        while(1) {
 
             //
             // Read a packet
@@ -191,13 +193,33 @@ main(int argc, char *argv[])
             // ...it's slightly easier to work with, and cleanString expects it
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
-            cerr << "received message:\n" << incoming << endl;
+
+
+            DirPilot dir_pilot = unpackDirPilot(incoming);
+
+            // checksum of target directory
+            string target_dir_hash = getDirHash(filehash);
+
+            printf("target_dir_hash: ");
+            printHash((const unsigned char *)target_dir_hash.c_str());
+            printf("\n");
+
+            printf("unpacked dir_pilot.hash: ");
+            printHash((const unsigned char *)dir_pilot.hash.c_str());
+            printf("\n");
+
+
+            bool hashes_match = (target_dir_hash == dir_pilot.hash);
 
             //
             //  create the message to return. At this point, just return what
             //  we received.
             // 
-            string response = incoming;
+            string response;
+            if (hashes_match)
+                response = "DirHashOK";
+            else
+                response = "DirHashError";
 
             //
             // write the return message

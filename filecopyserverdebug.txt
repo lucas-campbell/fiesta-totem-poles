@@ -1,234 +1,8 @@
-10/06/2019 23:30:18.785337 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=0)
-10/06/2019 23:30:18.794766 ./fileserver.exe:     Ready to accept messages
-10/06/2019 23:35:14.932210 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:06_23:34:36.txt, Ul....[..._.V..q7..F.|
-10/06/2019 23:35:14.932485 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:06_23:34:36.txt, Ul....[..._.V..q7..F.|
-10/06/2019 23:35:14.932690 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:06_23:34:36.txt, Ulšéð[ðž_Vá“q7ÁŒF"
-10/06/2019 23:35:14.933408 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:06_23:34:36.txt, Ulšéð[ðž_Vá“q7ÁŒF"
-10/06/2019 23:35:14.933670 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:06_23:34:36.txt, Ul....[..._.V..q7..F.|
-10/06/2019 23:35:14.934968 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:06_23:34:36.txt, Ul....[..._.V..q7..F.|
-10/06/2019 23:35:14.936359 ./fileserver.exe:     C150DgmSocket::read: successful read with len=36 |./.sha1.h.swp, 8.5..5.t.,.....1).lo.|
-10/06/2019 23:35:14.936821 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 36 |./.sha1.h.swp, 8.5..5.t.,.....1).lo.|
-10/06/2019 23:35:14.937123 ./fileserver.exe:     Successfully read 36 bytes. Message="./.sha1.h.swp, 8þ5º5–t‰,‘–1)Ëlo"
-10/06/2019 23:35:14.937557 ./fileserver.exe:     Responding with message="./.sha1.h.swp, 8þ5º5–t‰,‘–1)Ëlo"
-10/06/2019 23:35:14.937870 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=36 |./.sha1.h.swp, 8.5..5.t.,.....1).lo.|
-10/06/2019 23:35:14.938285 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=36 |./.sha1.h.swp, 8.5..5.t.,.....1).lo.|
-10/06/2019 23:35:14.939268 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:05_18:01:52.txt, .&7L..........i......|
-10/06/2019 23:35:14.939491 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:05_18:01:52.txt, .&7L..........i......|
-10/06/2019 23:35:14.939677 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:05_18:01:52.txt, ª&7L„
-ûõ«Ò‰iÞóÑ”"
-10/06/2019 23:35:14.939902 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:05_18:01:52.txt, ª&7L„
-ûõ«Ò‰iÞóÑ”"
-10/06/2019 23:35:14.940096 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_18:01:52.txt, .&7L..........i......|
-10/06/2019 23:35:14.940467 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_18:01:52.txt, .&7L..........i......|
-10/06/2019 23:35:14.941367 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:06_23:35:14.txt, ..=u.'..2,.>......E..|
-10/06/2019 23:35:14.941587 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:06_23:35:14.txt, ..=u.'..2,.>......E..|
-10/06/2019 23:35:14.941765 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:06_23:35:14.txt, Ë±=uù'¥2,§>ô¶Õ»´E"
-10/06/2019 23:35:14.941984 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:06_23:35:14.txt, Ë±=uù'¥2,§>ô¶Õ»´E"
-10/06/2019 23:35:14.942175 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:06_23:35:14.txt, ..=u.'..2,.>......E..|
-10/06/2019 23:35:14.942531 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:06_23:35:14.txt, ..=u.'..2,.>......E..|
-10/06/2019 23:35:14.943462 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:54:38.txt, -...q@......U.c8.....|
-10/06/2019 23:35:14.943682 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:05_17:54:38.txt, -...q@......U.c8.....|
-10/06/2019 23:35:14.943864 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:05_17:54:38.txt, -§öq@ó¡ÂâUÁc8ƒ‘"
-10/06/2019 23:35:14.944083 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:05_17:54:38.txt, -§öq@ó¡ÂâUÁc8ƒ‘"
-10/06/2019 23:35:14.944278 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:54:38.txt, -...q@......U.c8.....|
-10/06/2019 23:35:14.944622 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:54:38.txt, -...q@......U.c8.....|
-10/06/2019 23:35:14.945697 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:53:45.txt, .....g.k......@b.g...|
-10/06/2019 23:35:14.945885 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:05_17:53:45.txt, .....g.k......@b.g...|
-10/06/2019 23:35:14.946066 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:05_17:53:45.txt, ‘ÿÇÕøg«k®éÂŽ¹Ç@b×gãý"
-10/06/2019 23:35:14.946286 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:05_17:53:45.txt, ‘ÿÇÕøg«k®éÂŽ¹Ç@b×gãý"
-10/06/2019 23:35:14.946510 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:53:45.txt, .....g.k......@b.g...|
-10/06/2019 23:35:14.946835 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:53:45.txt, .....g.k......@b.g...|
-10/06/2019 23:35:14.947765 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |./.filecopyserver.cpp.swp, i...(..M.?#..H..U....|
-10/06/2019 23:35:14.947950 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |./.filecopyserver.cpp.swp, i...(..M.?#..H..U....|
-10/06/2019 23:35:14.948130 ./fileserver.exe:     Successfully read 48 bytes. Message="./.filecopyserver.cpp.swp, iåÑò(³M´?#ëHïàUèŸå"
-10/06/2019 23:35:14.948348 ./fileserver.exe:     Responding with message="./.filecopyserver.cpp.swp, iåÑò(³M´?#ëHïàUèŸå"
-10/06/2019 23:35:14.948656 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=48 |./.filecopyserver.cpp.swp, i...(..M.?#..H..U....|
-10/06/2019 23:35:14.948948 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=48 |./.filecopyserver.cpp.swp, i...(..M.?#..H..U....|
-10/06/2019 23:35:14.949894 ./fileserver.exe:     C150DgmSocket::read: successful read with len=35 |./protocol.h, .....X.B.l.V......pD.|
-10/06/2019 23:35:14.950080 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 35 |./protocol.h, .....X.B.l.V......pD.|
-10/06/2019 23:35:14.950261 ./fileserver.exe:     Successfully read 35 bytes. Message="./protocol.h, ¡Í¢ýXB±làVš†¶Ô.pD"
-10/06/2019 23:35:14.950630 ./fileserver.exe:     Responding with message="./protocol.h, ¡Í¢ýXB±làVš†¶Ô.pD"
-10/06/2019 23:35:14.950855 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=35 |./protocol.h, .....X.B.l.V......pD.|
-10/06/2019 23:35:14.951120 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=35 |./protocol.h, .....X.B.l.V......pD.|
-10/06/2019 23:35:14.952102 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:52:44.txt, $H15",....GkQE....1,.|
-10/06/2019 23:35:14.952294 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:05_17:52:44.txt, $H15",....GkQE....1,.|
-10/06/2019 23:35:14.952512 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:05_17:52:44.txt, $H15",ÀÐ˜GkQEóî©1,"
-10/06/2019 23:35:14.952924 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:05_17:52:44.txt, $H15",ÀÐ˜GkQEóî©1,"
-10/06/2019 23:35:14.953122 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:52:44.txt, $H15",....GkQE....1,.|
-10/06/2019 23:35:14.953450 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:52:44.txt, $H15",....GkQE....1,.|
-10/06/2019 23:35:14.954420 ./fileserver.exe:     C150DgmSocket::read: successful read with len=43 |./filecopyserver.cpp, W....).f0.&.o........|
-10/06/2019 23:35:14.954612 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 43 |./filecopyserver.cpp, W....).f0.&.o........|
-10/06/2019 23:35:14.954792 ./fileserver.exe:     Successfully read 43 bytes. Message="./filecopyserver.cpp, WÊµ‘ù)¤f0Ê&ëošÔ²Ù
-ö¢"
-10/06/2019 23:35:14.955013 ./fileserver.exe:     Responding with message="./filecopyserver.cpp, WÊµ‘ù)¤f0Ê&ëošÔ²Ù
-ö¢"
-10/06/2019 23:35:14.955204 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=43 |./filecopyserver.cpp, W....).f0.&.o........|
-10/06/2019 23:35:14.955504 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=43 |./filecopyserver.cpp, W....).f0.&.o........|
-10/06/2019 23:35:14.956448 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:51:04.txt, @.X.'........t..U.qM.|
-10/06/2019 23:35:14.956641 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:05_17:51:04.txt, @.X.'........t..U.qM.|
-10/06/2019 23:35:14.956822 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:05_17:51:04.txt, @¨X²'± ÏŒ–©ÄtìñUðqM"
-10/06/2019 23:35:14.957041 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:05_17:51:04.txt, @¨X²'± ÏŒ–©ÄtìñUðqM"
-10/06/2019 23:35:14.957235 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:51:04.txt, @.X.'........t..U.qM.|
-10/06/2019 23:35:14.957539 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:51:04.txt, @.X.'........t..U.qM.|
-10/06/2019 23:35:14.958602 ./fileserver.exe:     C150DgmSocket::read: successful read with len=43 |./filecopyclient.cpp, ...W-P.).......X.....|
-10/06/2019 23:35:14.958787 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 43 |./filecopyclient.cpp, ...W-P.).......X.....|
-10/06/2019 23:35:14.958966 ./fileserver.exe:     Successfully read 43 bytes. Message="./filecopyclient.cpp, ’íéW-P)œ’±ª¶´XÓì©÷"
-10/06/2019 23:35:14.959185 ./fileserver.exe:     Responding with message="./filecopyclient.cpp, ’íéW-P)œ’±ª¶´XÓì©÷"
-10/06/2019 23:35:14.959421 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=43 |./filecopyclient.cpp, ...W-P.).......X.....|
-10/06/2019 23:35:14.959694 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=43 |./filecopyclient.cpp, ...W-P.).......X.....|
-10/06/2019 23:35:14.960669 ./fileserver.exe:     C150DgmSocket::read: successful read with len=38 |./.sha1.cpp.swp, ......M?k..mZ..{.%Y..|
-10/06/2019 23:35:14.960854 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 38 |./.sha1.cpp.swp, ......M?k..mZ..{.%Y..|
-10/06/2019 23:35:14.961034 ./fileserver.exe:     Successfully read 38 bytes. Message="./.sha1.cpp.swp, òòëØãïM?k„mZŽœ{ƒ%Y"
-10/06/2019 23:35:14.961252 ./fileserver.exe:     Responding with message="./.sha1.cpp.swp, òòëØãïM?k„mZŽœ{ƒ%Y"
-10/06/2019 23:35:14.961553 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=38 |./.sha1.cpp.swp, ......M?k..mZ..{.%Y..|
-10/06/2019 23:35:14.961913 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=38 |./.sha1.cpp.swp, ......M?k..mZ..{.%Y..|
-10/06/2019 23:35:14.962797 ./fileserver.exe:     C150DgmSocket::read: successful read with len=33 |./sha1.cpp, .?...1ob..c>.)F....#.|
-10/06/2019 23:35:14.962983 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 33 |./sha1.cpp, .?...1ob..c>.)F....#.|
-10/06/2019 23:35:14.963163 ./fileserver.exe:     Successfully read 33 bytes. Message="./sha1.cpp, Ô?‘Ûç1obc>Ã)Fèç¢#"
-10/06/2019 23:35:14.963479 ./fileserver.exe:     Responding with message="./sha1.cpp, Ô?‘Ûç1obc>Ã)Fèç¢#"
-10/06/2019 23:35:14.963699 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=33 |./sha1.cpp, .?...1ob..c>.)F....#.|
-10/06/2019 23:35:14.963961 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=33 |./sha1.cpp, .?...1ob..c>.)F....#.|
-10/06/2019 23:35:14.964935 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |./filecopyserverdebug.txt, .....*6....v...E..-..|
-10/06/2019 23:35:14.965121 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |./filecopyserverdebug.txt, .....*6....v...E..-..|
-10/06/2019 23:35:14.965300 ./fileserver.exe:     Successfully read 48 bytes. Message="./filecopyserverdebug.txt, ÉÔ»°*6°ÖàòvÃ	®EÞ- "
-10/06/2019 23:35:14.965550 ./fileserver.exe:     Responding with message="./filecopyserverdebug.txt, ÉÔ»°*6°ÖàòvÃ	®EÞ- "
-10/06/2019 23:35:14.965742 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=48 |./filecopyserverdebug.txt, .....*6....v...E..-..|
-10/06/2019 23:35:14.966013 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=48 |./filecopyserverdebug.txt, .....*6....v...E..-..|
-10/06/2019 23:35:14.966964 ./fileserver.exe:     C150DgmSocket::read: successful read with len=36 |./shatest.exe, l%...,.".y/....D..[..|
-10/06/2019 23:35:14.967148 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 36 |./shatest.exe, l%...,.".y/....D..[..|
-10/06/2019 23:35:14.967328 ./fileserver.exe:     Successfully read 36 bytes. Message="./shatest.exe, l%°ôÔ,¡"
-y/´É–Dï„[ž"
-10/06/2019 23:35:14.967582 ./fileserver.exe:     Responding with message="./shatest.exe, l%°ôÔ,¡"
-y/´É–Dï„[ž"
-10/06/2019 23:35:14.967772 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=36 |./shatest.exe, l%...,.".y/....D..[..|
-10/06/2019 23:35:14.968042 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=36 |./shatest.exe, l%...,.".y/....D..[..|
-10/06/2019 23:35:14.968994 ./fileserver.exe:     C150DgmSocket::read: successful read with len=41 |./datafilemake.cpp, .KDnT...=m'M..0....x.|
-10/06/2019 23:35:14.969179 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 41 |./datafilemake.cpp, .KDnT...=m'M..0....x.|
-10/06/2019 23:35:14.969359 ./fileserver.exe:     Successfully read 41 bytes. Message="./datafilemake.cpp, ¥KDnTÈæ×=m'M¿ç0ðx"
-10/06/2019 23:35:14.969610 ./fileserver.exe:     Responding with message="./datafilemake.cpp, ¥KDnTÈæ×=m'M¿ç0ðx"
-10/06/2019 23:35:14.969801 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=41 |./datafilemake.cpp, .KDnT...=m'M..0....x.|
-10/06/2019 23:35:14.970069 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=41 |./datafilemake.cpp, .KDnT...=m'M..0....x.|
-10/06/2019 23:35:14.971003 ./fileserver.exe:     C150DgmSocket::read: successful read with len=37 |./sha1test.cpp, .........8....p......|
-10/06/2019 23:35:14.971187 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 37 |./sha1test.cpp, .........8....p......|
-10/06/2019 23:35:14.971366 ./fileserver.exe:     Successfully read 37 bytes. Message="./sha1test.cpp, ’¡ßì„šÒëÛ8¶‰ÏpâÕ’»"
-10/06/2019 23:35:14.971616 ./fileserver.exe:     Responding with message="./sha1test.cpp, ’¡ßì„šÒëÛ8¶‰ÏpâÕ’»"
-10/06/2019 23:35:14.971807 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=37 |./sha1test.cpp, .........8....p......|
-10/06/2019 23:35:14.972076 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=37 |./sha1test.cpp, .........8....p......|
-10/06/2019 23:35:14.973079 ./fileserver.exe:     C150DgmSocket::read: successful read with len=35 |./.gitignore, .>3L..d<.......c..)..|
-10/06/2019 23:35:14.973265 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 35 |./.gitignore, .>3L..d<.......c..)..|
-10/06/2019 23:35:14.973473 ./fileserver.exe:     Successfully read 35 bytes. Message="./.gitignore, >3L°¼d<õ
-ÔÎÇcËä)·"
-10/06/2019 23:35:14.973700 ./fileserver.exe:     Responding with message="./.gitignore, >3L°¼d<õ
-ÔÎÇcËä)·"
-10/06/2019 23:35:14.973893 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=35 |./.gitignore, .>3L..d<.......c..)..|
-10/06/2019 23:35:14.974165 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=35 |./.gitignore, .>3L..d<.......c..)..|
-10/06/2019 23:35:14.975099 ./fileserver.exe:     C150DgmSocket::read: successful read with len=33 |./Makefile, ..8k\....n......`5m..|
-10/06/2019 23:35:14.975284 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 33 |./Makefile, ..8k\....n......`5m..|
-10/06/2019 23:35:14.975494 ./fileserver.exe:     Successfully read 33 bytes. Message="./Makefile, ù8k\ƒÈnÍ¿È‡`5mÖ"
-10/06/2019 23:35:14.975718 ./fileserver.exe:     Responding with message="./Makefile, ù8k\ƒÈnÍ¿È‡`5mÖ"
-10/06/2019 23:35:14.975910 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=33 |./Makefile, ..8k\....n......`5m..|
-10/06/2019 23:35:14.976182 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=33 |./Makefile, ..8k\....n......`5m..|
-10/06/2019 23:35:14.977156 ./fileserver.exe:     C150DgmSocket::read: successful read with len=42 |./nastyfiletest.cpp, ...|...s6Y4g.!..B..$.|
-10/06/2019 23:35:14.977344 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 42 |./nastyfiletest.cpp, ...|...s6Y4g.!..B..$.|
-10/06/2019 23:35:14.977557 ./fileserver.exe:     Successfully read 42 bytes. Message="./nastyfiletest.cpp, ‘
-í|«Ôs6Y4gÛ!€Bü$"
-10/06/2019 23:35:14.977777 ./fileserver.exe:     Responding with message="./nastyfiletest.cpp, ‘
-í|«Ôs6Y4gÛ!€Bü$"
-10/06/2019 23:35:14.977971 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=42 |./nastyfiletest.cpp, ...|...s6Y4g.!..B..$.|
-10/06/2019 23:35:14.978238 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=42 |./nastyfiletest.cpp, ...|...s6Y4g.!..B..$.|
-10/06/2019 23:35:14.979153 ./fileserver.exe:     C150DgmSocket::read: successful read with len=36 |./shatest.cpp, ..6.4......?.........|
-10/06/2019 23:35:14.979339 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 36 |./shatest.cpp, ..6.4......?.........|
-10/06/2019 23:35:14.979553 ./fileserver.exe:     Successfully read 36 bytes. Message="./shatest.cpp, ë–6¨4Å‰¸š‰?êÊªÒ…×­"
-10/06/2019 23:35:14.979771 ./fileserver.exe:     Responding with message="./shatest.cpp, ë–6¨4Å‰¸š‰?êÊªÒ…×­"
-10/06/2019 23:35:14.979963 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=36 |./shatest.cpp, ..6.4......?.........|
-10/06/2019 23:35:14.980233 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=36 |./shatest.cpp, ..6.4......?.........|
-10/06/2019 23:35:14.981238 ./fileserver.exe:     C150DgmSocket::read: successful read with len=24 |./fileclient.exe, T...1.|
-10/06/2019 23:35:14.981450 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 24 |./fileclient.exe, T...1.|
-10/06/2019 23:35:14.981638 ./fileserver.exe:     Successfully read 24 bytes. Message="./fileclient.exe, T.Ù±1"
-10/06/2019 23:35:14.981858 ./fileserver.exe:     Responding with message="./fileclient.exe, T.Ù±1"
-10/06/2019 23:35:14.982049 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=24 |./fileclient.exe, T...1.|
-10/06/2019 23:35:14.982329 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=24 |./fileclient.exe, T...1.|
-10/06/2019 23:35:14.983311 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:05_18:02:50.txt, ...h...74Se....B...z.|
-10/06/2019 23:35:14.983536 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:05_18:02:50.txt, ...h...74Se....B...z.|
-10/06/2019 23:35:14.983718 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:05_18:02:50.txt, µÀh½ö74Se•£°BŽîz"
-10/06/2019 23:35:14.983937 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:05_18:02:50.txt, µÀh½ö74Se•£°BŽîz"
-10/06/2019 23:35:14.984132 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_18:02:50.txt, ...h...74Se....B...z.|
-10/06/2019 23:35:14.984429 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_18:02:50.txt, ...h...74Se....B...z.|
-10/06/2019 23:35:14.985890 ./fileserver.exe:     C150DgmSocket::read: successful read with len=34 |./README.md, i/!5z........yA....2.|
-10/06/2019 23:35:14.986078 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 34 |./README.md, i/!5z........yA....2.|
-10/06/2019 23:35:14.986258 ./fileserver.exe:     Successfully read 34 bytes. Message="./README.md, i/!5z™ê“æ…yA¯Òà2"
-10/06/2019 23:35:14.986585 ./fileserver.exe:     Responding with message="./README.md, i/!5z™ê“æ…yA¯Òà2"
-10/06/2019 23:35:14.986813 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=34 |./README.md, i/!5z........yA....2.|
-10/06/2019 23:35:14.987086 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=34 |./README.md, i/!5z........yA....2.|
-10/06/2019 23:35:14.988770 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:49:48.txt, .... Zz....r....L.{..|
-10/06/2019 23:35:14.988958 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:05_17:49:48.txt, .... Zz....r....L.{..|
-10/06/2019 23:35:14.989139 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:05_17:49:48.txt, ºïò ZzÉÀr©¼“Lù{„"
-10/06/2019 23:35:14.989359 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:05_17:49:48.txt, ºïò ZzÉÀr©¼“Lù{„"
-10/06/2019 23:35:14.989585 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:49:48.txt, .... Zz....r....L.{..|
-10/06/2019 23:35:14.989859 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:49:48.txt, .... Zz....r....L.{..|
-10/06/2019 23:35:14.991547 ./fileserver.exe:     C150DgmSocket::read: successful read with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:59:45.txt, .R...X.yH.B..........|
-10/06/2019 23:35:14.991735 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 72 |./GRADELOG.fileclient.exe.2019:10:05_17:59:45.txt, .R...X.yH.B..........|
-10/06/2019 23:35:14.991915 ./fileserver.exe:     Successfully read 72 bytes. Message="./GRADELOG.fileclient.exe.2019:10:05_17:59:45.txt, R©ƒÌX¹yHÜBŸê	ÿ¹"
-10/06/2019 23:35:14.992136 ./fileserver.exe:     Responding with message="./GRADELOG.fileclient.exe.2019:10:05_17:59:45.txt, R©ƒÌX¹yHÜBŸê	ÿ¹"
-10/06/2019 23:35:14.992330 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:59:45.txt, .R...X.yH.B..........|
-10/06/2019 23:35:14.992664 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=72 |./GRADELOG.fileclient.exe.2019:10:05_17:59:45.txt, .R...X.yH.B..........|
-10/06/2019 23:35:14.994179 ./fileserver.exe:     C150DgmSocket::read: successful read with len=43 |./removeGradelogs.sh, ` g}~.Q~...N....b'.U.|
-10/06/2019 23:35:14.994365 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 43 |./removeGradelogs.sh, ` g}~.Q~...N....b'.U.|
-10/06/2019 23:35:14.994595 ./fileserver.exe:     Successfully read 43 bytes. Message="./removeGradelogs.sh, ` g}~«Q~Ô–Nƒb'öU"
-10/06/2019 23:35:14.994814 ./fileserver.exe:     Responding with message="./removeGradelogs.sh, ` g}~«Q~Ô–Nƒb'öU"
-10/06/2019 23:35:14.995007 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=43 |./removeGradelogs.sh, ` g}~.Q~...N....b'.U.|
-10/06/2019 23:35:14.995283 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=43 |./removeGradelogs.sh, ` g}~.Q~...N....b'.U.|
-10/06/2019 23:35:14.996298 ./fileserver.exe:     C150DgmSocket::read: successful read with len=36 |./gitStuff.sh, .f.(o:!...~.W{#I.%a'.|
-10/06/2019 23:35:14.996518 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 36 |./gitStuff.sh, .f.(o:!...~.W{#I.%a'.|
-10/06/2019 23:35:14.996700 ./fileserver.exe:     Successfully read 36 bytes. Message="./gitStuff.sh, ùf(o:!Úä¢~ðW{#I”%a'"
-10/06/2019 23:35:14.996917 ./fileserver.exe:     Responding with message="./gitStuff.sh, ùf(o:!Úä¢~ðW{#I”%a'"
-10/06/2019 23:35:14.997110 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=36 |./gitStuff.sh, .f.(o:!...~.W{#I.%a'.|
-10/06/2019 23:35:14.997424 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=36 |./gitStuff.sh, .f.(o:!...~.W{#I.%a'.|
-10/06/2019 23:35:14.998414 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |./.filecopyclient.cpp.swp, ...:.?.q...i{...mesC.|
-10/06/2019 23:35:14.998607 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |./.filecopyclient.cpp.swp, ...:.?.q...i{...mesC.|
-10/06/2019 23:35:14.998789 ./fileserver.exe:     Successfully read 48 bytes. Message="./.filecopyclient.cpp.swp, Êá:™?q£ùói{Ý±mesC"
-10/06/2019 23:35:14.999008 ./fileserver.exe:     Responding with message="./.filecopyclient.cpp.swp, Êá:™?q£ùói{Ý±mesC"
-10/06/2019 23:35:14.999200 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=48 |./.filecopyclient.cpp.swp, ...:.?.q...i{...mesC.|
-10/06/2019 23:35:14.999494 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=48 |./.filecopyclient.cpp.swp, ...:.?.q...i{...mesC.|
-10/06/2019 23:35:14.000482 ./fileserver.exe:     C150DgmSocket::read: successful read with len=37 |./sha1test.exe, ..c|we7),\_.|*.TF....|
-10/06/2019 23:35:15.000675 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 37 |./sha1test.exe, ..c|we7),\_.|*.TF....|
-10/06/2019 23:35:15.000856 ./fileserver.exe:     Successfully read 37 bytes. Message="./sha1test.exe, æšc|we7),\_ê|*±TFëŒÆ"
-10/06/2019 23:35:15.001076 ./fileserver.exe:     Responding with message="./sha1test.exe, æšc|we7),\_ê|*±TFëŒÆ"
-10/06/2019 23:35:15.001269 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=37 |./sha1test.exe, ..c|we7),\_.|*.TF....|
-10/06/2019 23:35:15.001650 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=37 |./sha1test.exe, ..c|we7),\_.|*.TF....|
-10/06/2019 23:35:15.002604 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |./sha1.o, w.....<X.25...Bd/..z.|
-10/06/2019 23:35:15.002824 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |./sha1.o, w.....<X.25...Bd/..z.|
-10/06/2019 23:35:15.003005 ./fileserver.exe:     Successfully read 31 bytes. Message="./sha1.o, w¡š»ô<XÓ25•´ÅBd/ë¼z"
-10/06/2019 23:35:15.003225 ./fileserver.exe:     Responding with message="./sha1.o, w¡š»ô<XÓ25•´ÅBd/ë¼z"
-10/06/2019 23:35:15.003443 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=31 |./sha1.o, w.....<X.25...Bd/..z.|
-10/06/2019 23:35:15.003719 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=31 |./sha1.o, w.....<X.25...Bd/..z.|
-10/06/2019 23:35:15.004961 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |./sha1.h, ........<.M.q.Il.*p..|
-10/06/2019 23:35:15.005156 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |./sha1.h, ........<.M.q.Il.*p..|
-10/06/2019 23:35:15.005359 ./fileserver.exe:     Successfully read 31 bytes. Message="./sha1.h, ¬ÿ½¢ëÞ<üMqIl˜*pé"
-10/06/2019 23:35:15.005624 ./fileserver.exe:     Responding with message="./sha1.h, ¬ÿ½¢ëÞ<üMqIl˜*pé"
-10/06/2019 23:35:15.005821 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=31 |./sha1.h, ........<.M.q.Il.*p..|
-10/06/2019 23:35:15.006076 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=31 |./sha1.h, ........<.M.q.Il.*p..|
-10/06/2019 23:35:15.007077 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |./filecopyclientdebug.txt, ...(..]? ..y.v:.'U6..|
-10/06/2019 23:35:15.007262 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |./filecopyclientdebug.txt, ...(..]? ..y.v:.'U6..|
-10/06/2019 23:35:15.007470 ./fileserver.exe:     Successfully read 48 bytes. Message="./filecopyclientdebug.txt, ²ê(]? ­Úy²v:Ó'U6ð"
-10/06/2019 23:35:15.007695 ./fileserver.exe:     Responding with message="./filecopyclientdebug.txt, ²ê(]? ­Úy²v:Ó'U6ð"
-10/06/2019 23:35:15.007887 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=48 |./filecopyclientdebug.txt, ...(..]? ..y.v:.'U6..|
-10/06/2019 23:35:15.008160 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=48 |./filecopyclientdebug.txt, ...(..]? ..y.v:.'U6..|
-10/06/2019 23:35:15.009117 ./fileserver.exe:     C150DgmSocket::read: successful read with len=40 |./datafilemake.exe, .zk.|I..BoGAa1(=!...|
-10/06/2019 23:35:15.009304 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 40 |./datafilemake.exe, .zk.|I..BoGAa1(=!...|
-10/06/2019 23:35:15.009517 ./fileserver.exe:     Successfully read 40 bytes. Message="./datafilemake.exe, ãzkß|IÚ¡BoGAa1(=!ó"
-10/06/2019 23:35:15.009736 ./fileserver.exe:     Responding with message="./datafilemake.exe, ãzkß|IÚ¡BoGAa1(=!ó"
-10/06/2019 23:35:15.009927 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=40 |./datafilemake.exe, .zk.|I..BoGAa1(=!...|
-10/06/2019 23:35:15.010197 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=40 |./datafilemake.exe, .zk.|I..BoGAa1(=!...|
-10/06/2019 23:35:15.011200 ./fileserver.exe:     C150DgmSocket::read: successful read with len=39 |./fileserver.exe, ........)..+n..zg..%.|
-10/06/2019 23:35:15.011414 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 39 |./fileserver.exe, ........)..+n..zg..%.|
-10/06/2019 23:35:15.011601 ./fileserver.exe:     Successfully read 39 bytes. Message="./fileserver.exe, ¡ÈŒ”†À)á+n³œzgô%"
-10/06/2019 23:35:15.011819 ./fileserver.exe:     Responding with message="./fileserver.exe, ¡ÈŒ”†À)á+n³œzgô%"
-10/06/2019 23:35:15.012011 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=39 |./fileserver.exe, ........)..+n..zg..%.|
-10/06/2019 23:35:15.012280 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=39 |./fileserver.exe, ........)..+n..zg..%.|
-10/06/2019 23:35:15.013223 ./fileserver.exe:     C150DgmSocket::read: successful read with len=42 |./nastyfiletest.exe, ..........T-.p.k/..#.|
-10/06/2019 23:35:15.013434 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 42 |./nastyfiletest.exe, ..........T-.p.k/..#.|
-10/06/2019 23:35:15.013622 ./fileserver.exe:     Successfully read 42 bytes. Message="./nastyfiletest.exe, ‘–ª½•‡óËüT-Àpk/½£#"
-10/06/2019 23:35:15.013841 ./fileserver.exe:     Responding with message="./nastyfiletest.exe, ‘–ª½•‡óËüT-Àpk/½£#"
-10/06/2019 23:35:15.014034 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=42 |./nastyfiletest.exe, ..........T-.p.k/..#.|
-10/06/2019 23:35:15.014305 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=42 |./nastyfiletest.exe, ..........T-.p.k/..#.|
+10/08/2019 11:13:34.536588 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=0)
+10/08/2019 11:13:34.539752 ./fileserver.exe:     Ready to accept messages
+10/08/2019 11:13:36.633051 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |0 0000011 ...Ux..9.......8...A.|
+10/08/2019 11:13:36.633283 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |0 0000011 ...Ux..9.......8...A.|
+10/08/2019 11:13:36.633491 ./fileserver.exe:     Successfully read 31 bytes. Message="0 0000011 þ‚“Ux³‡9Ù¡å±‚8®ÕïA"
+10/08/2019 11:13:36.635323 ./fileserver.exe:     Responding with message="DirHashError"
+10/08/2019 11:13:36.635532 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=13 |DirHashError.|
+10/08/2019 11:13:36.635860 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=13 |DirHashError.|

@@ -62,7 +62,7 @@ fileserver.exe: filecopyserver.cpp $(UTILS) $(C150AR) $(INCLUDES)
 #
 # Build the filecopy client
 #
-fileclient.exe: filecopyclient.cpp sha1.o $(C150AR) $(INCLUDES)
+fileclient.exe: filecopyclient.cpp $(UTILS) $(C150AR) $(INCLUDES)
 	$(CPP) -o fileclient.exe $(CPPFLAGS) filecopyclient.cpp $(UTILS) -lssl -lcrypto $(C150AR)
 
 #

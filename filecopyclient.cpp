@@ -40,7 +40,8 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 // forward declarations
 void checkAndPrintMessage(ssize_t readlen, char *buf, ssize_t bufferlen);
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
-bool sendDirPilot(int num_files, string hash);
+bool sendDirPilot(int num_files, string hash, C150DgmSocket *&sock,
+                    char *argv[]);
 bool sendFilePilot(int num_packets, int file_ID, string hash, string fname); //TODO
 
 
@@ -70,7 +71,19 @@ const int TIMEOUT_MS = 3000;       //ms for timeout
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  
 int main(int argc, char *argv[]) {
+
     GRADEME(argc, argv);
+
+    //
+    // Make sure command line looks right
+    //
+    // Command line args not used
+    if (argc != 5) {
+        fprintf(stderr,"Correct syntxt is: %s <srvrname>"
+                " <networknasty#> <filenasty#> <src>\n", argv[0]);
+        exit(1);
+    }
+
     //
     // Variable declarations
     //
@@ -97,16 +110,6 @@ int main(int argc, char *argv[]) {
     //  Set up debug message logging
     //
     setUpDebugLogging("filecopyclientdebug.txt",argc, argv);
-
-    //
-    // Make sure command line looks right
-    //
-    // Command line args not used
-    if (argc != 5) {
-        fprintf(stderr,"Correct syntxt is: %s <srvrname>"
-                " <networknasty#> <filenasty#> <src>\n", argv[0]);
-        exit(1);
-    }
 
     //
     //
@@ -140,8 +143,13 @@ int main(int argc, char *argv[]) {
 
         int num_files = filehash.size();
         string dir_checksum = getDirHash(filehash);
-        bool dir_sent = sendDirPilot(num_files, dir_checksum);
+        bool dir_sent = sendDirPilot(num_files, dir_checksum, sock, argv);
         (void) dir_sent;
+
+        cout << "Dir hash check: " << dir_sent << endl;
+
+        return 0;
+    
         for (auto iter = filehash.begin(); iter != filehash.end(); iter++) {
             FilePilot pilot_struct = FilePilot(DUMMY_PACKET_NUM, DUMMY_FILE_ID,
                                                iter->second, iter->first);
@@ -365,7 +373,46 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
 /*
  *
  */
-bool sendDirPilot(int num_files, string hash)
+bool sendDirPilot(int num_files, string hash, C150DgmSocket *&sock,
+                    char *argv[])
 {
-    return false;
+    bool dir_hash_matches = false;
+    bool timedout = true;
+    ssize_t readlen;              // amount of data read from socket
+    char incoming_msg[512];   // received message data
+    int num_tries = 0;
+    DirPilot pilot = DirPilot(num_files, hash);
+    string dir_pilot_packet = makeDirPilot(pilot);
+    const char * c_style_msg = dir_pilot_packet.c_str();
+    while (timedout && num_tries <= 5) {
+        // Send the message to the server
+        c150debug->printf(C150APPLICATION,
+                          "%s: Writing message: \"%s\"",
+                          argv[0], c_style_msg);
+        sock->write(c_style_msg, strlen(c_style_msg)+1);
+        // Read the response from the server
+        c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                          " doing read()", argv[0]);
+        readlen = sock -> read(incoming_msg,
+                               sizeof(incoming_msg));
+        // Check for timeout
+        timedout = sock -> timedout();
+        if (timedout) {
+            num_tries++;
+            continue;
+        }
+        // Check and print the incoming message
+        checkAndPrintMessage(readlen, incoming_msg,
+                             sizeof(incoming_msg));
+        if (string(incoming_msg) == "DirHashOK")
+            dir_hash_matches = true;
+      
+    }
+    if (num_tries == 5)
+    {
+        throw C150NetworkException("Write to server timed out"
+                                   " too many times");     
+    }
+
+    return dir_hash_matches;
 }
