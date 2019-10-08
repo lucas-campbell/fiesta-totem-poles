@@ -22,7 +22,17 @@
 
 using namespace std;
 
-
+/*
+ * computeChecksum
+ * computes SHA1 checksum of the given file
+ * Args: 
+ * * filename: name of filename
+ * * hash: a Pass-By-Reference null-terminated char array containing the 
+ * * SHA1 hash of the file
+ *
+ * Return: None
+ * Assumptions: filename refers to a file which exists
+ */
 void computeChecksum(string filename, unsigned char (&hash)[SHA1_LEN])
 {
     ifstream *t;
@@ -106,6 +116,17 @@ string makeFileName(string dir, string name)
   
 }
 
+
+/*
+ * fillChecksumTable
+ * Flls a directory checksum table mapping file names to SHA1 hashs
+ * Args:
+ * * map<string, string> &filehash: PBR An empty map\
+ * * DIR* SRC: Pointer to the source dir
+ * * const char* sourceDir: name of the source directory
+ *
+ * Return: None the map is pass-by-reference 
+ */
 void fillChecksumTable(map<string, string> &filehash,
                         DIR *SRC, const char* sourceDir)
 {
@@ -130,6 +151,14 @@ void fillChecksumTable(map<string, string> &filehash,
     }
 }
 
+/*
+ * printHash
+ * Prints a SHA1 hash in a human readable form
+ * Args:
+ * *const unsigned char* hash: the hash to be printed
+ * 
+ * Return: none
+ */
 void printHash(const unsigned char *hash)
 {
     for (int i = 0; i < SHA1_LEN-1; i++)
@@ -139,7 +168,7 @@ void printHash(const unsigned char *hash)
 }
 
 /*
- * computeDirChecksum
+ * getDirHash
  * Writes the file checksum map to a file (outside src) and calculates
  * the SHA1 checksum of that file, which equates to the SHA1 checksum of
  * the source directory
@@ -149,8 +178,6 @@ void printHash(const unsigned char *hash)
  *
  * Return: string which is the directory hash
  */ 
-//TODO currently commented out because of compiler error about using tmpnam,
-// advises to use mkstemp instead
 string getDirHash(map<string, string> filehash, bool s)
 {
     string file = "clienthash";
