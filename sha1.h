@@ -1,5 +1,5 @@
 #include <string>
-#include <unordered_map> 
+#include <map> 
 #include <dirent.h>
 #ifndef SHA1_H
 #define SHA1_H
@@ -21,9 +21,9 @@ void computeChecksum(std::string filename, unsigned char (&hash)[SHA1_LEN]);
 void checkDirectory(char *dirname);
 bool isFile(std::string fname);
 std::string makeFileName(std::string dir, std::string name);
-void fillChecksumTable(std::unordered_map<std::string, std::string> &filehash,
+void fillChecksumTable(std::map<std::string, std::string> &filehash,
                        DIR *SRC, const char* sourceDir);
-std::string getDirHash(std::unordered_map<std::string, std::string> filehash);
+std::string getDirHash(std::map<std::string, std::string> filehash, bool s);
 void printHash(const unsigned char *hash);
 
 #endif

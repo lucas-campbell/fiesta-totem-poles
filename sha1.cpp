@@ -18,8 +18,7 @@
 #include <cstring>                // for errno string formatting
 #include <cerrno>
 #include <iostream>               // for cout
-#include <fstream>                // for input files
-#include <unordered_map> 
+#include <fstream>                // for input files 
 
 using namespace std;
 
@@ -107,7 +106,7 @@ string makeFileName(string dir, string name)
   
 }
 
-void fillChecksumTable(unordered_map<string, string> &filehash,
+void fillChecksumTable(map<string, string> &filehash,
                         DIR *SRC, const char* sourceDir)
 {
     struct dirent *sourceFile;  // Directory entry for source file
@@ -152,9 +151,11 @@ void printHash(const unsigned char *hash)
  */ 
 //TODO currently commented out because of compiler error about using tmpnam,
 // advises to use mkstemp instead
-string getDirHash(unordered_map<string, string> filehash)
+string getDirHash(map<string, string> filehash, bool s)
 {
-    string file = tmpnam(nullptr);
+    string file = "clienthash";
+    if (s)
+        file = "serverhash";
     //char name[] = "/tmp/fileXXXXXX";
     //int file = mkstemp(name);
     //FILE* file = fdopen(fd, "w");
