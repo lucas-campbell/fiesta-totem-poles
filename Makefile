@@ -101,6 +101,6 @@ datafilemake.exe: datafilemake.cpp
 # for forcing complete rebuild#
 
 clean:
-	 rm -f protocoltest.exe shatest.exe fileclient.exe fileserver.exe nastyfiletest.exe sha1test.exe datafilemake.exe *.o 
+	 rm -f protocoltest.exe shatest.exe fileclient.exe fileserver.exe nastyfiletest.exe sha1test.exe datafilemake.exe *.o *.*~ GRADELOG.*
 
 
