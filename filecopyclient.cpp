@@ -6,9 +6,6 @@
 //        Based on pieces from ping code written by Noah Mendelsohn
 //   
 //
-//        TODO
-//
-//
 //        COMMAND LINE
 //
 //              fileclient <srvrname> <networknasty#> <filenasty#> <src>
@@ -16,11 +13,15 @@
 //
 //        OPERATION
 //
-//             TODO
+//              As of end-to-end check: gets a hash of given directory, sends
+//              to server, and awaits response. Quits after receiving response.
+//
 //
 //        LIMITATIONS
 //
-//              TODO
+//              This version only sends a Directory Pilot packet, which
+//              contains a representative hash for the folder. It does not send
+//              information on individual files.
 //
 //
 //     
@@ -92,8 +93,6 @@ int main(int argc, char *argv[]) {
     int DUMMY_PACKET_NUM = 10;
     int DUMMY_FILE_ID = 4;
     
-
-
     checkDirectory(argv[SRC_ARG]);  //Make sure src exists
 
     //
@@ -127,42 +126,49 @@ int main(int argc, char *argv[]) {
         // Timeout of 3 seconds
         sock -> turnOnTimeouts(TIMEOUT_MS);
 
+        // loop through source directory, create hashtable with filenames
+        // as keys and checksums as values
+        map<string, string> filehash;
+        fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
+
+        int num_files = filehash.size();
+        string dir_checksum = getDirHash(filehash);
+        bool dir_sent = sendDirPilot(num_files, dir_checksum, sock, argv);
+        (void) dir_sent;
+
+        *GRADING << "Dir hash check: " << dir_sent << endl;
+
+        /*
+         * NOTE: This is a work in progress file. The return statement below
+         *       stops the program execution after receiving information on
+         *       whether or not the end-to-end check has finished. Future
+         *       iterations of the program will also run checksums on
+         *       individual files, but we believe our current end-to-end check
+         *       in getDirHash fully complies with the spirit of the e2e
+         *       principle.
+         */
+        return 0;
+    
         // Loop for getting user input
         string outgoing_msg;
         int num_tries = 0;
         //start at true so we "try" to send message "again"
         bool timedout = true;
-        map<string, string> filehash;
-
-        // loop through source directory, create hashtable with filenames
-        // as keys and checksums as values
-        fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
-        
-        //TODO: Fill in message with entire packet
-
-        int num_files = filehash.size();
-        string dir_checksum = getDirHash(filehash, false);
-        bool dir_sent = sendDirPilot(num_files, dir_checksum, sock, argv);
-        (void) dir_sent;
-
-        cout << "Dir hash check: " << dir_sent << endl;
-
-        return 0;
-    
         for (auto iter = filehash.begin(); iter != filehash.end(); iter++) {
+            //NEEDSWORK: Fill in message with entire packet
             FilePilot pilot_struct = FilePilot(DUMMY_PACKET_NUM, DUMMY_FILE_ID,
                                                iter->second, iter->first);
             string pilot_pack = makeFilePilot(pilot_struct);
             outgoing_msg = iter->first; //filename
             outgoing_msg += ", ";
-            outgoing_msg += iter->second;
-            cout << "Preparing to send outgoing: " << outgoing_msg << endl;
+            outgoing_msg += iter->second; //file checksum/hash
+            *GRADING << "Preparing to send outgoing: " << outgoing_msg << endl;
             
             const char *c_style_msg = outgoing_msg.c_str();
-            cout << "cstyle version: " << c_style_msg << endl;
+            *GRADING << "cstyle version: " << c_style_msg << endl;
             
             while (timedout && num_tries <= 5) {
-                cout << "In send/receive loop:\n"
+                *GRADING << "In send/receive loop:\n"
                     << "timedout: " << timedout
                     << ", num_tries: " << num_tries
                     << ", message: " << c_style_msg << endl;
@@ -188,18 +194,18 @@ int main(int argc, char *argv[]) {
                 checkAndPrintMessage(readlen, incoming_msg,
                                      sizeof(incoming_msg));
                 if (strcmp(incoming_msg, c_style_msg) == 0)
-                    cout << "OK, received message matches sent\n";
+                    *GRADING << "OK, received message matches sent\n";
                 else {
-                    cout << "ERROR, received message differs ( "
+                    *GRADING << "ERROR, received message differs ( "
                         << c_style_msg << " vs " << incoming_msg 
                         << " )\n";
-                    
                 }
-                cout << "end of send/receive loop:\n"
+
+                *GRADING << "end of send/receive loop:\n"
                     << "timedout: " << timedout
                     << ", num_tries: " << num_tries
                     << ", received message: " << incoming_msg << endl;
-            }
+            } // timedout == false or num_tries == 5
             
             if (num_tries == 5)
             {
@@ -209,7 +215,7 @@ int main(int argc, char *argv[]) {
             timedout = true; // reset for next message send
         }
     
-        cerr << "Closing dir\n";
+        *GRADING << "Closing dir\n";
         closedir(SRC);
     }
 
@@ -369,8 +375,21 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
 }
 
 
-/*
- *
+/* 
+ * sendDirPilot
+ * Send hash of directory contents over a given socket. Serves as an end to end
+ * check by comminucating with the server and waiting for a response on whether
+ * a hash of directory contents matches.
+ * Args:
+ *    num_files: the number of files in the directory
+ *    hash:      a string containing the checksum for the directory, generated
+ *               by getDirHash()
+ *    sock:      a socket already opened/configured, to be sent over
+ *    argv:      command line arguments to the program, used for error messages
+ * Returns:
+ *    A boolean indicating whether the hash of the target directory on the
+ *    server and the hash sent over the socket match.
+ *    
  */
 bool sendDirPilot(int num_files, string hash, C150DgmSocket *&sock,
                     char *argv[])
@@ -406,7 +425,8 @@ bool sendDirPilot(int num_files, string hash, C150DgmSocket *&sock,
         if (string(incoming_msg) == "DirHashOK")
             dir_hash_matches = true;
       
-    }
+    } //we timed out or tried 5 times
+
     if (num_tries == 5)
     {
         throw C150NetworkException("Write to server timed out"
