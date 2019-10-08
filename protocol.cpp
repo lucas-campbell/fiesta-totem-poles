@@ -13,11 +13,13 @@
 
 using namespace std;
 
+// TODO: All of the below functions must have field size checks enforced
+
 /*
  * Our UDP File Pilot packet is in the following format
- * "P ####### PPPPPPP HHHHHHHHHHHHHHHHHHHH FFFFFFF....."
+ * "T ####### PPPPPPP HHHHHHHHHHHHHHHHHHHH FFFFFFF....."
  * Where:
- * F is the packet type indicator for a file Pilot packet
+ * T is the packet type indicator for a file Pilot packet
  * # is the number of packets for the file == (file-size // 420) +1
  * P is the file ID
  * H is the SHA1 hash of the file
@@ -25,25 +27,27 @@ using namespace std;
  */
 string makeFilePilot(FilePilot pilot_packet)
 {
-    string pack = "1 ";
+    string pack = "F "; // File Pilot Type Indicator
+    // Pack number of packets
     string num = to_string(pilot_packet.num_packets);
     int zeros = MAX_PACKNUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
+    // Pack File ID of corresponding file
     num = to_string(pilot_packet.file_ID);
     zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
+    // Pack File Hash
     pack += pilot_packet.hash;
-    //printHash((const unsigned char *)(pilot_packet.hash.c_str()));
     pack += " ";
+    // Pack File Name
     pack += pilot_packet.fname;
     return pack;
 }
 
 FilePilot unpackFilePilot(string packet)
 {
-    //cout << "unpacking from packet:\n" << packet << endl;
     // NEEDSWORK add error check for correct packet type
 
     // Get number of packets
@@ -64,25 +68,23 @@ FilePilot unpackFilePilot(string packet)
 
 /*
  * Our UDP Directory Pilot packet is in the following format
- * "D ####### HHHHHHHHHHHHHHHHHHHH T..."
+ * "T ####### HHHHHHHHHHHHHHHHHHHH T..."
  * Where:
- * D is the packet type indicator for a Directory pilot packet
+ * T is the packet type indicator for a Directory pilot packet
  * # is the number of files in the directory
  * H is the SHA1 hash of the directory
  * T... is a variable length field for the Target path (up to 465 bytes long)
  */
 string makeDirPilot(DirPilot pilot_packet)
 {
-    string pack = "0 ";
-    //cout << pack;
+    string pack = "D "; // Packet Type Indicator for DirPilot
+    // Pack number files in dir
     string num = to_string(pilot_packet.num_files);
     int zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
-    //cout << string(zeros, '0').append(num) << " ";
     pack += " ";
+    // Pack Dir Hash
     pack += pilot_packet.hash;
-    //printHash((const unsigned char *)(pilot_packet.hash.c_str()));
-    //cout << endl;
     return pack;
 }
 
@@ -100,26 +102,28 @@ DirPilot unpackDirPilot(string packet)
 
 /*
  * Our UDP File Data packet is in the following format
- * "F ####### PPPPPPP D....."
+ * "T ####### PPPPPPP D....."
  * Where:
- * F is the packet type indicator for a File data packet
+ * T is the packet type indicator for a File data packet
  * # is the packets number of this packet
  * P is the file ID
  * D... is a variable length field for the file data (up to 480 bytes long)
  */
 string makeFilePacket(FilePacket packet)
 {
-    string pack = "2 ";
+    string pack = "F "; // Packet Type Indicator for FileData
+    // Pack Packet Number
     string num = to_string(packet.packet_num);
     int zeros = MAX_PACKNUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
+    // Pack File ID
     num = to_string(packet.file_ID);
     zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
+    // Pack File Data
     pack += packet.data;
-    //cout << pack << endl;
     return pack;
 }
 

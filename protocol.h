@@ -1,11 +1,9 @@
 /*
- * protocol.h: Interface for UDP file copy protocol
+ * protocol.h: Interface for UDP file copy network protocols protocol
  * Written By Dylan Hoffmann & Lucas Campbell
  */
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
-
-#include <string>
 
 // number of digits allowed for number of files
 const int MAX_FILENUM = 7; 
@@ -33,17 +31,21 @@ struct FilePilot {
     FilePilot(int p, int i, std::string h, std::string f) :
         num_packets(p), file_ID(i), hash(h), fname(f) {}
 };
+
 /*
  * Args: a struct containing pilot packet info for a file
  * Returns: a string - packet with metadata of the pilot packet
  * */
 std::string makeFilePilot(FilePilot pilot_packet);
+
 /*
  * Args: a string containing pilot packet metadata
  * Returns: a corresponding FilePilot struct with the same metadata
  * */
 FilePilot unpackFilePilot(std::string packet);
 
+
+//////////////////
 /*
  * DirPilot
  * The pilot packet for directories
@@ -58,17 +60,21 @@ struct DirPilot {
     DirPilot(int n, std::string h) :
         num_files(n), hash(h) {}
 };
+
 /*
  * Args: a struct containing pilot packet info for a directory
  * Returns: a string - packet with metadata of the pilot packet
  * */
 std::string makeDirPilot(DirPilot pilot_packet);
+
 /*
  * Args: a string containing pilot packet metadata
  * Returns: a corresponding FilePilot struct with the same metadata
  * */
 DirPilot unpackDirPilot(std::string packet);
 
+
+///////////////////
 /*
  * FilePacket
  * The data packet for files
@@ -87,11 +93,13 @@ struct FilePacket {
     FilePacket(int p, int f, std::string d) :
         packet_num(p), file_ID(f), data(d) {}
 };
+
 /*
  * Args: a struct containing info for a single data packet
  * Returns: a string - packet with metadata of the pilot packet
  * */
 std::string makeFilePacket(FilePacket packet);
+
 /*
  * Args: a string containing pilot packet metadata
  * Returns: a corresponding FilePilot struct with the same metadata
