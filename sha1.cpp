@@ -137,10 +137,11 @@ void fillChecksumTable(map<string, string> &filehash,
                  (strcmp(sourceFile->d_name, "..")  == 0 ) ) 
                 continue;          // never copy . or ..
 
-            string filename = makeFileName(sourceDir, sourceFile->d_name);
-            
+            string full_filename = makeFileName(sourceDir, sourceFile->d_name);
+            string filename = sourceFile->d_name;
+
             // check that is a regular file
-            if (!isFile(filename))
+            if (!isFile(full_filename))
                  continue;                     
             // add {filename, checksum} to the table
             unsigned char hash[SHA1_LEN];

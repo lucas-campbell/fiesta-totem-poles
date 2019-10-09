@@ -27,7 +27,7 @@ using namespace std;
  */
 string makeFilePilot(FilePilot pilot_packet)
 {
-    string pack = "F "; // File Pilot Type Indicator
+    string pack = "P "; // File Pilot Type Indicator
     // Pack number of packets
     string num = to_string(pilot_packet.num_packets);
     int zeros = MAX_PACKNUM - num.length();
