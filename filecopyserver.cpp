@@ -124,8 +124,8 @@ main(int argc, char *argv[])
     // timestamp order, thus merging the logs by time across 
     // server and client.
     //
-    c150debug->setIndent("    ");              // if we merge client and server
-    // logs, server stuff will be indented
+    c150debug->setIndent("    ");       // if we merge client and server
+                                        // logs, server stuff will be indented
 
 
 
@@ -175,6 +175,7 @@ main(int argc, char *argv[])
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
 
+            // Call corresponding handle_* for each type of packet
             char pack_type = incoming[0];
             switch (pack_type) {
                 case 'D':
@@ -184,6 +185,7 @@ main(int argc, char *argv[])
                 case 'P':
                     handleFilePilot(incoming, filehash, sock);
                     break;
+
                 case 'F':
                     handleData(incoming, sock);
                     break;
@@ -288,23 +290,23 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
 
 /*
  * handleDir
- * TODO: FUNCTION CONTRACT
+ * Handle a directory pilot packet and send response to the client
+ * about if the target directory hash and given hash match.
+ * Args: 
+ *      incoming: a string containing file metadata from the client
+ *      filehash: a map of filenames to checksums in the target directory
+ *      sock: pointer to socket open for reading
+ * Returns: Null
+ *
  */
-void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *&sock)
+void handleDir(string incoming, map<string, string> filehash,
+                C150DgmSocket *&sock)
 {
+    // Unpack into corresponding struct
     DirPilot dir_pilot = unpackDirPilot(incoming);
     
     // checksum of target directory
     string target_dir_hash = getDirHash(filehash);
-    
-    // printf("target_dir_hash: ");
-    // printHash((const unsigned char *)target_dir_hash.c_str());
-    // printf("\n");
-    
-    // printf("unpacked dir_pilot.hash: ");
-    // printHash((const unsigned char *)dir_pilot.hash.c_str());
-    // printf("\n");
-    
     
     bool hashes_match = (target_dir_hash == dir_pilot.hash);
     
@@ -324,37 +326,36 @@ void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *&so
 
 /*
  * handleFilePilot
- * TODO: FUNCTION CONTRACT
+ * Send response to client indicating whether the file in the target directory
+ * has the same SHA1 checksum as the checksum in the given packet.
+ * Args: 
+ *      incoming: a string containing file metadata from the client
+ *      filehash: a map of filenames to checksums in the target directory
+ *      sock: pointer to socket open for reading
  */
 void handleFilePilot(string incoming, map<string, string> filehash,
                      C150DgmSocket *&sock)
 {
-    cerr << "HANDLING FILEPILOT\n";
+    cerr << "HANDLING PILE PILOT\n";
+    // Unpack into struct
     FilePilot file_pilot = unpackFilePilot(incoming);
-
-    cout << "filename " << file_pilot.fname << endl;
+     //get correspnding checksum of file from target dir
     string trg_file_hash = filehash[file_pilot.fname];
-    cout << "unpacked hash: ";
-    printHash((const unsigned char *)file_pilot.hash.c_str());
-    cout << "target   hash: ";
-    printHash((const unsigned char *)trg_file_hash.c_str());
-    
-    // printf("target_file_hash: ");
-    // printHash((const unsigned char *)target_dir_hash.c_str());
-    // printf("\n");
-    
-    // printf("unpacked file_pilot.hash: ");
-    // printHash((const unsigned char *)dir_pilot.hash.c_str());
-    // printf("\n");
-    
     
     bool hashes_match = (trg_file_hash == file_pilot.hash);
     
     string response;
-    if (hashes_match)
+    if (hashes_match) {
+        *GRADING << "File: " << file_pilot.fname
+                 << " end-to-end check succeeded\n";
         response = "FileHashOK";
-    else
+    }
+    else {
+        *GRADING << "File: " << file_pilot.fname
+                 << " end-to-end check failed\n";
         response = "FileHashError";
+    }
+    GRADING->flush();
     
     //
     // write the return message
@@ -366,7 +367,7 @@ void handleFilePilot(string incoming, map<string, string> filehash,
 
 /*
  * handleFilePilot
- * TODO: FUNCTION CONTRACT
+ * NEEDSWORK: document function contract, args
  */
 void handleData(string incoming, C150DgmSocket *&sock)
 {
@@ -375,4 +376,3 @@ void handleData(string incoming, C150DgmSocket *&sock)
 
     sock -> write(response.c_str(), response.length()+1);
 }
-

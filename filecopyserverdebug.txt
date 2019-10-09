@@ -1,74 +1,74 @@
-10/08/2019 21:57:34.170006 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=0)
-10/08/2019 21:57:34.174923 ./fileserver.exe:     Ready to accept messages
-10/08/2019 21:57:41.227160 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 ,.%....l..\...22.....|
-10/08/2019 21:57:41.227242 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |D 0000011 ,.%....l..\...22.....|
-10/08/2019 21:57:41.227316 ./fileserver.exe:     Successfully read 31 bytes. Message="D 0000011 ,æ%íâ‘Ùl¶Å\í˛ê22©Ì ˜"
-10/08/2019 21:57:41.228450 ./fileserver.exe:     Responding with message="DirHashOK"
-10/08/2019 21:57:41.228528 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=10 |DirHashOK.|
-10/08/2019 21:57:41.228674 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=10 |DirHashOK.|
-10/08/2019 21:57:41.229188 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000010 0000004 .9..^kK.2U...`...... data1.|
-10/08/2019 21:57:41.229279 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 45 |P 0000010 0000004 .9..^kK.2U...`...... data1.|
-10/08/2019 21:57:41.229353 ./fileserver.exe:     Successfully read 45 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data1"
-10/08/2019 21:57:41.229496 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.229574 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.229710 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.230221 ./fileserver.exe:     C150DgmSocket::read: successful read with len=46 |P 0000010 0000004 .9..^kK.2U...`...... data10.|
-10/08/2019 21:57:41.230354 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 46 |P 0000010 0000004 .9..^kK.2U...`...... data10.|
-10/08/2019 21:57:41.230467 ./fileserver.exe:     Successfully read 46 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data10"
-10/08/2019 21:57:41.230575 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.230652 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.230805 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.231273 ./fileserver.exe:     C150DgmSocket::read: successful read with len=47 |P 0000010 0000004 .9..^kK.2U...`...... data100.|
-10/08/2019 21:57:41.231420 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 47 |P 0000010 0000004 .9..^kK.2U...`...... data100.|
-10/08/2019 21:57:41.231516 ./fileserver.exe:     Successfully read 47 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data100"
-10/08/2019 21:57:41.231623 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.231700 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.231847 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.232318 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |P 0000010 0000004 .9..^kK.2U...`...... data1000.|
-10/08/2019 21:57:41.232463 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |P 0000010 0000004 .9..^kK.2U...`...... data1000.|
-10/08/2019 21:57:41.232556 ./fileserver.exe:     Successfully read 48 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data1000"
-10/08/2019 21:57:41.232663 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.232740 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.232876 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.233311 ./fileserver.exe:     C150DgmSocket::read: successful read with len=49 |P 0000010 0000004 .9..^kK.2U...`...... data10000.|
-10/08/2019 21:57:41.233408 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 49 |P 0000010 0000004 .9..^kK.2U...`...... data10000.|
-10/08/2019 21:57:41.233483 ./fileserver.exe:     Successfully read 49 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data10000"
-10/08/2019 21:57:41.233585 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.233661 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.233783 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.234181 ./fileserver.exe:     C150DgmSocket::read: successful read with len=56 |P 0000010 0000004 .9..^kK.2U...`...... independence.txt.|
-10/08/2019 21:57:41.234255 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 56 |P 0000010 0000004 .9..^kK.2U...`...... independence.txt.|
-10/08/2019 21:57:41.234326 ./fileserver.exe:     Successfully read 56 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 independence.txt"
-10/08/2019 21:57:41.234459 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.234534 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.234660 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.235037 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |P 0000010 0000004 .9..^kK.2U...`...... love.txt.|
-10/08/2019 21:57:41.235110 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |P 0000010 0000004 .9..^kK.2U...`...... love.txt.|
-10/08/2019 21:57:41.235181 ./fileserver.exe:     Successfully read 48 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 love.txt"
-10/08/2019 21:57:41.235280 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.235355 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.235489 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.235866 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |P 0000010 0000004 .9..^kK.2U...`...... moor.txt.|
-10/08/2019 21:57:41.235940 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |P 0000010 0000004 .9..^kK.2U...`...... moor.txt.|
-10/08/2019 21:57:41.236011 ./fileserver.exe:     Successfully read 48 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 moor.txt"
-10/08/2019 21:57:41.236110 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.236184 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.236308 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.236697 ./fileserver.exe:     C150DgmSocket::read: successful read with len=49 |P 0000010 0000004 .9..^kK.2U...`...... romeo.txt.|
-10/08/2019 21:57:41.236771 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 49 |P 0000010 0000004 .9..^kK.2U...`...... romeo.txt.|
-10/08/2019 21:57:41.236842 ./fileserver.exe:     Successfully read 49 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 romeo.txt"
-10/08/2019 21:57:41.236942 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.237016 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.237134 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.237514 ./fileserver.exe:     C150DgmSocket::read: successful read with len=49 |P 0000010 0000004 .9..^kK.2U...`...... tyger.txt.|
-10/08/2019 21:57:41.237587 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 49 |P 0000010 0000004 .9..^kK.2U...`...... tyger.txt.|
-10/08/2019 21:57:41.237658 ./fileserver.exe:     Successfully read 49 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 tyger.txt"
-10/08/2019 21:57:41.237766 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.237840 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.237962 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.238383 ./fileserver.exe:     C150DgmSocket::read: successful read with len=55 |P 0000010 0000004 .9..^kK.2U...`...... warandpeace.txt.|
-10/08/2019 21:57:41.238463 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 55 |P 0000010 0000004 .9..^kK.2U...`...... warandpeace.txt.|
-10/08/2019 21:57:41.238534 ./fileserver.exe:     Successfully read 55 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 warandpeace.txt"
-10/08/2019 21:57:41.238634 ./fileserver.exe:     Responding with message="FileHashOK"
-10/08/2019 21:57:41.238709 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
-10/08/2019 21:57:41.238870 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:02.691220 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=0)
+10/08/2019 22:57:02.693601 ./fileserver.exe:     Ready to accept messages
+10/08/2019 22:57:04.166953 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 ,.%....l..\...22.....|
+10/08/2019 22:57:04.167122 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |D 0000011 ,.%....l..\...22.....|
+10/08/2019 22:57:04.167275 ./fileserver.exe:     Successfully read 31 bytes. Message="D 0000011 ,æ%íâ‘Ùl¶Å\í˛ê22©Ì ˜"
+10/08/2019 22:57:04.168442 ./fileserver.exe:     Responding with message="DirHashOK"
+10/08/2019 22:57:04.168614 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=10 |DirHashOK.|
+10/08/2019 22:57:04.168918 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=10 |DirHashOK.|
+10/08/2019 22:57:04.171004 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000010 0000004 .9..^kK.2U...`...... data1.|
+10/08/2019 22:57:04.171187 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 45 |P 0000010 0000004 .9..^kK.2U...`...... data1.|
+10/08/2019 22:57:04.171336 ./fileserver.exe:     Successfully read 45 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data1"
+10/08/2019 22:57:04.171590 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.171750 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.172000 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.174037 ./fileserver.exe:     C150DgmSocket::read: successful read with len=46 |P 0000010 0000004 .9..^kK.2U...`...... data10.|
+10/08/2019 22:57:04.174191 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 46 |P 0000010 0000004 .9..^kK.2U...`...... data10.|
+10/08/2019 22:57:04.174338 ./fileserver.exe:     Successfully read 46 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data10"
+10/08/2019 22:57:04.174566 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.174722 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.174965 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.176316 ./fileserver.exe:     C150DgmSocket::read: successful read with len=47 |P 0000010 0000004 .9..^kK.2U...`...... data100.|
+10/08/2019 22:57:04.176529 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 47 |P 0000010 0000004 .9..^kK.2U...`...... data100.|
+10/08/2019 22:57:04.176683 ./fileserver.exe:     Successfully read 47 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data100"
+10/08/2019 22:57:04.176888 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.177050 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.177314 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.178495 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |P 0000010 0000004 .9..^kK.2U...`...... data1000.|
+10/08/2019 22:57:04.178658 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |P 0000010 0000004 .9..^kK.2U...`...... data1000.|
+10/08/2019 22:57:04.178810 ./fileserver.exe:     Successfully read 48 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data1000"
+10/08/2019 22:57:04.179012 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.179175 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.179448 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.180398 ./fileserver.exe:     C150DgmSocket::read: successful read with len=49 |P 0000010 0000004 .9..^kK.2U...`...... data10000.|
+10/08/2019 22:57:04.180583 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 49 |P 0000010 0000004 .9..^kK.2U...`...... data10000.|
+10/08/2019 22:57:04.180743 ./fileserver.exe:     Successfully read 49 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data10000"
+10/08/2019 22:57:04.180949 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.181114 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.181363 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.182353 ./fileserver.exe:     C150DgmSocket::read: successful read with len=56 |P 0000010 0000004 .9..^kK.2U...`...... independence.txt.|
+10/08/2019 22:57:04.182547 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 56 |P 0000010 0000004 .9..^kK.2U...`...... independence.txt.|
+10/08/2019 22:57:04.182704 ./fileserver.exe:     Successfully read 56 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 independence.txt"
+10/08/2019 22:57:04.182909 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.183074 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.183319 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.184225 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |P 0000010 0000004 .9..^kK.2U...`...... love.txt.|
+10/08/2019 22:57:04.184412 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |P 0000010 0000004 .9..^kK.2U...`...... love.txt.|
+10/08/2019 22:57:04.184576 ./fileserver.exe:     Successfully read 48 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 love.txt"
+10/08/2019 22:57:04.184781 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.184946 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.185193 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.186082 ./fileserver.exe:     C150DgmSocket::read: successful read with len=48 |P 0000010 0000004 .9..^kK.2U...`...... moor.txt.|
+10/08/2019 22:57:04.186244 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 48 |P 0000010 0000004 .9..^kK.2U...`...... moor.txt.|
+10/08/2019 22:57:04.186427 ./fileserver.exe:     Successfully read 48 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 moor.txt"
+10/08/2019 22:57:04.186639 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.186805 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.187050 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.188025 ./fileserver.exe:     C150DgmSocket::read: successful read with len=49 |P 0000010 0000004 .9..^kK.2U...`...... romeo.txt.|
+10/08/2019 22:57:04.188188 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 49 |P 0000010 0000004 .9..^kK.2U...`...... romeo.txt.|
+10/08/2019 22:57:04.188345 ./fileserver.exe:     Successfully read 49 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 romeo.txt"
+10/08/2019 22:57:04.188579 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.188744 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.188991 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.189940 ./fileserver.exe:     C150DgmSocket::read: successful read with len=49 |P 0000010 0000004 .9..^kK.2U...`...... tyger.txt.|
+10/08/2019 22:57:04.190102 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 49 |P 0000010 0000004 .9..^kK.2U...`...... tyger.txt.|
+10/08/2019 22:57:04.190258 ./fileserver.exe:     Successfully read 49 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 tyger.txt"
+10/08/2019 22:57:04.190699 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.190911 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.191214 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.192156 ./fileserver.exe:     C150DgmSocket::read: successful read with len=55 |P 0000010 0000004 .9..^kK.2U...`...... warandpeace.txt.|
+10/08/2019 22:57:04.192319 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 55 |P 0000010 0000004 .9..^kK.2U...`...... warandpeace.txt.|
+10/08/2019 22:57:04.192504 ./fileserver.exe:     Successfully read 55 bytes. Message="P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 warandpeace.txt"
+10/08/2019 22:57:04.192711 ./fileserver.exe:     Responding with message="FileHashOK"
+10/08/2019 22:57:04.192877 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=11 |FileHashOK.|
+10/08/2019 22:57:04.193123 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=11 |FileHashOK.|

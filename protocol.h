@@ -81,7 +81,8 @@ DirPilot unpackDirPilot(std::string packet);
  * FilePacket
  * The data packet for files
  * Constructor args:
- * * int packet_num: which packet in order this packet is TODO: fix this <--
+ * * int packet_num: integer indicating where the data contained fits in with
+ *                   the rest of the file data
  * * int file_ID: numerical id of this file (incrememntal)
  * * string data: file data payload -- 420 bytes except final packet
  * Assumptions: TODO

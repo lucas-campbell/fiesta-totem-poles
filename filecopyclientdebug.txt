@@ -1,85 +1,85 @@
-10/08/2019 21:57:41.213098 ./fileclient.exe: Creating C150DgmSocket
-10/08/2019 21:57:41.226676 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 ,æ%íâ‘Ùl¶Å\í˛ê22©Ì ˜"
-10/08/2019 21:57:41.226745 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 ,.%....l..\...22.....|
-10/08/2019 21:57:41.226856 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 ,.%....l..\...22.....|
-10/08/2019 21:57:41.226913 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.228701 ./fileclient.exe: C150DgmSocket::read: successful read with len=10 |DirHashOK.|
-10/08/2019 21:57:41.228762 ./fileclient.exe: PRINTING RESPONSE: Response received is "DirHashOK"
+10/08/2019 22:57:04.149316 ./fileclient.exe: Creating C150DgmSocket
+10/08/2019 22:57:04.166018 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 ,æ%íâ‘Ùl¶Å\í˛ê22©Ì ˜"
+10/08/2019 22:57:04.166190 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 ,.%....l..\...22.....|
+10/08/2019 22:57:04.166425 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 ,.%....l..\...22.....|
+10/08/2019 22:57:04.166567 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.169151 ./fileclient.exe: C150DgmSocket::read: successful read with len=10 |DirHashOK.|
+10/08/2019 22:57:04.169481 ./fileclient.exe: PRINTING RESPONSE: Response received is "DirHashOK"
 
-10/08/2019 21:57:41.228886 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data1"
-10/08/2019 21:57:41.228966 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=45 |P 0000010 0000004 .9..^kK.2U...`...... data1.|
-10/08/2019 21:57:41.229054 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=45 |P 0000010 0000004 .9..^kK.2U...`...... data1.|
-10/08/2019 21:57:41.229111 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.229745 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.229809 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.170090 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data1"
+10/08/2019 22:57:04.170463 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=45 |P 0000010 0000004 .9..^kK.2U...`...... data1.|
+10/08/2019 22:57:04.170914 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=45 |P 0000010 0000004 .9..^kK.2U...`...... data1.|
+10/08/2019 22:57:04.171322 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.172254 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.172578 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.229909 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data10"
-10/08/2019 21:57:41.229985 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=46 |P 0000010 0000004 .9..^kK.2U...`...... data10.|
-10/08/2019 21:57:41.230093 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=46 |P 0000010 0000004 .9..^kK.2U...`...... data10.|
-10/08/2019 21:57:41.230233 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.230780 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.230862 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.173173 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data10"
+10/08/2019 22:57:04.173547 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=46 |P 0000010 0000004 .9..^kK.2U...`...... data10.|
+10/08/2019 22:57:04.174056 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=46 |P 0000010 0000004 .9..^kK.2U...`...... data10.|
+10/08/2019 22:57:04.174417 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.175169 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.175345 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.230973 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data100"
-10/08/2019 21:57:41.231035 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=47 |P 0000010 0000004 .9..^kK.2U...`...... data100.|
-10/08/2019 21:57:41.231143 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=47 |P 0000010 0000004 .9..^kK.2U...`...... data100.|
-10/08/2019 21:57:41.231291 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.231833 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.231911 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.175684 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data100"
+10/08/2019 22:57:04.175845 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=47 |P 0000010 0000004 .9..^kK.2U...`...... data100.|
+10/08/2019 22:57:04.176153 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=47 |P 0000010 0000004 .9..^kK.2U...`...... data100.|
+10/08/2019 22:57:04.176325 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.177346 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.177496 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.232022 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data1000"
-10/08/2019 21:57:41.232083 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... data1000.|
-10/08/2019 21:57:41.232193 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... data1000.|
-10/08/2019 21:57:41.232332 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.232872 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.232947 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.177740 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data1000"
+10/08/2019 22:57:04.177897 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... data1000.|
+10/08/2019 22:57:04.178210 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... data1000.|
+10/08/2019 22:57:04.178370 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.179392 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.179541 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.233045 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data10000"
-10/08/2019 21:57:41.233107 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... data10000.|
-10/08/2019 21:57:41.233191 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... data10000.|
-10/08/2019 21:57:41.233259 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.233727 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.233809 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.179764 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 data10000"
+10/08/2019 22:57:04.179950 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... data10000.|
+10/08/2019 22:57:04.180210 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... data10000.|
+10/08/2019 22:57:04.180391 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.181340 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.181489 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.233905 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 independence.txt"
-10/08/2019 21:57:41.233983 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=56 |P 0000010 0000004 .9..^kK.2U...`...... independence.txt.|
-10/08/2019 21:57:41.234066 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=56 |P 0000010 0000004 .9..^kK.2U...`...... independence.txt.|
-10/08/2019 21:57:41.234124 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.234620 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.234684 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.181712 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 independence.txt"
+10/08/2019 22:57:04.181871 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=56 |P 0000010 0000004 .9..^kK.2U...`...... independence.txt.|
+10/08/2019 22:57:04.182180 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=56 |P 0000010 0000004 .9..^kK.2U...`...... independence.txt.|
+10/08/2019 22:57:04.182342 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.183279 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.183428 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.234780 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 love.txt"
-10/08/2019 21:57:41.234841 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... love.txt.|
-10/08/2019 21:57:41.234941 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... love.txt.|
-10/08/2019 21:57:41.235002 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.235433 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.235492 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.183650 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 love.txt"
+10/08/2019 22:57:04.183808 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... love.txt.|
+10/08/2019 22:57:04.184094 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... love.txt.|
+10/08/2019 22:57:04.184254 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.185152 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.185301 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.235611 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 moor.txt"
-10/08/2019 21:57:41.235672 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... moor.txt.|
-10/08/2019 21:57:41.235754 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... moor.txt.|
-10/08/2019 21:57:41.235811 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.236253 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.236343 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.185522 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 moor.txt"
+10/08/2019 22:57:04.185680 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... moor.txt.|
+10/08/2019 22:57:04.185974 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=48 |P 0000010 0000004 .9..^kK.2U...`...... moor.txt.|
+10/08/2019 22:57:04.186279 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.187037 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.187189 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.236443 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 romeo.txt"
-10/08/2019 21:57:41.236505 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... romeo.txt.|
-10/08/2019 21:57:41.236587 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... romeo.txt.|
-10/08/2019 21:57:41.236644 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.237079 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.237138 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.187411 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 romeo.txt"
+10/08/2019 22:57:04.187570 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... romeo.txt.|
+10/08/2019 22:57:04.187847 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... romeo.txt.|
+10/08/2019 22:57:04.188033 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.188995 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.189150 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.237263 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 tyger.txt"
-10/08/2019 21:57:41.237324 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... tyger.txt.|
-10/08/2019 21:57:41.237407 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... tyger.txt.|
-10/08/2019 21:57:41.237464 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.237941 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.238004 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.189385 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 tyger.txt"
+10/08/2019 22:57:04.189542 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... tyger.txt.|
+10/08/2019 22:57:04.189773 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=49 |P 0000010 0000004 .9..^kK.2U...`...... tyger.txt.|
+10/08/2019 22:57:04.189954 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.191159 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.191309 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 
-10/08/2019 21:57:41.238107 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 warandpeace.txt"
-10/08/2019 21:57:41.238168 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=55 |P 0000010 0000004 .9..^kK.2U...`...... warandpeace.txt.|
-10/08/2019 21:57:41.238250 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=55 |P 0000010 0000004 .9..^kK.2U...`...... warandpeace.txt.|
-10/08/2019 21:57:41.238348 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/08/2019 21:57:41.238768 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
-10/08/2019 21:57:41.238846 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
+10/08/2019 22:57:04.191545 ./fileclient.exe: ./fileclient.exe: Writing message: "P 0000010 0000004 ⁄9£Ó^kK2UøÔï`êØÿ	 warandpeace.txt"
+10/08/2019 22:57:04.191704 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=55 |P 0000010 0000004 .9..^kK.2U...`...... warandpeace.txt.|
+10/08/2019 22:57:04.191964 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=55 |P 0000010 0000004 .9..^kK.2U...`...... warandpeace.txt.|
+10/08/2019 22:57:04.192127 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/08/2019 22:57:04.193098 ./fileclient.exe: C150DgmSocket::read: successful read with len=11 |FileHashOK.|
+10/08/2019 22:57:04.193247 ./fileclient.exe: PRINTING RESPONSE: Response received is "FileHashOK"
 

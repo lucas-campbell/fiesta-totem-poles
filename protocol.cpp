@@ -13,7 +13,9 @@
 
 using namespace std;
 
-// TODO: All of the below functions must have field size checks enforced
+// NEEDSWORK: - All of the below functions must have field size checks enforced
+//            - instead of using magic numbers for substring indices, use
+//              global constants
 
 /*
  * Our UDP File Pilot packet is in the following format
