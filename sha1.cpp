@@ -169,6 +169,11 @@ void printHash(const unsigned char *hash)
 }
 
 /*
+ *  NB: While the use of tmpname generates compiler warnings, we have elected
+ *  to use it because the preferred alternative, 'mkstemp' is less broadly
+ *  portable. We plan to engineer this check to use a different method for the
+ *  final iteration of this assignment.
+ *
  * getDirHash
  * Writes the file checksum map to a file (outside src) and calculates
  * the SHA1 checksum of that file, which equates to the SHA1 checksum of
@@ -182,11 +187,6 @@ void printHash(const unsigned char *hash)
 string getDirHash(map<string, string> filehash)
 {
     string file = tmpnam(nullptr);
-    //if (s)
-    //    file = "serverhash";
-    //char name[] = "/tmp/fileXXXXXX";
-    //int file = mkstemp(name);
-    //FILE* file = fdopen(fd, "w");
     ofstream stream(file);
     for(auto& kv : filehash) {
         stream << kv.second << endl;
