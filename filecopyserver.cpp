@@ -6,28 +6,7 @@
 //
 //        - adapted from pingserver.cpp, written by Noah Mendelsohn
 //   
-//
-//        This is a simple server, designed to illustrate use of:
-//
-//            * The C150DgmSocket class, which provides 
-//              a convenient wrapper for sending and receiving
-//              UDP packets in a client/server model
-//
-//            * The C150NastyDgmSocket class, which is a variant
-//              of the socket class described above. The nasty version
-//              takes an integer on its constructor, selecting a degree
-//              of nastiness. Any nastiness > 0 tells the system
-//              to occasionally drop, delay, reorder, duplicate or
-//              damage incoming packets. Higher nastiness levels tend
-//              to be more aggressive about causing trouble
-//
-//            * The c150debug interface, which provides a framework for
-//              generating a timestamped log of debugging messages.
-//              Note that the socket classes described above will
-//              write to these same logs, providing information
-//              about things like when UDP packets are sent and received.
-//              See comments section below for more information on 
-//              these logging classes and what they can do.
+
 //
 //
 //        COMMAND LINE
@@ -37,19 +16,17 @@
 //
 //        OPERATION
 //
-//              pingserver will loop receiving UDP packets from
-//              any client. The data in each packet should be a null-
-//              terminated string. If it is then the server
-//              responds with a text message of its own.
+//              filecopy server will wait until receiving a directory
+//              pilot packet, set up the file environment, and then
+//              begin receiving file specific packets. As each packet
+//              will be numbered it will ignore any duplicates it
+//              receives and fill in the file data as packets arrive.
+//             There will likely be additional logic to request packets,
+//             and to handle multiple files at once, but as we haven't
+//             encountered any issues yet we don't have any concrete
+//             plans to address them.
 //
-//              Note that the C150DgmSocket class will select a UDP
-//              port automatically based on the users login, so this
-//              will (typically) work only on the test machines at Tufts
-//              and for COMP 150-IDS who are registered. See documention
-//              for getUserPort.
 //
-//
-//       Copyright: 2012 Noah Mendelsohn
 //     
 // --------------------------------------------------------------
 
@@ -64,6 +41,9 @@
 using namespace C150NETWORK;  // for all the comp150 utilities 
 
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
+void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *sock);
+void handleFilePilot(string incoming, map<string, string> filehash, C150DgmSocket *sock);
+void handleData(string incoming, C150DgmSocket *sock);
 
 const int NETWORK_NASTINESS_ARG = 1;
 const int FILE_NASTINESS_ARG = 2;
@@ -194,39 +174,20 @@ main(int argc, char *argv[])
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
 
+            char pack_type = incoming[0];
+            switch (pack_type) {
+            case 'D':
+                handleDir(incoming, filehash, sock);
+                break;
 
-            DirPilot dir_pilot = unpackDirPilot(incoming);
-
-            // checksum of target directory
-            string target_dir_hash = getDirHash(filehash, true);
-
-            printf("target_dir_hash: ");
-            printHash((const unsigned char *)target_dir_hash.c_str());
-            printf("\n");
-
-            printf("unpacked dir_pilot.hash: ");
-            printHash((const unsigned char *)dir_pilot.hash.c_str());
-            printf("\n");
-
-
-            bool hashes_match = (target_dir_hash == dir_pilot.hash);
-
-            //
-            //  create the message to return. At this point, just return what
-            //  we received.
-            // 
-            string response;
-            if (hashes_match)
-                response = "DirHashOK";
-            else
-                response = "DirHashError";
-
-            //
-            // write the return message
-            //
-            c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
-                              response.c_str());
-            sock -> write(response.c_str(), response.length()+1);
+            case 'P':
+                handleFilePilot(incoming, filehash, sock);
+                break;
+            case 'F':
+                handleData(incoming, sock);
+                break;
+            }
+            
         }
     }
 
@@ -323,3 +284,85 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
     c150debug->enableLogging(C150APPLICATION | C150NETWORKTRAFFIC | 
                              C150NETWORKDELIVERY); 
 }
+
+/*
+ * handleDir
+ * TODO: FUNCTION CONTRACT
+ */
+void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *sock)
+{
+    DirPilot dir_pilot = unpackDirPilot(incoming);
+    
+    // checksum of target directory
+    string target_dir_hash = getDirHash(filehash);
+    
+    // printf("target_dir_hash: ");
+    // printHash((const unsigned char *)target_dir_hash.c_str());
+    // printf("\n");
+    
+    // printf("unpacked dir_pilot.hash: ");
+    // printHash((const unsigned char *)dir_pilot.hash.c_str());
+    // printf("\n");
+    
+    
+    bool hashes_match = (target_dir_hash == dir_pilot.hash);
+    
+    string response;
+    if (hashes_match)
+        response = "DirHashOK";
+    else
+        response = "DirHashError";
+    
+    //
+    // write the return message
+    //
+    c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                      response.c_str());
+    sock -> write(response.c_str(), response.length()+1);
+}
+
+/*
+ * handleFilePilot
+ * TODO: FUNCTION CONTRACT
+ */
+void handleFilePilot(string incoming, map<string, string> filehash,
+                     C150DgmSocket *sock)
+{
+    FilePilot file_pilot = unpackFilePilot(incoming);
+
+    string trg_file_hash = filehash[file_pilot.fname];
+    
+    // printf("target_file_hash: ");
+    // printHash((const unsigned char *)target_dir_hash.c_str());
+    // printf("\n");
+    
+    // printf("unpacked file_pilot.hash: ");
+    // printHash((const unsigned char *)dir_pilot.hash.c_str());
+    // printf("\n");
+    
+    
+    bool hashes_match = (trg_file_hash == file_pilot.hash);
+    
+    string response;
+    if (hashes_match)
+        response = "FileHashOK";
+    else
+        response = "FileHashError";
+    
+    //
+    // write the return message
+    //
+    c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                      response.c_str());
+    sock -> write(response.c_str(), response.length()+1);
+}
+
+/*
+ * handleFilePilot
+ * TODO: FUNCTION CONTRACT
+ */
+void handleData(string incoming, C150DgmSocket *sock)
+{
+    return;
+}
+

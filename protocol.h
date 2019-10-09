@@ -5,6 +5,8 @@
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
 
+#include<string>
+
 // number of digits allowed for number of files
 const int MAX_FILENUM = 7; 
 // number of digits allowed for number of packets

@@ -178,11 +178,11 @@ void printHash(const unsigned char *hash)
  *
  * Return: string which is the directory hash
  */ 
-string getDirHash(map<string, string> filehash, bool s)
+string getDirHash(map<string, string> filehash)
 {
-    string file = "clienthash";
-    if (s)
-        file = "serverhash";
+    string file = tmpnam(nullptr);
+    //if (s)
+    //    file = "serverhash";
     //char name[] = "/tmp/fileXXXXXX";
     //int file = mkstemp(name);
     //FILE* file = fdopen(fd, "w");
@@ -195,6 +195,6 @@ string getDirHash(map<string, string> filehash, bool s)
     string hash_str = string((const char*)hash);
     stream.close();
     cout << file << endl;
-    //remove(file.c_str());
+    remove(file.c_str());
     return hash_str;
 }
