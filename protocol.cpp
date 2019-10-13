@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "protocol.h"
-#include "sha1.h"
+#include "utils.h"
 
 using namespace std;
 

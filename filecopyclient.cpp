@@ -27,7 +27,7 @@
 //     
 // --------------------------------------------------------------
 
-#include "sha1.h"
+#include "utils.h"
 #include "protocol.h"
 #include "c150dgmsocket.h"
 #include "c150debug.h"

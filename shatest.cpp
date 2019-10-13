@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "sha1.h"
+#include "utils.h"
 
 using namespace std;
 

@@ -32,7 +32,7 @@
 
 #include "c150nastydgmsocket.h"
 #include "c150debug.h"
-#include "sha1.h"
+#include "utils.h"
 #include "protocol.h"
 #include <fstream>
 #include <cstdlib> 

@@ -3,7 +3,7 @@
  */
 
 #include "protocol.h"
-#include "sha1.h"
+#include "utils.h"
 #include <iostream>
 #include <string>
 using namespace std;

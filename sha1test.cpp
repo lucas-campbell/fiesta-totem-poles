@@ -4,7 +4,7 @@
 //     Author: Noah Mendelsohn
 //
 //     Test programming showing use of computation of 
-//     sha1 hash function.
+//     utils.hash function.
 //
 //     NOTE: problems were discovered using the incremental
 //     version of the computation with SHA1_Update. This 
