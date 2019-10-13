@@ -20,30 +20,152 @@
 #include <iostream>               // for cout
 #include <fstream>                // for input files 
 
+int FILE_NASTINESS = 5; //TODO extern it back 
+extern int NETWORK_NASTINESS;
+
+
 using namespace std;
+using namespace C150NETWORK;
 
 /*
  * computeChecksum
- * computes SHA1 checksum of the given file
+ * computes SHA1 checksum of the given buffer
  * Args: 
- * * filename: name of filename
+ * * data: pointer to a buffer of data, assumed to be contents of a file
+ * * size: number of bytes of information that data points to
  * * hash: a Pass-By-Reference null-terminated char array containing the 
- * * SHA1 hash of the file
+ * * SHA1 hash of the file after the call to computeChecksum
  *
  * Return: None
- * Assumptions: filename refers to a file which exists
+ * Assumptions: Data points to an area of memory that is 'size' bytes long 
  */
-void computeChecksum(string filename, unsigned char (&hash)[SHA1_LEN])
+void computeChecksum(const unsigned char *data, size_t size,
+                     unsigned char (&hash)[SHA1_LEN])
 {
-    ifstream *t;
-    stringstream *buffer;
-    t = new ifstream(filename);
-    buffer = new stringstream;
-    *buffer << t->rdbuf();
-    SHA1((const unsigned char *)buffer->str().c_str(),
-         (buffer->str()).length(), hash);
+    SHA1(data, size, hash);
     hash[SHA1_LEN-1] = '\0';
 }
+
+/*
+ * trustedFileRead
+ * Reads a desired file and returns its contents. Checks the authenticity of
+ * the contents via voting method.
+ * Args: 
+ * * source_dir: name of the source directory of the file
+ * * file_name: name of the file to be read
+ * * size: pass-by-reference size_t that will be filled with the number of
+ *         bytes read from the file
+ *
+ * Returns: pointer to a malloc'd array of bytes that contains the contents of
+ *          the desired file.
+ */
+char *trustedFileRead(string source_dir, string file_name, size_t &size)
+{
+    // Put together directory and filenames SRC/file TARGET/file
+    string source_name = makeFileName(source_dir, file_name);
+
+    bool found_match = false;
+    int correct_index;
+    string hashes[3];
+    char *file_buffs[2];
+
+    while (!found_match) {
+        for (int i = 0; i < 3; i++) {
+            //  Misc variables, mostly for return codes
+            void *fopenretval;
+            string errorString;
+            char *buffer;
+            unsigned char hash[SHA1_LEN];
+            struct stat statbuf;  
+            size_t src_size;
+
+            // Read whole input file 
+            if (lstat(source_name.c_str(), &statbuf) != 0) {
+                fprintf(stderr,"trustedFileRead: error stating supplied source"
+                        "file %s\n", source_name.c_str());
+                exit(20);
+            }
+            // Make an input buffer large enough for
+            // the whole file
+            src_size = statbuf.st_size;
+            buffer = (char *)malloc(src_size);
+            if (i != 2) { //not the 3rd file opening
+                file_buffs[i] = buffer;
+            }
+
+            NASTYFILE inputFile(FILE_NASTINESS);
+
+            // do an fopen on the input file
+            fopenretval = inputFile.fopen(source_name.c_str(), "rb");  
+          
+            if (fopenretval == NULL) {
+              cerr << "Error opening input file " << source_name << 
+                      " errno=" << strerror(errno) << endl;
+              exit(12);
+            }
+            // Read the whole file
+            size = inputFile.fread(buffer, 1, src_size);
+            if (size != src_size) {
+              cerr << "Error reading file " << source_name << 
+                      "  errno=" << strerror(errno) << endl;
+              exit(16);
+            }
+            // Close the file
+            if (inputFile.fclose() != 0 ) {
+              cerr << "Error closing input file " << source_name << 
+                      " errno=" << strerror(errno) << endl;
+              exit(16);
+            }
+
+            computeChecksum((const unsigned char *)buffer, size, hash);
+            hashes[i] = string((const char *)hash);
+            // Only need to store first 2 buffers
+            if (i == 2)
+                delete buffer;
+        }
+        // check to see if any checksums match
+        if ((hashes[0] == hashes[1]) || (hashes[0] == hashes[2])) {
+            delete file_buffs[1];
+            correct_index = 0;
+            found_match = true;
+        } else if (hashes[1] == hashes[2]) {
+            delete file_buffs[0];
+            correct_index = 1;
+            found_match = true;
+        }
+        else {
+            delete file_buffs[0];
+            delete file_buffs[1];
+        }
+    }
+    return file_buffs[correct_index];
+}
+
+/*
+ * getFileChecksum
+ * computes SHA1 checksum of a given filename and stores it in a given unsigned
+ * char array. Returns a pointer to the contents of the file. It is the
+ * caller's responsibility to free the memory malloc'd by this function.
+ * Args:
+ * * source_name: the name of a directory that exists
+ * * file_name: the name of a file that exists in that directory
+ * * size:      pass-by-reference size_t that will store the number of bytes
+ *              of data pointed to by the return value of the function
+ * * hash:      pass-by-reference array of unsigned chars that will be used to
+ *              store the hash value of the file
+ * 
+ * Returns: A pointer to a block of malloc'd memory that is 'size' bytes long
+ *          and contains the contents of the desired file
+ *
+ */
+char *getFileChecksum(string source_name, string file_name, size_t &size,
+                        unsigned char (&hash)[SHA1_LEN])
+{
+    char *file_data = trustedFileRead(source_name, file_name, size);
+    computeChecksum((const unsigned char *)file_data, size, hash);
+    return file_data;
+}
+
 
 // ------------------------------------------------------
 //
@@ -145,7 +267,8 @@ void fillChecksumTable(map<string, string> &filehash,
                  continue;                     
             // add {filename, checksum} to the table
             unsigned char hash[SHA1_LEN];
-            computeChecksum(filename, hash);
+            size_t size; //throwaway
+            getFileChecksum(string(sourceDir), filename, size, hash);
             
             string hash_str = string((const char*)hash);
             filehash[filename] = hash_str;
@@ -192,7 +315,8 @@ string getDirHash(map<string, string> filehash)
         stream << kv.second << endl;
     }
     unsigned char hash[SHA1_LEN];
-    computeChecksum(file, hash);
+    size_t size; //throwaway
+    getFileChecksum(string("."), file, size, hash);
     string hash_str = string((const char*)hash);
     stream.close();
     cout << file << endl;
