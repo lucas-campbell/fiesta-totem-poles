@@ -590,6 +590,8 @@ vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
     int i;
     for (i = 0; i < fp.num_packets-1; i++) {
         string data = f_data_s.substr(i*PACKET_SIZE, PACKET_SIZE);
+        data_packs.push_back(FilePacket(i, fp.file_ID, data));
     }
+    data_packs.push_back(FilePacket(i, fp.file_ID, f_data_s.substr(i*PACKET_SIZE)));
     return data_packs;
 }
