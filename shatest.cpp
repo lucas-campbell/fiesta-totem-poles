@@ -5,11 +5,12 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    string files[] = {"sha1test.cpp", "sha1.cpp", "Makefile"};
+    string files[] = {"sha1test.cpp", "utils.h", "Makefile"};
     for(int i = 0; i < 3; i++) {
         cout << files[i] << ": ";
         unsigned char hash[SHA1_LEN];
-        computeChecksum(files[i], hash);
+        size_t t;
+        getFileChecksum(string("."), files[i], t, hash);
         for (int j = 0; j < 20; j++)
 		{
 			printf ("%02x", (unsigned int) hash[j]);

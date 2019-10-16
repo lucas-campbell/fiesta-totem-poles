@@ -11,11 +11,12 @@ using namespace std;
 int main() {
     
     unsigned char hash[SHA1_LEN];
-    computeChecksum("README.md", hash); //compute and fill hash
+    size_t t;
+    getFileChecksum(string("."), string("README.md"), t, hash); //compute and fill hash
     printHash(reinterpret_cast<unsigned char *>(hash)); printf("\n");
     // create second checksum for testing purposes
     unsigned char hash2[SHA1_LEN];
-    computeChecksum("sha1test.cpp", hash2);
+    getFileChecksum(string("."), string("sha1test.cpp"), t, hash2);
     printHash(reinterpret_cast<unsigned char *>(hash2)); printf("\n");
 
     string dirpack = makeDirPilot(DirPilot(4, string(reinterpret_cast<const char *>(hash))));
