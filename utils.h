@@ -119,4 +119,5 @@ std::string getDirHash(std::map<std::string, std::string> filehash);
   */
 void printHash(const unsigned char *hash);
 
+
 #endif

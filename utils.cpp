@@ -20,8 +20,8 @@
 #include <iostream>               // for cout
 #include <fstream>                // for input files 
 
-int FILE_NASTINESS = 5; //TODO extern it back 
-extern int NETWORK_NASTINESS;
+int FILE_NASTINESS;
+int NETWORK_NASTINESS;
 
 
 using namespace std;
@@ -309,17 +309,18 @@ void printHash(const unsigned char *hash)
  */ 
 string getDirHash(map<string, string> filehash)
 {
-    string file = tmpnam(nullptr);
-    ofstream stream(file);
-    for(auto& kv : filehash) {
-        stream << kv.second << endl;
-    }
-    unsigned char hash[SHA1_LEN];
-    size_t size; //throwaway
-    getFileChecksum(string("."), file, size, hash);
-    string hash_str = string((const char*)hash);
-    stream.close();
-    cout << file << endl;
-    remove(file.c_str());
-    return hash_str;
+    return ":)";
+//    string file = tmpnam(nullptr);
+//    ofstream stream(file);
+//    for(auto& kv : filehash) {
+//        stream << kv.second << endl;
+//    }
+//    unsigned char hash[SHA1_LEN];
+//    size_t size; //throwaway
+//    getFileChecksum(string("."), file, size, hash);
+//    string hash_str = string((const char*)hash);
+//    stream.close();
+//    cout << file << endl;
+//    remove(file.c_str());
+//    return hash_str;
 }

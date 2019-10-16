@@ -56,16 +56,13 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock);
 //NEEDSWORK This function needs to be implemented, to shorten body of the main
 // server loop
 bool sendFilePilot(int num_packets, int file_ID, string hash, string fname);
-char* getFileChecksum(string sd, string fname, size_t &s, unsigned char (&hash)[SHA1_LEN]){
-    return (char*) "hi";
-}
 vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data);
 
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 //
-//                    Command line arguments
+//                    Command line arguments and Global Variables
 //
 // The following are used as subscripts to argv, the command line arguments
 // If we want to change the command line syntax, doing this
@@ -78,8 +75,8 @@ const int NETWORK_NASTINESS_ARG = 2;        // network nastiness is 2nd arg
 const int FILE_NASTINESS_ARG = 3;        // file nastiness is 3rd arg
 const int SRC_ARG = 4;            // source directory is 4th arg
 const int TIMEOUT_MS = 3000;       //ms for timeout
-int NETWORK_NASTINESS;
-int FILE_NASTINESS;
+extern int NETWORK_NASTINESS;
+extern int FILE_NASTINESS;
 char* PROG_NAME;
 
 
@@ -111,6 +108,7 @@ int main(int argc, char *argv[]) {
          fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);     
          exit(4);
      }
+     
      NETWORK_NASTINESS = atoi(argv[NETWORK_NASTINESS_ARG]);
      FILE_NASTINESS = atoi(argv[FILE_NASTINESS_ARG]);
      PROG_NAME = argv[0];
