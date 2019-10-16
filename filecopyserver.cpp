@@ -49,6 +49,8 @@ void handleData(string incoming, C150DgmSocket *&sock);
 const int NETWORK_NASTINESS_ARG = 1;
 const int FILE_NASTINESS_ARG = 2;
 const int TARGET_ARG = 3;
+extern int NETWORK_NASTINESS;
+extern int FILE_NASTINESS;
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -66,10 +68,7 @@ main(int argc, char *argv[])
     //
     ssize_t readlen;             // amount of data read from socket
     char incoming_msg[512];   // received message data
-    int network_nastiness;       // how aggressively do we drop packets, etc?
-    int file_nastiness;
     DIR* TRG;
-    (void) file_nastiness;
 
     //
     // Check command line and parse arguments
@@ -94,8 +93,8 @@ main(int argc, char *argv[])
         exit(4);
     }
     // convert command line string to integer
-    network_nastiness = atoi(argv[NETWORK_NASTINESS_ARG]);   
-    file_nastiness = atoi(argv[FILE_NASTINESS_ARG]);   
+    NETWORK_NASTINESS = atoi(argv[NETWORK_NASTINESS_ARG]);   
+    FILE_NASTINESS = atoi(argv[FILE_NASTINESS_ARG]);   
        
     //
     //  Set up debug message logging
@@ -141,11 +140,11 @@ main(int argc, char *argv[])
         //   C150DgmSocket *sock = new C150DgmSocket();
 
         cerr << "Creating C150NastyDgmSocket(nastiness=" <<
-            network_nastiness <<endl;
+            NETWORK_NASTINESS <<endl;
         c150debug->printf(C150APPLICATION,"Creating "
                           "C150NastyDgmSocket(nastiness=%d)",
-                          network_nastiness);
-        C150DgmSocket *sock = new C150NastyDgmSocket(network_nastiness);
+                          NETWORK_NASTINESS);
+        C150DgmSocket *sock = new C150NastyDgmSocket(NETWORK_NASTINESS);
         cerr << "ready to accept messages\n";
         c150debug->printf(C150APPLICATION,"Ready to accept messages");
 
