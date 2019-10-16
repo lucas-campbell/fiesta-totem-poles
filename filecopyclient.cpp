@@ -553,18 +553,14 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
     while(!dps.empty()) {
         for (auto iter = dps.begin(); iter != dps.end(); iter++) {
             for (int i = 0; i < 5; i++) {
-                //TODO CHANGE THIS
-                const char * c_style_msg = makeFilePilot(fp).c_str();
+                const char * c_style_msg = makeFilePacket(*iter).c_str();
                 c150debug->printf(C150APPLICATION,
                                   "%s: Sending File Data, msg: \"%s\"",
                                   PROG_NAME, c_style_msg);
                 sock->write(c_style_msg, strlen(c_style_msg)+1);
                 // Read the response from the server
                 c150debug->printf(C150APPLICATION,"%s: Returned from write,"
-                                  " doing read()", PROG_NAME);
-                
-                // Check for timeout
-              
+                                  " doing read()", PROG_NAME);              
             }
         }
         readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
@@ -589,6 +585,11 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
 }
 
 vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
-    vector<FilePacket> j;
-    return j;
+    vector<FilePacket> data_packs;
+    string f_data_s = string(f_data);
+    int i;
+    for (i = 0; i < fp.num_packets-1; i++) {
+        string data = f_data_s.substr(i*PACKET_SIZE, PACKET_SIZE);
+    }
+    return data_packs;
 }
