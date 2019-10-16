@@ -12,7 +12,9 @@ const int MAX_FILENUM = 7;
 // number of digits allowed for number of packets
 const int MAX_PACKNUM = 7; 
 // number of fields in file pilot packet, including packet type
-const int FILE_PILOT_FIELDS = 5; 
+const int FILE_PILOT_FIELDS = 5;
+// Size of data field in packet
+const int PACKET_SIZE = 480;
 
 
 /*
@@ -84,9 +86,9 @@ DirPilot unpackDirPilot(std::string packet);
  * * int packet_num: integer indicating where the data contained fits in with
  *                   the rest of the file data
  * * int file_ID: numerical id of this file (incrememntal)
- * * string data: file data payload -- 420 bytes except final packet
+ * * string data: file data payload -- 480 bytes except final packet
  * Assumptions: TODO
- * Additional info: the data payload is always 420 bytes except for the
+ * Additional info: the data payload is always 480 bytes except for the
  * final packet for a file, which may be shorter
  */  
 struct FilePacket {
@@ -94,7 +96,15 @@ struct FilePacket {
     int file_ID;
     std::string data;
     FilePacket(int p, int f, std::string d) :
-        packet_num(p), file_ID(f), data(d) {}
+    packet_num(p), file_ID(f), data(d) {}
+
+    FilePacket& operator= (const FilePacket &fp){
+        packet_num = fp.packet_num;
+        file_ID = fp.file_ID;
+        data = fp.data;
+        return *this;
+    }
+ 
 };
 
 /*

@@ -30,8 +30,13 @@
 #include "utils.h"
 #include "protocol.h"
 #include "c150dgmsocket.h"
+#include "c150nastydgmsocket.h"
 #include "c150debug.h"
 #include <string>
+#include <vector>
+#include <set>
+#include <iterator>
+#include <algorithm>
 
 
 using namespace std;          // for C++ std library
@@ -41,10 +46,21 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 void checkAndPrintMessage(ssize_t readlen, char *buf, ssize_t bufferlen);
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 bool sendDirPilot(int num_files, string hash, C150DgmSocket **sock,
-                    char *argv[]);
+                  char *argv[]);
+string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
+                 map<string, string> &filehash);
+bool operator<(const FilePacket& l, const FilePacket& r);
+bool operator<(int& l, const FilePacket& r);
+bool operator<(const FilePacket& l, int& r);
+string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock);
 //NEEDSWORK This function needs to be implemented, to shorten body of the main
 // server loop
 bool sendFilePilot(int num_packets, int file_ID, string hash, string fname);
+char* getFileChecksum(string sd, string fname, size_t &s, unsigned char (&hash)[SHA1_LEN]){
+    return (char*) "hi";
+}
+vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data);
+
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -62,6 +78,9 @@ const int NETWORK_NASTINESS_ARG = 2;        // network nastiness is 2nd arg
 const int FILE_NASTINESS_ARG = 3;        // file nastiness is 3rd arg
 const int SRC_ARG = 4;            // source directory is 4th arg
 const int TIMEOUT_MS = 3000;       //ms for timeout
+int NETWORK_NASTINESS;
+int FILE_NASTINESS;
+char* PROG_NAME;
 
 
 
@@ -72,7 +91,7 @@ const int TIMEOUT_MS = 3000;       //ms for timeout
 //
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {    
 
     GRADEME(argc, argv);
 
@@ -86,6 +105,16 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
+
+     if (strspn(argv[1], "0123456789") != strlen(argv[1])) {
+         fprintf(stderr,"Nastiness %s is not numeric\n", argv[1]);     
+         fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);     
+         exit(4);
+     }
+     NETWORK_NASTINESS = atoi(argv[NETWORK_NASTINESS_ARG]);
+     FILE_NASTINESS = atoi(argv[FILE_NASTINESS_ARG]);
+     PROG_NAME = argv[0];
+    
     //
     // Variable declarations
     //
@@ -115,12 +144,14 @@ int main(int argc, char *argv[]) {
     //
     //        Send / receive / print 
     //
-
+    
     try {
 
         // Create the socket
         c150debug->printf(C150APPLICATION,"Creating C150DgmSocket");
-        C150DgmSocket *sock = new C150DgmSocket();
+        c150debug->printf(C150APPLICATION,"Creating C150NastyDgmSocket(nastiness=%d)",
+			 NETWORK_NASTINESS);
+        C150DgmSocket *sock = new C150NastyDgmSocket(NETWORK_NASTINESS);
 
         // Tell the DGMSocket which server to talk to
         sock -> setServerName(argv[SERVER_ARG]);  
@@ -131,6 +162,16 @@ int main(int argc, char *argv[]) {
         // Loop through source directory, create hashtable with filenames
         // as keys and checksums as values
         map<string, string> filehash;
+
+
+
+
+        sendFiles(SRC, argv[SRC_ARG], sock, filehash);
+
+
+
+
+        
         fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
 
         int num_files = filehash.size();
@@ -388,7 +429,7 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
  *    
  */
 bool sendDirPilot(int num_files, string hash, C150DgmSocket **sock,
-                    char *argv[])
+                  char *argv[])
 {
     bool dir_hash_matches = false;
     bool timedout = true;
@@ -402,11 +443,11 @@ bool sendDirPilot(int num_files, string hash, C150DgmSocket **sock,
         // Send the message to the server
         c150debug->printf(C150APPLICATION,
                           "%s: Writing message: \"%s\"",
-                          argv[0], c_style_msg);
+                          PROG_NAME, c_style_msg);
        (*sock)->write(c_style_msg, strlen(c_style_msg)+1);
         // Read the response from the server
         c150debug->printf(C150APPLICATION,"%s: Returned from write,"
-                          " doing read()", argv[0]);
+                          " doing read()", PROG_NAME);
         readlen = (*sock) -> read(incoming_msg,
                                sizeof(incoming_msg));
         // Check for timeout
@@ -430,4 +471,126 @@ bool sendDirPilot(int num_files, string hash, C150DgmSocket **sock,
     }
 
     return dir_hash_matches;
+}
+
+string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
+                 map<string, string> &filehash)
+{
+    int F_ID = 0;
+    struct dirent *sourceFile;  // Directory entry for source file
+    bool timedout = true;
+    int readlen;
+    char incoming_msg[512];   // received message data
+    int num_tries = 0;
+    size_t size;
+    while ((sourceFile = readdir(SRC)) != NULL) {
+
+            if ( (strcmp(sourceFile->d_name, ".") == 0) ||
+                 (strcmp(sourceFile->d_name, "..")  == 0 ) ) 
+                continue;          // never copy . or ..
+
+            string full_filename = makeFileName(sourceDir, sourceFile->d_name);
+            string filename = sourceFile->d_name;
+
+            // check that is a regular file
+            if (!isFile(full_filename))
+                 continue;                     
+            // add {filename, checksum} to the table
+            unsigned char hash[SHA1_LEN];
+
+            char* f_data = getFileChecksum(sourceDir, filename, size, hash);
+            string hash_str = string((const char*)hash);
+            filehash[filename] = hash_str;
+            int num_packs = size / PACKET_SIZE;
+            if (size % PACKET_SIZE != 0)
+                num_packs++;
+            FilePilot fp = FilePilot(num_packs, F_ID, hash_str, filename);
+                
+            const char * c_style_msg = makeFilePilot(fp).c_str();
+            while (timedout && num_tries <= 5) {
+                // Send the message to the server
+                c150debug->printf(C150APPLICATION,
+                                  "%s: Sending File Pilot: \"%s\"",
+                                  PROG_NAME, c_style_msg);
+                sock->write(c_style_msg, strlen(c_style_msg)+1);
+                // Read the response from the server
+                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                                  " doing read()", PROG_NAME);
+                readlen = sock -> read(incoming_msg,
+                                       sizeof(incoming_msg));
+                (void) readlen;
+                // Check for timeout
+                timedout = sock -> timedout();
+                if (timedout) {
+                    num_tries++;
+                        continue;
+                }
+                string inc_str = string(incoming_msg);
+                if ((inc_str.substr(0, 4) == "FPOK") &&
+                    (atoi(inc_str.substr(4).c_str()) == F_ID))
+                    break;
+                
+            } //we timed out or tried 5 times
+            
+            if (num_tries == 5)
+            {
+                throw C150NetworkException("Server is unresponsive, Aborting");     
+            }
+            sendFile(fp, f_data, sock);
+            
+            F_ID++;
+    }
+    return ":)";
+}
+
+bool operator<(const FilePacket& l, const FilePacket& r) {return (l.packet_num<r.packet_num);}
+bool operator<(int& l, const FilePacket& r) {return (l < r.packet_num);}
+bool operator<(const FilePacket& l, int& r) {return (l.packet_num < r);}
+string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
+{
+    ssize_t readlen;              // amount of data read from socket
+    bool timedout = true;
+    char incoming_msg[512];   // received message data
+    vector<FilePacket> dps = makeDataPackets(fp, f_data);
+    while(!dps.empty()) {
+        for (auto iter = dps.begin(); iter != dps.end(); iter++) {
+            for (int i = 0; i < 5; i++) {
+                //TODO CHANGE THIS
+                const char * c_style_msg = makeFilePilot(fp).c_str();
+                c150debug->printf(C150APPLICATION,
+                                  "%s: Sending File Data, msg: \"%s\"",
+                                  PROG_NAME, c_style_msg);
+                sock->write(c_style_msg, strlen(c_style_msg)+1);
+                // Read the response from the server
+                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                                  " doing read()", PROG_NAME);
+                
+                // Check for timeout
+              
+            }
+        }
+        readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
+        // Check for timeout
+        timedout = sock -> timedout();
+        (void) readlen;
+        (void) timedout;
+        string missing = string(incoming_msg);
+        //stringstream stream(missing);
+        stringstream in(missing );
+        set<int> missing_packs{istream_iterator<int, char>{in}, istream_iterator<int, char>{}};
+        missing_packs.insert(-1);
+        //vector<int> missing_packs((istream_iterator<int>( missing )), (istream_iterator<int>()));
+        vector<FilePacket> temp_dps = dps;
+        dps.empty();
+        for (auto iter = temp_dps.begin(); iter != temp_dps.end(); iter++) {
+            if(missing_packs.find(iter->packet_num) != missing_packs.end())
+                dps.push_back(*iter);
+        }
+    }
+    return ":)";
+}
+
+vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
+    vector<FilePacket> j;
+    return j;
 }
