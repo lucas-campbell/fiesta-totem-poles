@@ -166,6 +166,7 @@ int main(int argc, char *argv[]) {
 
 
 
+        //NEEDSWORK check for zero length messages from server
         sendFiles(SRC, argv[SRC_ARG], sock, filehash);
 
 
