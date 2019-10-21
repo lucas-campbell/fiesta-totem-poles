@@ -42,6 +42,9 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 
 // Forward declarations
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
+DirPilot receiveDirPilot(C150NastyDgmSocket *sock);
+void receiveFile(string s) {(void) s; return;}
+void sendE2E() {return;}
 void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *&sock);
 void handleFilePilot(string incoming, map<string, string> filehash, C150DgmSocket *&sock);
 void handleData(string incoming, C150DgmSocket *&sock);
@@ -126,71 +129,106 @@ main(int argc, char *argv[])
     c150debug->setIndent("    ");       // if we merge client and server
                                         // logs, server stuff will be indented
 
-
-
-    map<string, string> filehash;
-    fillChecksumTable(filehash, TRG, argv[TARGET_ARG]);
+    
+    // TODO delete these
+    //map<string, string> filehash;
+    //fillChecksumTable(filehash, TRG, argv[TARGET_ARG]);
 
 
     //
     // Create socket, loop receiving and responding
     //
     try {
-        //   c150debug->printf(C150APPLICATION,"Creating C150DgmSocket");
-        //   C150DgmSocket *sock = new C150DgmSocket();
-
+        //TODO add GRADING messages here
         cerr << "Creating C150NastyDgmSocket(nastiness=" <<
             NETWORK_NASTINESS <<endl;
         c150debug->printf(C150APPLICATION,"Creating "
                           "C150NastyDgmSocket(nastiness=%d)",
                           NETWORK_NASTINESS);
-        C150DgmSocket *sock = new C150NastyDgmSocket(NETWORK_NASTINESS);
+        C150NastyDgmSocket *sock = new C150NastyDgmSocket(NETWORK_NASTINESS);
         cerr << "ready to accept messages\n";
         c150debug->printf(C150APPLICATION,"Ready to accept messages");
 
-        //
-        // infinite loop processing messages
-        //
-        while(1) {
+        // Wait until client sends a DirPilot
+        DirPilot dir_pilot = receiveDirPilot(sock);
 
-            //
-            // Read a packet
-            // -1 in size below is to leave room for null
-            //
+        int num_files = dir_pilot.num_files;
+        int received_files = 0;
+        
+        while (received_files < num_files) {
+            // Read a message
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg)-1);
             if (readlen == 0) {
-                cerr << "read zero length meassage\n";
                 c150debug->printf(C150APPLICATION,"Read zero length message,"
                                   " trying again");
                 continue;
             }
-
-            //
-            // Clean up the message in case it contained junk
-            //
             incoming_msg[readlen] = '\0'; // make sure null terminated
             string incoming(incoming_msg); // Convert to C++ string
-            // ...it's slightly easier to work with, and cleanString expects it
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
 
-            // Call corresponding handle_* for each type of packet
-            char pack_type = incoming[0];
-            switch (pack_type) {
-                case 'D':
-                    handleDir(incoming, filehash, sock);
-                    break;
-
-                case 'P':
-                    handleFilePilot(incoming, filehash, sock);
-                    break;
-
-                case 'F':
-                    handleData(incoming, sock);
-                    break;
+            // Check for FilePilot
+            if (incoming[0] == 'P') {
+                receiveFile(incoming); //TODO args
+                received_files++;
             }
-            
+            // Resend confirmation of DirPilot if client appears to need it
+            else if (incoming[0] == 'D') {
+                string response = "DPOK";
+                c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                                  response.c_str());
+                sock -> write(response.c_str(), response.length()+1);
+            }
+            else
+                continue;
         }
+        sendE2E();//TODO
+
+
+        //
+        // infinite loop processing messages
+        //
+        //while(1) {
+
+        //    //
+        //    // Read a packet
+        //    // -1 in size below is to leave room for null
+        //    //
+        //    readlen = sock -> read(incoming_msg, sizeof(incoming_msg)-1);
+        //    if (readlen == 0) {
+        //        cerr << "read zero length meassage\n";
+        //        c150debug->printf(C150APPLICATION,"Read zero length message,"
+        //                          " trying again");
+        //        continue;
+        //    }
+
+        //    //
+        //    // Clean up the message in case it contained junk
+        //    //
+        //    incoming_msg[readlen] = '\0'; // make sure null terminated
+        //    string incoming(incoming_msg); // Convert to C++ string
+        //    // ...it's slightly easier to work with, and cleanString expects it
+        //    c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
+        //                      " Message=\"%s\"", readlen, incoming.c_str());
+
+        //    // Call corresponding handle_* for each type of packet
+        //    char pack_type = incoming[0];
+        //    switch (pack_type) {
+        //        case 'D':
+        //            handleDir(incoming, filehash, sock);
+        //            break;
+
+        //        case 'P':
+        //            handleFilePilot(incoming, filehash, sock);
+        //            break;
+
+        //        case 'F':
+        //            handleData(incoming, sock);
+        //            break;
+        //    }
+        //    
+        //}
     }
 
     catch (C150NetworkException& e) {
@@ -288,7 +326,103 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
 }
 
 /*
- * handleDir
+ * receiveDirPilot
+ * wait for a DirPilot packet from the server, return the information received
+ *
+ * Args:
+ * * sock:  A C150NastyDgmSocket used to listen for messages
+ *
+ * Returns: DirPilot Struct
+ */
+DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
+{
+    ssize_t readlen;             // amount of data read from socket
+    char incoming_msg[512];   // received message data
+    while (true) {
+        readlen = sock -> read(incoming_msg, sizeof(incoming_msg)-1);
+        if (readlen == 0) {
+            c150debug->printf(C150APPLICATION,"Read zero length message,"
+                              " trying again");
+            continue;
+        }
+        incoming_msg[readlen] = '\0'; // make sure null terminated
+        string incoming(incoming_msg); // Convert to C++ string
+        c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
+                          " Message=\"%s\"", readlen, incoming.c_str());
+        // Loop until we get a DirPilot
+        if (incoming[0] != 'D')
+            continue;
+        DirPilot dir_pilot = unpackDirPilot(incoming);
+        //
+        // confirm to client that we received the DirPilot
+        //
+        string response = string("DPOK");
+        c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                          response.c_str());
+        sock -> write(response.c_str(), response.length()+1);
+
+        return dir_pilot;
+    }
+}
+
+void receiveFile(C150NastyDgmSocket *sock, string incoming,
+                 map<string, string> filehash)
+{
+    ssize_t readlen;             // amount of data read from socket
+    char incoming_msg[512];   // received message data
+    bool timedout = true;
+    FilePilot file_pilot = unpackFilePilot(incoming);
+    set<int> packets;
+    // Create set with packet_IDs of the packets we need to receive
+    for (int i = 0; i < file_pilot.num_packets; i++) {
+        packets.insert(packets.end(), i);
+    }
+    string file_data(PACKET_SIZE*file_pilot.num_packets, ' ');
+    sock -> turnOnTimeouts(3000);
+    while (!packets.empty()) {
+        while (!timedout) {
+            readlen = sock -> read(incoming_msg, sizeof(incoming_msg)-1);
+            timedout = sock -> timedout();
+            if (timedout) {
+                continue;
+            }
+            if (readlen == 0) {
+                c150debug->printf(C150APPLICATION,"Read zero length message,"
+                                  " trying again");
+                continue;
+            }
+            incoming_msg[readlen] = '\0'; // make sure null terminated
+            string incoming(incoming_msg); // Convert to C++ string
+            c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
+                              " Message=\"%s\"", readlen, incoming.c_str());
+            if (incoming[0] == 'F') {
+                FilePacket packet = unpackFilePacket(incoming);
+                if (packet.file_ID == file_pilot.file_ID) {
+                    int loc = packet.packet_num*PACKET_SIZE;
+                    file_data.insert(loc, packet.data);
+                    packets.erase(packet.packet_num);
+                }
+            }
+        } //we timed out, so client is done sending packets
+        string missing = "M" + string(file_pilot.file_ID) + " ";
+        for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
+            missing += string(*iter);
+            if (iter+1 != packets.end())
+                missing += " ";
+        }
+        //TODO send more than once
+        c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                          missing.c_str());
+        sock -> write(missing.c_str(), missing.length()+1);
+
+    }
+    //TODO
+    //internalE2E();
+}
+
+
+/*
+ * handleDir TODO remove
  * Handle a directory pilot packet and send response to the client
  * about if the target directory hash and given hash match.
  * Args: 
