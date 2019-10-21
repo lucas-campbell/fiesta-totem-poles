@@ -502,6 +502,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             int num_packs = size / PACKET_SIZE;
             if (size % PACKET_SIZE != 0)
                 num_packs++;
+            
             FilePilot fp = FilePilot(num_packs, F_ID, hash_str, filename);
                 
             const char * c_style_msg = makeFilePilot(fp).c_str();
@@ -528,11 +529,13 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
                     (atoi(inc_str.substr(4).c_str()) == F_ID))
                     break;
                 
+                timedout = true; // If we caught the wrong packet, reset
+                
             } //we timed out or tried 5 times
             
             if (num_tries == 5)
             {
-                throw C150NetworkException("Server is unresponsive, Aborting");     
+                throw C150NetworkException("Server is unresponsive, Aborting"); 
             }
             sendFile(fp, f_data, sock);
             
@@ -541,14 +544,17 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
     return ":)";
 }
 
-bool operator<(const FilePacket& l, const FilePacket& r) {return (l.packet_num<r.packet_num);}
+bool operator<(const FilePacket& l, const FilePacket& r)
+{return (l.packet_num<r.packet_num);}
 bool operator<(int& l, const FilePacket& r) {return (l < r.packet_num);}
 bool operator<(const FilePacket& l, int& r) {return (l.packet_num < r);}
+
 string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
 {
     ssize_t readlen;              // amount of data read from socket
     bool timedout = true;
     char incoming_msg[512];   // received message data
+    int num_tries = 0;
     vector<FilePacket> dps = makeDataPackets(fp, f_data);
     while(!dps.empty()) {
         for (auto iter = dps.begin(); iter != dps.end(); iter++) {
@@ -563,23 +569,45 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
                                   " doing read()", PROG_NAME);              
             }
         }
-        readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
-        // Check for timeout
-        timedout = sock -> timedout();
-        (void) readlen;
-        (void) timedout;
-        string missing = string(incoming_msg);
-        //stringstream stream(missing);
-        stringstream in(missing );
-        set<int> missing_packs{istream_iterator<int, char>{in}, istream_iterator<int, char>{}};
-        missing_packs.insert(-1);
-        //vector<int> missing_packs((istream_iterator<int>( missing )), (istream_iterator<int>()));
-        vector<FilePacket> temp_dps = dps;
-        dps.empty();
-        for (auto iter = temp_dps.begin(); iter != temp_dps.end(); iter++) {
-            if(missing_packs.find(iter->packet_num) != missing_packs.end())
-                dps.push_back(*iter);
+
+        while (timedout && num_tries <= 5) {
+            readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
+            // Check for timeout
+            timedout = sock -> timedout();
+            (void) readlen;
+            if (timedout) {
+                num_tries++;
+                continue;
+            }
+            string inc_str = string(incoming_msg);
+            if ((inc_str.substr(0, 1) == "M") &&
+                (atoi(inc_str.substr(1, inc_str.find(" ")-1).c_str())
+                                                         == fp.file_ID)) {
+                string missing = inc_str.substr(inc_str.find(" ") + 1);
+                //stringstream stream(missing);
+                stringstream in(missing);
+                set<int> missing_packs{istream_iterator<int, char>{in},
+                        istream_iterator<int, char>{}};
+                vector<FilePacket> temp_dps = dps;
+                dps.clear();
+                for (auto iter = temp_dps.begin();
+                     iter != temp_dps.end(); iter++) {
+                    if(missing_packs.find(iter->packet_num) !=
+                       missing_packs.end())
+                        dps.push_back(*iter);
+                }
+            }
+                
+            
+            timedout = true; // If we caught the wrong packet, reset
+            
+        } //we timed out or tried 5 times
+        
+        if (num_tries == 5)
+        {
+                throw C150NetworkException("Server is unresponsive, Aborting"); 
         }
+ 
     }
     return ":)";
 }
@@ -592,6 +620,7 @@ vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
         string data = f_data_s.substr(i*PACKET_SIZE, PACKET_SIZE);
         data_packs.push_back(FilePacket(i, fp.file_ID, data));
     }
-    data_packs.push_back(FilePacket(i, fp.file_ID, f_data_s.substr(i*PACKET_SIZE)));
+    data_packs.push_back(FilePacket(i, fp.file_ID,
+                                    f_data_s.substr(i*PACKET_SIZE)));
     return data_packs;
 }
