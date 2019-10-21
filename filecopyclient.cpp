@@ -103,9 +103,10 @@ int main(int argc, char *argv[]) {
     }
 
 
-     if (strspn(argv[1], "0123456789") != strlen(argv[1])) {
+    if (strspn(argv[1], "0123456789") != strlen(argv[1])) {
          fprintf(stderr,"Nastiness %s is not numeric\n", argv[1]);     
-         fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);     
+         fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n",
+                 argv[0]);     
          exit(4);
      }
      
@@ -147,7 +148,8 @@ int main(int argc, char *argv[]) {
 
         // Create the socket
         c150debug->printf(C150APPLICATION,"Creating C150DgmSocket");
-        c150debug->printf(C150APPLICATION,"Creating C150NastyDgmSocket(nastiness=%d)",
+        c150debug->printf(C150APPLICATION,"Creating"
+                          " C150NastyDgmSocket(nastiness=%d)",
 			 NETWORK_NASTINESS);
         C150DgmSocket *sock = new C150NastyDgmSocket(NETWORK_NASTINESS);
 
