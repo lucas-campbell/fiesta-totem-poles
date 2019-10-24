@@ -1,0 +1,7 @@
+TODOS
+
+* fileserver
+ - receiveFile: we currently fill up file_data with enough blank space for if
+    we had filled every packet fully. May want to place a marker at the end, so
+    don't copy blank space?
+ - generally need to keep track of mapping file_IDs to filenames at some point

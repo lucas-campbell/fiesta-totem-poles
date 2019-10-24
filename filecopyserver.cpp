@@ -35,16 +35,20 @@
 #include "utils.h"
 #include "protocol.h"
 #include <fstream>
-#include <cstdlib> 
+#include <set>
+#include <map>
+#include <vector>
 
 
 using namespace C150NETWORK;  // for all the comp150 utilities 
+using namespace std;
 
 // Forward declarations
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 DirPilot receiveDirPilot(C150NastyDgmSocket *sock);
-void receiveFile(string s) {(void) s; return;}
-void sendE2E() {return;}
+void receiveFile(C150NastyDgmSocket *sock, string incoming,
+                 map<string, string> filehash);
+void sendE2E() {return;} //TODO
 void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *&sock);
 void handleFilePilot(string incoming, map<string, string> filehash, C150DgmSocket *&sock);
 void handleData(string incoming, C150DgmSocket *&sock);
@@ -72,6 +76,8 @@ main(int argc, char *argv[])
     ssize_t readlen;             // amount of data read from socket
     char incoming_msg[512];   // received message data
     DIR* TRG;
+    // map of filenames to checksums, as they exist written in target dir
+    map<string, string> filehash; 
 
     //
     // Check command line and parse arguments
@@ -170,7 +176,7 @@ main(int argc, char *argv[])
 
             // Check for FilePilot
             if (incoming[0] == 'P') {
-                receiveFile(incoming); //TODO args
+                receiveFile(sock, incoming, filehash); //TODO args
                 received_files++;
             }
             // Resend confirmation of DirPilot if client appears to need it
@@ -400,17 +406,18 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
                 if (packet.file_ID == file_pilot.file_ID) {
                     int loc = packet.packet_num*PACKET_SIZE;
                     file_data.insert(loc, packet.data);
+                    // remove packet # from set to mark that we recevied it
                     packets.erase(packet.packet_num);
                 }
             }
         } //we timed out, so client is done sending packets
-        string missing = "M" + string(file_pilot.file_ID) + " ";
+        string missing = "M" + to_string(file_pilot.file_ID) + " ";
         for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
-            missing += string(*iter);
-            if (iter+1 != packets.end())
+            missing += to_string(*iter);
+            if (next(iter) != packets.end())
                 missing += " ";
         }
-        //TODO send more than once
+        //TODO send more than once (?)
         c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                           missing.c_str());
         sock -> write(missing.c_str(), missing.length()+1);

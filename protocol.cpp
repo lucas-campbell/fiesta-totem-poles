@@ -3,13 +3,13 @@
  * Written by: Dylan Hoffmann and Lucas Campbell
  */
 
+#include "protocol.h"
+#include "utils.h"
 #include <string>
 #include <cstdlib>
 #include <fstream>
 #include <stdio.h>
 #include <iostream>
-#include "protocol.h"
-#include "utils.h"
 
 using namespace std;
 
