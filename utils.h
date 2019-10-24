@@ -122,7 +122,7 @@ void printHash(const unsigned char *hash);
 /*
  *
  */
-bool writeFile(
+bool writeFile() {return false;}
 
 
 #endif
