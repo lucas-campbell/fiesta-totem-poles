@@ -48,6 +48,8 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 DirPilot receiveDirPilot(C150NastyDgmSocket *sock);
 void receiveFile(C150NastyDgmSocket *sock, string incoming,
                  map<string, string> filehash);
+bool internalE2E(map<string, string> &filehash, string file_data
+                 FilePilot file_pilot);
 void sendE2E() {return;} //TODO
 void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *&sock);
 void handleFilePilot(string incoming, map<string, string> filehash, C150DgmSocket *&sock);
@@ -58,6 +60,8 @@ const int FILE_NASTINESS_ARG = 2;
 const int TARGET_ARG = 3;
 extern int NETWORK_NASTINESS;
 extern int FILE_NASTINESS;
+// max number of attempts to write file to disk
+const int MAX_WRITE_TRIES = 5; 
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -427,6 +431,51 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
     //internalE2E();
 }
 
+bool internalE2E(map<string, string> &filehash, string file_data
+                 FilePilot file_pilot)
+{
+    void *fopenretval;
+    size_t len;
+    int num_tries = 0
+    while (num_tries < MAX_WRITE_TRIES) {
+        //
+        // Write the file using nastyfile interface
+        //
+
+        NASTYFILE outputFile(FILE_NASTINESS);
+        string TMPname = file_pilot.fname + ".TMP";
+
+        // do an fopen on the output file
+        fopenretval = outputFile.fopen(TMPname.c_str(), "wb");  
+
+        if (fopenretval == NULL) {
+          cerr << "Error opening output file " << TMPname << 
+                  " errno=" << strerror(errno) << endl;
+          //TODO decide how to exit here
+          exit(12);
+        }
+      
+        // Write the whole file
+        //TODO NEXT figure out how to calculate
+        //num_bytes = 
+        len = outputFile.fwrite(file_data.c_str(), 1, src_size);
+        if (len != src_size) {
+          cerr << "Error writing file " << targetName << 
+                  "  errno=" << strerror(errno) << endl;
+          exit(16);
+        }
+        
+        
+        // check if getFileHash == what we expect from file_pilot
+        // -->do we need filehash table?
+        // if not, try writing/checking again. If yes, rename file & return true
+        //
+        // If tried too many times, give up, don't rename file, and return false.
+        // need to add this file_ID to a list of failed somewhere else, or somehow
+        // otherwise signal that e2e failed.
+    }
+}
+
 
 /*
  * handleDir TODO remove
@@ -465,6 +514,7 @@ void handleDir(string incoming, map<string, string> filehash,
 }
 
 /*
+ * TODO remove
  * handleFilePilot
  * Send response to client indicating whether the file in the target directory
  * has the same SHA1 checksum as the checksum in the given packet.
@@ -506,6 +556,7 @@ void handleFilePilot(string incoming, map<string, string> filehash,
 }
 
 /*
+ * TODO remove
  * handleFilePilot
  * NEEDSWORK: document function contract, args
  */

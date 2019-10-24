@@ -3,5 +3,8 @@ TODOS
 * fileserver
  - receiveFile: we currently fill up file_data with enough blank space for if
     we had filled every packet fully. May want to place a marker at the end, so
-    don't copy blank space?
+    don't copy blank space? -->use string.resize(n)
+    * hm not quite. Need some way to calculate total number of bytes in the
+    * file, may just need to put it in the file_pilot struct. Need to know how
+    * many bytes to write on server side.
  - generally need to keep track of mapping file_IDs to filenames at some point
