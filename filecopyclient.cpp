@@ -29,8 +29,8 @@
 
 #include "utils.h"
 #include "protocol.h"
-#include "c150dgmsocket.h"
 #include "c150nastydgmsocket.h"
+#include "c150nastyfile.h"
 #include "c150debug.h"
 #include <string>
 #include <vector>
@@ -78,6 +78,7 @@ const int TIMEOUT_MS = 3000;       //ms for timeout
 extern int NETWORK_NASTINESS;
 extern int FILE_NASTINESS;
 char* PROG_NAME;
+const int MAX_SEND_TO_SERVER_TRIES = 5;
 
 
 
@@ -496,11 +497,15 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             // check that is a regular file
             if (!isFile(full_filename))
                  continue;                     
+            //
             // add {filename, checksum} to the table
+            //
             unsigned char hash[SHA1_LEN];
+            // Read data, compute checksum
+            char* f_data = trustedFileRead(sourceDir, filename, size);
+            computeChecksum((const unsigned char *)f_data, size, hash);
 
-            char* f_data = getFileChecksum(sourceDir, filename, size, hash);
-            string hash_str = string((const char*)hash);
+            string hash_str((const char*)hash);
             filehash[filename] = hash_str;
             int num_packs = size / PACKET_SIZE;
             if (size % PACKET_SIZE != 0)
@@ -509,7 +514,10 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             FilePilot fp = FilePilot(num_packs, F_ID, hash_str, filename);
                 
             const char * c_style_msg = makeFilePilot(fp).c_str();
-            while (timedout && num_tries <= 5) {
+            //
+            // Attempt to send File Pilot to server
+            //
+            while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
                 // Send the message to the server
                 c150debug->printf(C150APPLICATION,
                                   "%s: Sending File Pilot: \"%s\"",
@@ -528,6 +536,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
                         continue;
                 }
                 string inc_str = string(incoming_msg);
+                // Confirmation from server about specific File Pilot
                 if ((inc_str.substr(0, 4) == "FPOK") &&
                     (atoi(inc_str.substr(4).c_str()) == F_ID))
                     break;

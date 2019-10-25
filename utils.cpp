@@ -36,7 +36,7 @@ using namespace C150NETWORK;
  * * hash: a Pass-By-Reference null-terminated char array containing the 
  * * SHA1 hash of the file after the call to computeChecksum
  *
- * Return: None
+ * Returns: None
  * Assumptions: Data points to an area of memory that is 'size' bytes long 
  */
 void computeChecksum(const unsigned char *data, size_t size,
@@ -44,6 +44,25 @@ void computeChecksum(const unsigned char *data, size_t size,
 {
     SHA1(data, size, hash);
     hash[SHA1_LEN-1] = '\0';
+}
+
+/*
+ * cmpChecksums
+ * Compares two hashes and returns true if they are equal. Returns false
+ * otherwise.
+ * Args:
+ * * hash1: unsigned char array of length SHA1_LEN. Contains file checksum.
+ * * hash2: unsigned char array of length SHA1_LEN. Contains file checksum.
+ * 
+ * Returns: Boolean indicating hash/checksum equality.
+ */
+bool cmpChecksums(unsigned char hash1[SHA1_LEN], unsigned char hash2[SHA1_LEN])
+{
+    bool equal = true;
+    for (int i = 0; i < SHA1_LEN; i++) {
+        equal &= (hash1[i] == hash2[i]);
+    }
+    return equal;
 }
 
 /*

@@ -31,6 +31,7 @@
 // --------------------------------------------------------------
 
 #include "c150nastydgmsocket.h"
+#include "c150nastyfile.h"
 #include "c150debug.h"
 #include "utils.h"
 #include "protocol.h"
@@ -47,9 +48,8 @@ using namespace std;
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
 DirPilot receiveDirPilot(C150NastyDgmSocket *sock);
 void receiveFile(C150NastyDgmSocket *sock, string incoming,
-                 map<string, string> filehash);
-bool internalE2E(map<string, string> &filehash, string file_data
-                 FilePilot file_pilot);
+                 vector<string> &failed_e2es);
+bool internalE2E(string file_data, FilePilot file_pilot);
 void sendE2E() {return;} //TODO
 void handleDir(string incoming, map<string, string> filehash, C150DgmSocket *&sock);
 void handleFilePilot(string incoming, map<string, string> filehash, C150DgmSocket *&sock);
@@ -62,6 +62,8 @@ extern int NETWORK_NASTINESS;
 extern int FILE_NASTINESS;
 // max number of attempts to write file to disk
 const int MAX_WRITE_TRIES = 5; 
+string TARGET_DIR;
+
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -82,12 +84,14 @@ main(int argc, char *argv[])
     DIR* TRG;
     // map of filenames to checksums, as they exist written in target dir
     map<string, string> filehash; 
+    // vector of filenames, to be reported to client as part of e2e check
+    vector<string> failed_e2es;
 
     //
     // Check command line and parse arguments
     //
     if (argc != 4)  {
-        fprintf(stderr,"Correct syntxt is: %s <network nastiness>"
+        fprintf(stderr,"Correct syntax is: %s <network nastiness>"
                         "<file nastiness> <target directory>\n", argv[0]);
         exit(1);
     }
@@ -95,19 +99,22 @@ main(int argc, char *argv[])
         strlen(argv[NETWORK_NASTINESS_ARG])) {
         fprintf(stderr,"Nastiness %s is not numeric\n",
                 argv[NETWORK_NASTINESS_ARG]);     
-        fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);
+        fprintf(stderr,"Correct syntax is: %s <network nastiness>"
+                        "<file nastiness> <target directory>\n", argv[0]);
         exit(4);
     }
     if (strspn(argv[FILE_NASTINESS_ARG], "0123456789") !=
         strlen(argv[FILE_NASTINESS_ARG])) {
         fprintf(stderr,"Nastiness %s is not numeric\n",
                 argv[FILE_NASTINESS_ARG]);     
-        fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n", argv[0]);
+        fprintf(stderr,"Correct syntax is: %s <network nastiness>"
+                        "<file nastiness> <target directory>\n", argv[0]);
         exit(4);
     }
-    // convert command line string to integer
+    // convert command line args
     NETWORK_NASTINESS = atoi(argv[NETWORK_NASTINESS_ARG]);   
     FILE_NASTINESS = atoi(argv[FILE_NASTINESS_ARG]);   
+    TARGET_DIR = string(argv[TARGET_ARG]);
        
     //
     //  Set up debug message logging
@@ -117,9 +124,10 @@ main(int argc, char *argv[])
     //
     // Open the target directory
     //
-    TRG = opendir(argv[TARGET_ARG]);
+    TRG = opendir(TARGET_DIR.c_str());
     if (TRG == NULL) {
-        fprintf(stderr,"Error opening source directory %s\n", argv[TARGET_ARG]);
+        fprintf(stderr,"Error opening source directory %s\n",
+                TARGET_DIR.c_str());
         exit(8);
     }
 
@@ -180,7 +188,7 @@ main(int argc, char *argv[])
 
             // Check for FilePilot
             if (incoming[0] == 'P') {
-                receiveFile(sock, incoming, filehash); //TODO args
+                receiveFile(sock, incoming, failed_e2es); //TODO args
                 received_files++;
             }
             // Resend confirmation of DirPilot if client appears to need it
@@ -375,23 +383,35 @@ DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
     }
 }
 
+/*
+ * receiveFile
+ * Listens for FilePilot and corresponding data packets on a given socket, 
+ * writing the data to disk and making note if there was a failure to write
+ * correctly (TODO).
+ *
+ * TODO args/return
+ *
+ */
+
 void receiveFile(C150NastyDgmSocket *sock, string incoming,
-                 map<string, string> filehash)
+                 vector<string> &failed_e2es)
 {
     ssize_t readlen;             // amount of data read from socket
     char incoming_msg[512];   // received message data
     bool timedout = true;
     FilePilot file_pilot = unpackFilePilot(incoming);
+    // To be filled with data from client
+    string file_data(PACKET_SIZE*file_pilot.num_packets, ' ');
     set<int> packets;
     // Create set with packet_IDs of the packets we need to receive
     for (int i = 0; i < file_pilot.num_packets; i++) {
         packets.insert(packets.end(), i);
     }
-    string file_data(PACKET_SIZE*file_pilot.num_packets, ' ');
-    sock -> turnOnTimeouts(3000);
+    sock -> turnOnTimeouts(200);
+    // Loop until there are no more packets left to be received
     while (!packets.empty()) {
         while (!timedout) {
-            readlen = sock -> read(incoming_msg, sizeof(incoming_msg)-1);
+            readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             timedout = sock -> timedout();
             if (timedout) {
                 continue;
@@ -405,16 +425,19 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
             string incoming(incoming_msg); // Convert to C++ string
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
-            if (incoming[0] == 'F') {
+            // Check that we got a File Pilot
+            if (incoming[0] == 'F') { 
                 FilePacket packet = unpackFilePacket(incoming);
+                // Check for correct file_ID
                 if (packet.file_ID == file_pilot.file_ID) {
+                    // Add data to buffer
                     int loc = packet.packet_num*PACKET_SIZE;
                     file_data.insert(loc, packet.data);
                     // remove packet # from set to mark that we recevied it
                     packets.erase(packet.packet_num);
                 }
             }
-        } //we timed out, so client is done sending packets
+        } //we timed out, so client is done sending packets (for now)
         string missing = "M" + to_string(file_pilot.file_ID) + " ";
         for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
             missing += to_string(*iter);
@@ -426,18 +449,25 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
                           missing.c_str());
         sock -> write(missing.c_str(), missing.length()+1);
 
-    }
-    //TODO
-    //internalE2E();
+    } // we have received data for all packets in this file
+
+    //TODO / NEEDSWORK: Should either send back e2e immediately & thus there's
+    // no need for list, or compile total list of failures/completions and send
+    // at end (less waiting on client)
+    if (internalE2E(file_data, file_pilot))
+        sendE2E(); //TODO
+    else
+        failed_e2es.push_back(file_pilot.fname);
+
 }
 
-bool internalE2E(map<string, string> &filehash, string file_data
-                 FilePilot file_pilot)
+bool internalE2E(string file_data, FilePilot file_pilot)
 {
+    bool internal_e2e_succeeded = false;
     void *fopenretval;
     size_t len;
-    int num_tries = 0
-    while (num_tries < MAX_WRITE_TRIES) {
+    int num_tries = 0;
+    while (!internal_e2e_succeeded && (num_tries < MAX_WRITE_TRIES)) {
         //
         // Write the file using nastyfile interface
         //
@@ -456,24 +486,57 @@ bool internalE2E(map<string, string> &filehash, string file_data
         }
       
         // Write the whole file
-        //TODO NEXT figure out how to calculate
-        //num_bytes = 
-        len = outputFile.fwrite(file_data.c_str(), 1, src_size);
-        if (len != src_size) {
-          cerr << "Error writing file " << targetName << 
+        size_t num_bytes = file_data.size();
+        len = outputFile.fwrite(file_data.c_str(), 1, num_bytes);
+        if (len != num_bytes) {
+          cerr << "Error writing file " << TMPname << 
                   "  errno=" << strerror(errno) << endl;
           exit(16);
         }
-        
-        
+        // Close after writing
+        if (outputFile.fclose() != 0) {
+          cerr << "Error closing file " << TMPname << 
+                  "  errno=" << strerror(errno) << endl;
+          exit(16);
+        }
+
         // check if getFileHash == what we expect from file_pilot
         // -->do we need filehash table?
         // if not, try writing/checking again. If yes, rename file & return true
-        //
-        // If tried too many times, give up, don't rename file, and return false.
-        // need to add this file_ID to a list of failed somewhere else, or somehow
-        // otherwise signal that e2e failed.
-    }
+        size_t read_size;
+        unsigned char target_file_hash[SHA1_LEN];
+        char* f_data = trustedFileRead(TARGET_DIR.c_str(), file_pilot.fname,
+                                       read_size);
+        if (read_size != num_bytes) {
+            cerr << "Error reading file " << file_pilot.fname << 
+                    " after writing to disk." << endl;
+            num_tries++;
+            continue;
+        }
+        computeChecksum((const unsigned char *)f_data, read_size,
+                         target_file_hash);
+        
+
+        unsigned char expected_hash[SHA1_LEN];
+        memcpy(expected_hash, file_pilot.hash.c_str(), SHA1_LEN);
+        // Compare hash of written file and hash from FilePilot
+        bool write_success = cmpChecksums(target_file_hash, expected_hash);
+        if (write_success) {
+            int result = rename(TMPname.c_str(), file_pilot.fname.c_str());
+            if (result != 0) {
+                string msg = "Error renaming file " + TMPname;
+                perror(msg.c_str());
+                //TODO add to failed list?
+            }
+            else internal_e2e_succeeded = true;
+        }
+        else {
+            num_tries++;
+            continue;
+        }
+    } // tried & failed too many times
+
+    return internal_e2e_succeeded;
 }
 
 

@@ -22,6 +22,18 @@ void computeChecksum(const unsigned char *data, size_t size,
                      unsigned char (&hash)[SHA1_LEN]);
 
 /*
+ * cmpChecksums
+ * Compares two hashes and returns true if they are equal. Returns false
+ * otherwise.
+ * Args:
+ * * hash1: unsigned char array of length SHA1_LEN. Contains file checksum.
+ * * hash2: unsigned char array of length SHA1_LEN. Contains file checksum.
+ * 
+ * Returns: Boolean indicating hash/checksum equality.
+ */
+bool cmpChecksums(unsigned char hash1[SHA1_LEN], unsigned char hash2[SHA1_LEN]);
+
+/*
  * trustedFileRead
  * Reads a desired file and returns its contents. Checks the authenticity of
  * the contents via voting method.
@@ -118,11 +130,6 @@ std::string getDirHash(std::map<std::string, std::string> filehash);
  * Return: none
   */
 void printHash(const unsigned char *hash);
-
-/*
- *
- */
-bool writeFile() {return false;}
 
 
 #endif
