@@ -174,7 +174,7 @@ main(int argc, char *argv[])
         
         while (received_files < num_files) {
             // Read a message
-            readlen = sock -> read(incoming_msg, sizeof(incoming_msg)-1);
+            readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             if (readlen == 0) {
                 c150debug->printf(C150APPLICATION,"Read zero length message,"
                                   " trying again");
@@ -200,8 +200,8 @@ main(int argc, char *argv[])
             else
                 continue;
         }
-        sendE2E();//TODO
-
+        // Send E2E and wait for response
+        sendE2E(sock, failed_e2es, filehash, dir_pilot);
     }
 
     catch (C150NetworkException& e) {
@@ -539,7 +539,7 @@ bool internalE2E(string file_data, FilePilot file_pilot,
             }
             else 
             // NEEDSWORK if we fail to rename the file, we will still report to
-            // the client that the e2e check waqs successful. However, the .TMP
+            // the client that the e2e check was successful. However, the .TMP
             // suffix will still exist.
             internal_e2e_succeeded = true;
         }
@@ -561,12 +561,39 @@ void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
 
     unsigned char source_dir_hash[SHA1_LEN];
     memcpy(source_dir_hash, dir_pilot.hash.c_str(), SHA1_LEN);
-    // Compare hash of written file and hash from FilePilot
-    bool write_success = cmpChecksums(target_file_hash, expected_hash);
+    // Compare dir hashes
+    bool success = cmpChecksums(target_file_hash, expected_hash);
 
-    string response = "E";
+    string response = "E2E";
+
+    if (success) {
+        *GRADING << "Server-side: End-to-end directory check successful\n";
+        response += "S";
+    else {
+        *GRADING << "Server-side: End-to-end directory check failed\n";
+        response += "F" + to_string(failed.size());
+    }
         
-    *GRADING << "Sendi
+    bool e2e_received = false;
+    ssize_t readlen;
+    char incoming_message[512];
+    // Loop until we receive confirmation from client that E2E was received
+    while(!e2e_received) {
+        *GRADING << "Sending E2E response to client\n";
+        c150debug->printf(C150APPLICATION,"Responding with e2e message=\"%s\"",
+                                      response.c_str());
+        sock->write(response.c_str(), response.length()+1);
+        readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
+        if (readlen == 0) {
+            c150debug->printf(C150APPLICATION,"Read zero length message,"
+                              " trying again");
+            continue;
+        }
+        incoming_msg[readlen] = '\0'; // make sure null terminated
+        string incoming(incoming_msg); // Convert to C++ string
+        if (incoming == "E2E received")
+            e2e_received = true;
+    }
 }
 
 /*
