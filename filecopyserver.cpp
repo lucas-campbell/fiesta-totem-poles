@@ -309,6 +309,7 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
  */
 DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
 {
+    cout << "Receiving Dir Pilot\n";
     ssize_t readlen;             // amount of data read from socket
     char incoming_msg[512];   // received message data
     while (true) {
@@ -326,6 +327,7 @@ DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
         if (incoming[0] != 'D')
             continue;
         DirPilot dir_pilot = unpackDirPilot(incoming);
+        cout << incoming << endl;
         //
         // confirm to client that we received the DirPilot
         //
@@ -333,9 +335,10 @@ DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
         c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                           response.c_str());
         sock -> write(response.c_str(), response.length()+1);
-
+        cout << "Dir pilot received\n";
         return dir_pilot;
     }
+    
 }
 
 /*
@@ -351,6 +354,7 @@ DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
 void receiveFile(C150NastyDgmSocket *sock, string incoming,
                  vector<string> &failed_e2es, map<string, string> &filehash)
 {
+    cout << "Receiving File " << incoming << endl; 
     ssize_t readlen;             // amount of data read from socket
     char incoming_msg[512];   // received message data
     FilePilot file_pilot = unpackFilePilot(incoming);
@@ -390,12 +394,14 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
         else
             continue;
     }
+    cout << "File received\n";
 }
 
 void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
                         FilePilot file_pilot, vector<string> &failed_e2es,
                         map<string, string> &filehash)
 {
+    cout << "Rece3iving Data Packets\n";
     ssize_t readlen;             // amount of data read from socket
     bool timedout = false;
     char incoming_msg[512];
@@ -466,11 +472,13 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
         *GRADING << "File: " << file_pilot.fname
                              << " server-side end-to-end check succeeded\n";
     }
+    cout << "Data packets received\n";
 }
 
 bool internalE2E(string file_data, FilePilot file_pilot,
                 map<string, string> &filehash)
 {
+    cout << "Interal e2eing\n";
     bool internal_e2e_succeeded = false;
     void *fopenretval;
     size_t len;
@@ -550,13 +558,14 @@ bool internalE2E(string file_data, FilePilot file_pilot,
             continue;
         }
     } // tried & failed too many times
-
+    cout << "internal e2eed\n";
     return internal_e2e_succeeded;
 }
 
 void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
              map<string, string> filehash, DirPilot dir_pilot)
 {
+    cout << "senbding e2e\n";
     string target_hash_str = getDirHash(filehash);
     unsigned char target_dir_hash[SHA1_LEN];
     memcpy(target_dir_hash, target_hash_str.c_str(), SHA1_LEN);
@@ -596,7 +605,9 @@ void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
         string incoming(incoming_msg); // Convert to C++ string
         if (incoming == "E2E received")
             e2e_received = true;
+        
     }
+    cout << "E2E confirmed\n";
 }
 
 /*
@@ -633,6 +644,7 @@ void handleDir(string incoming, map<string, string> filehash,
     c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                       response.c_str());
     sock -> write(response.c_str(), response.length()+1);
+    cout << "Dir Pilot Received\n";
 }
 
 /*
@@ -675,6 +687,7 @@ void handleFilePilot(string incoming, map<string, string> filehash,
     c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                       response.c_str());
     sock -> write(response.c_str(), response.length()+1);
+    cout << "File Pilot Handled\n";
 }
 
 /*

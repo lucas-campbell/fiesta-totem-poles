@@ -105,10 +105,13 @@ int main(int argc, char *argv[]) {
     }
 
 
-    if (strspn(argv[1], "0123456789") != strlen(argv[1])) {
+    if ((strspn(argv[NETWORK_NASTINESS_ARG], "0123456789") !=
+        strlen(argv[NETWORK_NASTINESS_ARG])) ||
+        (strspn(argv[FILE_NASTINESS_ARG], "0123456789") !=
+         strlen(argv[FILE_NASTINESS_ARG]))) {
          fprintf(stderr,"Nastiness %s is not numeric\n", argv[1]);     
-         fprintf(stderr,"Correct syntxt is: %s <nastiness_number>\n",
-                 argv[0]);     
+         fprintf(stderr,"Correct syntxt is: %s <srvrname>"
+                " <networknasty#> <filenasty#> <src>\n", argv[0]);
          exit(4);
      }
      
@@ -129,6 +132,7 @@ int main(int argc, char *argv[]) {
     // Open the source directory
     //
     SRC = opendir(argv[SRC_ARG]);
+    *GRADING << "Opening Directory:" << argv[SRC_ARG] << endl;
     if (SRC == NULL) {
         fprintf(stderr,"Error opening source directory %s\n", argv[SRC_ARG]);
         exit(8);
@@ -159,13 +163,25 @@ int main(int argc, char *argv[]) {
         // Timeout of 3 seconds
         sock -> turnOnTimeouts(TIMEOUT_MS);
 
+        *GRADING << "Prelim Setup Complete\n";
+        cout << "Prelim setup complete\n";
         // Loop through source directory, create hashtable with filenames
         // as keys and checksums as values
         map<string, string> filehash;
         fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
+        closedir(SRC);
+        SRC = opendir(argv[SRC_ARG]);
+        *GRADING << "Opening Directory again:" << argv[SRC_ARG] << endl;
+        if (SRC == NULL) {
+            fprintf(stderr,"Error opening source directory %s\n", argv[SRC_ARG]);
+            exit(8);
+        }
         int num_files = filehash.size();
         string dir_checksum = getDirHash(filehash);
         // Send directory pilot to server
+
+        cout << "beginning communications\n";
+        
         sendDirPilot(num_files, dir_checksum, sock, argv);
         //NEEDSWORK check for zero length messages from server
         sendFiles(SRC, argv[SRC_ARG], sock, filehash);
@@ -432,6 +448,7 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
 void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
                   char *argv[])
 {
+    cout << "Dir Pilot func\n";
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
@@ -464,11 +481,13 @@ void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
         throw C150NetworkException("Write to server timed out"
                                    " too many times");     
     }
+    cout << "Dir Pilot End\n";
 }
 
 string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
                  map<string, string> &filehash)
 {
+    cout << "Sending files\n";
     int F_ID = 0;
     struct dirent *sourceFile;  // Directory entry for source file
     bool timedout = true;
@@ -477,73 +496,74 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
     int num_tries = 0;
     size_t size;
     while ((sourceFile = readdir(SRC)) != NULL) {
-
-            if ( (strcmp(sourceFile->d_name, ".") == 0) ||
-                 (strcmp(sourceFile->d_name, "..")  == 0 ) ) 
-                continue;          // never copy . or ..
-
-            string full_filename = makeFileName(sourceDir, sourceFile->d_name);
-            string filename = sourceFile->d_name;
-
-            // check that is a regular file
-            if (!isFile(full_filename))
-                 continue;                     
-            //
-            // add {filename, checksum} to the table
-            //
-            unsigned char hash[SHA1_LEN];
-            // Read data, compute checksum
-            char* f_data = trustedFileRead(sourceDir, filename, size);
-            computeChecksum((const unsigned char *)f_data, size, hash);
-
-            string hash_str((const char*)hash);
-            filehash[filename] = hash_str;
-            int num_packs = size / PACKET_SIZE;
-            if (size % PACKET_SIZE != 0)
+        cout << "In Wwhile\n";
+        if ( (strcmp(sourceFile->d_name, ".") == 0) ||
+             (strcmp(sourceFile->d_name, "..")  == 0 ) ) 
+            continue;          // never copy . or ..
+        
+        string full_filename = makeFileName(sourceDir, sourceFile->d_name);
+        string filename = sourceFile->d_name;
+        
+        // check that is a regular file
+        if (!isFile(full_filename))
+            continue;                     
+        //
+        // add {filename, checksum} to the table
+        //
+        unsigned char hash[SHA1_LEN];
+        // Read data, compute checksum
+        char* f_data = trustedFileRead(sourceDir, filename, size);
+        computeChecksum((const unsigned char *)f_data, size, hash);
+        
+        string hash_str((const char*)hash);
+        filehash[filename] = hash_str;
+        int num_packs = size / PACKET_SIZE;
+        if (size % PACKET_SIZE != 0)
                 num_packs++;
-            
-            FilePilot fp = FilePilot(num_packs, F_ID, hash_str, filename);
-                
-            const char * c_style_msg = makeFilePilot(fp).c_str();
-            //
-            // Attempt to send File Pilot to server
-            //
-            while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
-                // Send the message to the server
-                c150debug->printf(C150APPLICATION,
-                                  "%s: Sending File Pilot: \"%s\"",
-                                  PROG_NAME, c_style_msg);
-                sock->write(c_style_msg, strlen(c_style_msg)+1);
-                // Read the response from the server
-                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
-                                  " doing read()", PROG_NAME);
-                readlen = sock -> read(incoming_msg,
-                                       sizeof(incoming_msg));
-                (void) readlen;
-                // Check for timeout
-                timedout = sock -> timedout();
-                if (timedout) {
-                    num_tries++;
-                        continue;
-                }
-                string inc_str = string(incoming_msg);
-                // Confirmation from server about specific File Pilot
-                if ((inc_str.substr(0, 4) == "FPOK") &&
-                    (atoi(inc_str.substr(4).c_str()) == F_ID))
-                    break;
-                
-                timedout = true; // If we caught the wrong packet, reset
-                
-            } //we timed out or tried 5 times
-            
-            if (num_tries == 5)
-            {
-                throw C150NetworkException("Server is unresponsive, Aborting"); 
+        
+        FilePilot fp = FilePilot(num_packs, F_ID, hash_str, filename);
+        
+        const char * c_style_msg = makeFilePilot(fp).c_str();
+        //
+        // Attempt to send File Pilot to server
+        //
+        while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
+            // Send the message to the server
+            c150debug->printf(C150APPLICATION,
+                              "%s: Sending File Pilot: \"%s\"",
+                              PROG_NAME, c_style_msg);
+            sock->write(c_style_msg, strlen(c_style_msg)+1);
+            // Read the response from the server
+            c150debug->printf(C150APPLICATION,"%s: Returned from write,"
+                              " doing read()", PROG_NAME);
+            readlen = sock -> read(incoming_msg,
+                                   sizeof(incoming_msg));
+            (void) readlen;
+            // Check for timeout
+            timedout = sock -> timedout();
+            if (timedout) {
+                num_tries++;
+                continue;
             }
-            sendFile(fp, f_data, sock);
+            string inc_str = string(incoming_msg);
+            // Confirmation from server about specific File Pilot
+            if ((inc_str.substr(0, 4) == "FPOK") &&
+                (atoi(inc_str.substr(4).c_str()) == F_ID))
+                break;
             
-            F_ID++;
+            timedout = true; // If we caught the wrong packet, reset
+            
+        } //we timed out or tried 5 times
+        
+        if (num_tries == 5)
+        {
+            throw C150NetworkException("Server is unresponsive, Aborting"); 
+        }
+        sendFile(fp, f_data, sock);
+        
+        F_ID++;
     }
+    cout << "Files sent\n";
     return ":)";
 }
 
@@ -554,6 +574,7 @@ bool operator<(const FilePacket& l, int& r) {return (l.packet_num < r);}
 
 string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
 {
+    cout << "sending " << fp.fname << endl; 
     ssize_t readlen;              // amount of data read from socket
     bool timedout = true;
     char incoming_msg[512];   // received message data
@@ -612,10 +633,12 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
         }
  
     }
+    cout << "sent " << fp.fname << endl;
     return ":)";
 }
 
 vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
+    cout << "Making datapackets\n";
     vector<FilePacket> data_packs;
     string f_data_s = string(f_data);
     int i;
@@ -625,11 +648,13 @@ vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
     }
     data_packs.push_back(FilePacket(i, fp.file_ID,
                                     f_data_s.substr(i*PACKET_SIZE)));
+    cout << "made data packets\n";
     return data_packs;
 }
 
 string receiveE2E(C150DgmSocket *sock)
 {
+    cout << "In E2E\n";
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
@@ -644,6 +669,7 @@ string receiveE2E(C150DgmSocket *sock)
             string inc_str = string(incoming_msg);
             if (inc_str.substr(0, 4) == "E2ES") {
                 *GRADING << "Directory E2E passed. All files copied\n";
+                cout << "E2E Passed\n";
                 break;
             }
             else if (inc_str.substr(0, 4) == "E2EF") {
@@ -666,5 +692,6 @@ string receiveE2E(C150DgmSocket *sock)
     c150debug->printf(C150APPLICATION, "%s: Sending E2E confirmation",
                       PROG_NAME);
     sock -> write("E2E received", 13);
+    cout << "E2E received\n";
     return ":)";
 }

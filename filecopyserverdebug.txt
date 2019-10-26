@@ -1,3 +1,0 @@
-10/15/2019 21:46:38.632955 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=8)
-10/15/2019 21:46:38.639707 ./fileserver.exe:     Caught C150NetworkException: C150NetworkException:  C150NastyDgmSocket::C150NastyDgmSocket invalid nastiness level: 8 Legal nastiness levels are: 0 - 4
-
