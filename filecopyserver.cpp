@@ -55,7 +55,7 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
 bool internalE2E(string file_data, FilePilot file_pilot,
                  map<string, string> &filehash);
 void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
-             map<string, string> filehash);
+             map<string, string> filehash, DirPilot dir_pilot);
 
 
 /********** Global Constants **********/
@@ -381,9 +381,10 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
         }
         // Make sure the File Packet is for the correct file
         else if (incoming[0] == 'F') {
-            FilePacket firstPacket = unpackFilePacket(incoming);
-            if (packet.file_ID == file_pilot.file_ID) {
-                receiveDataPackets(sock, first_packet, failed_e2es, filehash);
+            FilePacket first_packet = unpackFilePacket(incoming);
+            if (first_packet.file_ID == file_pilot.file_ID) {
+                receiveDataPackets(sock, first_packet, file_pilot,
+                                   failed_e2es, filehash);
             }
         }
         else
@@ -397,6 +398,7 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
 {
     ssize_t readlen;             // amount of data read from socket
     bool timedout = false;
+    char incoming_msg[512];
     // To be filled with data from client
     string file_data(PACKET_SIZE*file_pilot.num_packets, ' ');
     set<int> packets;
@@ -455,8 +457,8 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
 
     } // we have received data for all packets in this file
 
-    if (!internalE2E(file_data, file_pilot)) {
-        failed_e2es.push_back(file_pilot.file_ID);
+    if (!internalE2E(file_data, file_pilot, filehash)) {
+        failed_e2es.push_back(to_string(file_pilot.file_ID));
         *GRADING << "File: " << file_pilot.fname
                              << " server-side end-to-end check failed\n";
     }
@@ -525,7 +527,7 @@ bool internalE2E(string file_data, FilePilot file_pilot,
 
         // Add checksum to table, regardless of whether it is correct.
         // This will be used later on for a full E2E directory check
-        filehash[file_pilot.fname] = string(target_file_hash);
+        filehash[file_pilot.fname] = string((const char *)target_file_hash);
 
         unsigned char expected_hash[SHA1_LEN];
         memcpy(expected_hash, file_pilot.hash.c_str(), SHA1_LEN);
@@ -562,13 +564,14 @@ void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
     unsigned char source_dir_hash[SHA1_LEN];
     memcpy(source_dir_hash, dir_pilot.hash.c_str(), SHA1_LEN);
     // Compare dir hashes
-    bool success = cmpChecksums(target_file_hash, expected_hash);
+    bool success = cmpChecksums(target_dir_hash, source_dir_hash);
 
     string response = "E2E";
 
     if (success) {
         *GRADING << "Server-side: End-to-end directory check successful\n";
         response += "S";
+    }
     else {
         *GRADING << "Server-side: End-to-end directory check failed\n";
         response += "F" + to_string(failed.size());
@@ -576,7 +579,7 @@ void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
         
     bool e2e_received = false;
     ssize_t readlen;
-    char incoming_message[512];
+    char incoming_msg[512];
     // Loop until we receive confirmation from client that E2E was received
     while(!e2e_received) {
         *GRADING << "Sending E2E response to client\n";
