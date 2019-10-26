@@ -1,0 +1,26 @@
+10/26/2019 18:00:10.401935 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=4)
+10/26/2019 18:00:10.404550 ./fileserver.exe:     Ready to accept messages
+10/26/2019 18:00:13.385865 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:13.385906 ./fileserver.exe:     C150NastyDgmSocket::read: dropping packet of length 31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:16.385578 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:16.385613 ./fileserver.exe:     C150NastyDgmSocket::read: dropping packet of length 31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:19.385561 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:19.385594 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:19.385623 ./fileserver.exe:     Successfully read 31 bytes. Message="D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:19.385678 ./fileserver.exe:     Responding with message="DPOK"
+10/26/2019 18:00:19.385720 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=5 |DPOK.|
+10/26/2019 18:00:19.385807 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=5 |DPOK.|
+10/26/2019 18:00:22.385544 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:22.385575 ./fileserver.exe:     C150NastyDgmSocket::read: DELAYING packet of length 31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:25.385588 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:25.385621 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:25.385649 ./fileserver.exe:     Successfully read 31 bytes. Message="D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:25.385676 ./fileserver.exe:     Responding with message="DPOK"
+10/26/2019 18:00:25.385710 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=5 |DPOK.|
+10/26/2019 18:00:25.385771 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=5 |DPOK.|
+10/26/2019 18:00:28.385556 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:28.385588 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:28.385616 ./fileserver.exe:     Successfully read 31 bytes. Message="D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:28.385644 ./fileserver.exe:     Responding with message="DPOK"
+10/26/2019 18:00:28.385680 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=5 |DPOK.|
+10/26/2019 18:00:28.385742 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=5 |DPOK.|

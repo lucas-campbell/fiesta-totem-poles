@@ -1,0 +1,39 @@
+10/26/2019 18:00:13.338626 ./fileclient.exe: Creating C150DgmSocket
+10/26/2019 18:00:13.338666 ./fileclient.exe: Creating C150NastyDgmSocket(nastiness=4)
+10/26/2019 18:00:13.385119 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:13.385158 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:13.385240 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:13.385268 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/26/2019 18:00:16.385051 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
+10/26/2019 18:00:16.385083 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:16.385117 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:16.385174 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:16.385201 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/26/2019 18:00:19.385048 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
+10/26/2019 18:00:19.385079 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:19.385113 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:19.385171 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:19.385199 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/26/2019 18:00:19.385652 ./fileclient.exe: C150DgmSocket::read: successful read with len=5 |DPOK.|
+10/26/2019 18:00:19.385684 ./fileclient.exe: C150NastyDgmSocket::read: dropping packet of length 5 |DPOK.|
+10/26/2019 18:00:22.385048 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
+10/26/2019 18:00:22.385080 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:22.385115 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:22.385164 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:22.385192 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/26/2019 18:00:25.385055 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
+10/26/2019 18:00:25.385096 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:25.385159 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:25.385214 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:25.385242 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/26/2019 18:00:25.385598 ./fileclient.exe: C150DgmSocket::read: successful read with len=5 |DPOK.|
+10/26/2019 18:00:25.385629 ./fileclient.exe: C150NastyDgmSocket::read: dropping packet of length 5 |DPOK.|
+10/26/2019 18:00:28.385059 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
+10/26/2019 18:00:28.385090 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 )S›èpYÄoNqƒŒË∏Àw8;"
+10/26/2019 18:00:28.385124 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:28.385181 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 )S..pY.oNq.....w.8.;.|
+10/26/2019 18:00:28.385208 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
+10/26/2019 18:00:28.385583 ./fileclient.exe: C150DgmSocket::read: successful read with len=5 |DPOK.|
+10/26/2019 18:00:28.385615 ./fileclient.exe: C150NastyDgmSocket::read: delivering packet of length 5 |DPOK.|
+10/26/2019 18:00:28.385768 ./fileclient.exe: Caught C150NetworkException: C150NetworkException:  Write to server timed out too many times
+

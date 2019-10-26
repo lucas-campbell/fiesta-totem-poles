@@ -75,11 +75,11 @@ const int SERVER_ARG = 1;     // server name is 1st arg
 const int NETWORK_NASTINESS_ARG = 2;        // network nastiness is 2nd arg
 const int FILE_NASTINESS_ARG = 3;        // file nastiness is 3rd arg
 const int SRC_ARG = 4;            // source directory is 4th arg
-const int TIMEOUT_MS = 3000;       //ms for timeout
+const int TIMEOUT_MS = 300;       //ms for timeout
 extern int NETWORK_NASTINESS;
 extern int FILE_NASTINESS;
 char* PROG_NAME;
-const int MAX_SEND_TO_SERVER_TRIES = 5;
+const int MAX_SEND_TO_SERVER_TRIES = 10;
 
 
 
@@ -169,6 +169,13 @@ int main(int argc, char *argv[]) {
         // as keys and checksums as values
         map<string, string> filehash;
         fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
+
+        for (auto iter=filehash.begin(); iter != filehash.end(); iter++){
+            cout << "first:" << iter->first << " second:";
+            printHash((const unsigned char*) iter -> second.c_str());
+            cout << endl;
+        }
+        
         closedir(SRC);
         SRC = opendir(argv[SRC_ARG]);
         *GRADING << "Opening Directory again:" << argv[SRC_ARG] << endl;
@@ -555,7 +562,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             
         } //we timed out or tried 5 times
         
-        if (num_tries == 5)
+        if (num_tries == MAX_SEND_TO_SERVER_TRIES)
         {
             throw C150NetworkException("Server is unresponsive, Aborting"); 
         }
@@ -594,7 +601,7 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
             }
         }
 
-        while (timedout && num_tries <= 5) {
+        while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             // Check for timeout
             timedout = sock -> timedout();
@@ -627,7 +634,7 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
             
         } //we timed out or tried 5 times
         
-        if (num_tries == 5)
+        if (num_tries == MAX_SEND_TO_SERVER_TRIES)
         {
                 throw C150NetworkException("Server is unresponsive, Aborting"); 
         }
@@ -658,7 +665,7 @@ string receiveE2E(C150DgmSocket *sock)
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
-    while (timedout && num_tries <= 5) {
+    while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
             sock -> read(incoming_msg, sizeof(incoming_msg));
             // Check for timeout
             timedout = sock -> timedout();
@@ -683,7 +690,7 @@ string receiveE2E(C150DgmSocket *sock)
             timedout = true; // If we caught the wrong packet, reset
             
     } //we timed out or tried 5 times
-    if (num_tries == 5)
+    if (num_tries == MAX_SEND_TO_SERVER_TRIES)
     {
         *GRADING << "Did not receive E2E. Aborting...\n";
         throw C150NetworkException("Did not receive E2E. Aborting..."); 
