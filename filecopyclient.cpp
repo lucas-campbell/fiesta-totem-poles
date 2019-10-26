@@ -75,11 +75,11 @@ const int SERVER_ARG = 1;     // server name is 1st arg
 const int NETWORK_NASTINESS_ARG = 2;        // network nastiness is 2nd arg
 const int FILE_NASTINESS_ARG = 3;        // file nastiness is 3rd arg
 const int SRC_ARG = 4;            // source directory is 4th arg
-const int TIMEOUT_MS = 3000;       //ms for timeout
+const int TIMEOUT_MS = 300;       //ms for timeout
 extern int NETWORK_NASTINESS;
 extern int FILE_NASTINESS;
 char* PROG_NAME;
-const int MAX_SEND_TO_SERVER_TRIES = 5;
+const int MAX_SEND_TO_SERVER_TRIES = 10;
 
 
 
@@ -169,6 +169,13 @@ int main(int argc, char *argv[]) {
         // as keys and checksums as values
         map<string, string> filehash;
         fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
+
+        for (auto iter=filehash.begin(); iter != filehash.end(); iter++){
+            cout << "first:" << iter->first << " second:";
+            printHash((const unsigned char*) iter -> second.c_str());
+            cout << endl;
+        }
+        
         closedir(SRC);
         SRC = opendir(argv[SRC_ARG]);
         *GRADING << "Opening Directory again:" << argv[SRC_ARG] << endl;
@@ -454,13 +461,15 @@ void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
     int num_tries = 0;
     DirPilot pilot = DirPilot(num_files, hash);
     string dir_pilot_packet = makeDirPilot(pilot);
+    int pack_len = dir_pilot_packet.size();
     const char * c_style_msg = dir_pilot_packet.c_str();
+    
     while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
         // Send the message to the server
         c150debug->printf(C150APPLICATION,
                           "%s: Writing message: \"%s\"",
                           PROG_NAME, c_style_msg);
-        sock->write(c_style_msg, strlen(c_style_msg)+1);
+        sock->write(c_style_msg,pack_len+1);
         // Read the response from the server
         c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                           " doing read()", PROG_NAME);
@@ -479,7 +488,7 @@ void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
     if (num_tries == MAX_SEND_TO_SERVER_TRIES)
     {
         throw C150NetworkException("Write to server timed out"
-                                   " too many times");     
+                                   " too many times DPOK");     
     }
     cout << "Dir Pilot End\n";
 }
@@ -522,8 +531,10 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
                 num_packs++;
         
         FilePilot fp = FilePilot(num_packs, F_ID, hash_str, filename);
+        string f_pilot = makeFilePilot(fp);
+        int pack_len = f_pilot.size();
         
-        const char * c_style_msg = makeFilePilot(fp).c_str();
+        const char * c_style_msg = f_pilot.c_str();
         //
         // Attempt to send File Pilot to server
         //
@@ -532,7 +543,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             c150debug->printf(C150APPLICATION,
                               "%s: Sending File Pilot: \"%s\"",
                               PROG_NAME, c_style_msg);
-            sock->write(c_style_msg, strlen(c_style_msg)+1);
+            sock->write(c_style_msg, pack_len+1);
             // Read the response from the server
             c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                               " doing read()", PROG_NAME);
@@ -548,16 +559,20 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             string inc_str = string(incoming_msg);
             // Confirmation from server about specific File Pilot
             if ((inc_str.substr(0, 4) == "FPOK") &&
-                (atoi(inc_str.substr(4).c_str()) == F_ID))
+                (atoi(inc_str.substr(4).c_str()) == F_ID)){
+                cout << "Received FPOK\n";
                 break;
+            }
+                
             
             timedout = true; // If we caught the wrong packet, reset
             
         } //we timed out or tried 5 times
         
-        if (num_tries == 5)
+        if (num_tries == MAX_SEND_TO_SERVER_TRIES)
         {
-            throw C150NetworkException("Server is unresponsive, Aborting"); 
+            throw C150NetworkException("Server is unresponsive, on FP. "
+                                       "Aborting"); 
         }
         sendFile(fp, f_data, sock);
         
@@ -581,20 +596,23 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
     int num_tries = 0;
     vector<FilePacket> dps = makeDataPackets(fp, f_data);
     while(!dps.empty()) {
+        cout << "In file while\n";
         for (auto iter = dps.begin(); iter != dps.end(); iter++) {
             for (int i = 0; i < 5; i++) {
-                const char * c_style_msg = makeFilePacket(*iter).c_str();
+                string data_pack = makeFilePacket(*iter);
+                int pack_len = data_pack.size();
+                const char * c_style_msg = data_pack.c_str();
                 c150debug->printf(C150APPLICATION,
                                   "%s: Sending File Data, msg: \"%s\"",
                                   PROG_NAME, c_style_msg);
-                sock->write(c_style_msg, strlen(c_style_msg)+1);
+                sock->write(c_style_msg, pack_len+1);
                 // Read the response from the server
                 c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                                   " doing read()", PROG_NAME);              
             }
         }
 
-        while (timedout && num_tries <= 5) {
+        while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             // Check for timeout
             timedout = sock -> timedout();
@@ -606,7 +624,8 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
             string inc_str = string(incoming_msg);
             if ((inc_str.substr(0, 1) == "M") &&
                 (atoi(inc_str.substr(1, inc_str.find(" ")-1).c_str())
-                                                         == fp.file_ID)) {
+                 == fp.file_ID)) {
+                cout << "received missing\n";
                 string missing = inc_str.substr(inc_str.find(" ") + 1);
                 //stringstream stream(missing);
                 stringstream in(missing);
@@ -627,9 +646,10 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
             
         } //we timed out or tried 5 times
         
-        if (num_tries == 5)
+        if (num_tries == MAX_SEND_TO_SERVER_TRIES)
         {
-                throw C150NetworkException("Server is unresponsive, Aborting"); 
+            throw C150NetworkException("Server is unresponsive on DP. "
+                                       "Aborting"); 
         }
  
     }
@@ -644,6 +664,7 @@ vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
     int i;
     for (i = 0; i < fp.num_packets-1; i++) {
         string data = f_data_s.substr(i*PACKET_SIZE, PACKET_SIZE);
+        cout << "data: " << data << endl << endl;
         data_packs.push_back(FilePacket(i, fp.file_ID, data));
     }
     data_packs.push_back(FilePacket(i, fp.file_ID,
@@ -658,7 +679,7 @@ string receiveE2E(C150DgmSocket *sock)
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
-    while (timedout && num_tries <= 5) {
+    while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
             sock -> read(incoming_msg, sizeof(incoming_msg));
             // Check for timeout
             timedout = sock -> timedout();
@@ -683,7 +704,7 @@ string receiveE2E(C150DgmSocket *sock)
             timedout = true; // If we caught the wrong packet, reset
             
     } //we timed out or tried 5 times
-    if (num_tries == 5)
+    if (num_tries == MAX_SEND_TO_SERVER_TRIES)
     {
         *GRADING << "Did not receive E2E. Aborting...\n";
         throw C150NetworkException("Did not receive E2E. Aborting..."); 

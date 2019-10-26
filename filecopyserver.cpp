@@ -174,6 +174,7 @@ main(int argc, char *argv[])
         
         while (received_files < num_files) {
             // Read a message
+            cout << "In while\n";
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             if (readlen == 0) {
                 c150debug->printf(C150APPLICATION,"Read zero length message,"
@@ -181,17 +182,22 @@ main(int argc, char *argv[])
                 continue;
             }
             incoming_msg[readlen] = '\0'; // make sure null terminated
+            cout << "readlen" << readlen << endl;
+            printf("%s\n", incoming_msg);
             string incoming(incoming_msg); // Convert to C++ string
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
-
+            cout << incoming << endl;
+            cout << incoming[0] << endl;
             // Check for FilePilot
             if (incoming[0] == 'P') {
+                cout << "Case P\n";
                 receiveFile(sock, incoming, failed_e2es, filehash); //TODO args
                 received_files++;
             }
             // Resend confirmation of DirPilot if client appears to need it
             else if (incoming[0] == 'D') {
+                cout << "Case D\n";
                 string response = "DPOK";
                 c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                                   response.c_str());
@@ -361,6 +367,7 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
 
     // Loop until we get a FilePacket
     while (true) {
+        cout << "In receive file while\n";
         readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
         if (readlen == 0) {
             c150debug->printf(C150APPLICATION,"Read zero length message,"
@@ -369,6 +376,7 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
         string incoming(incoming_msg); // Convert to C++ string
+        cout << "incoming " << incoming << endl;
         c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                           " Message=\"%s\"", readlen, incoming.c_str());
         // If we receive the same FilePilot again, the client did not get our
