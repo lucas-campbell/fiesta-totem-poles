@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<!-- 
+ **********************************************************
+
+             TUFTS COMP 117 HOMEWORK ASSIGNMENT
+
+        Fill in your name, e-mail and answers to questions
+        in the sections provided below.
+
+          All questions are marked up: <li class="q">
+          All answers are marked up:   <li class="a">
+
+
+     PLEASE DO NOT MODIFY ANY THING OTHER THAN THE 
+     NAME, E-MAIL, AND ANSWER FIELDS (you may also add
+     css declarations in the <head> if you need them,
+     but usually you won't.
+
+ **********************************************************
+ -->
+
+
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>Tufts COMP 117 Assignment &#8212; File Copy Project Report</title>
+<link rel="stylesheet" type="text/css" href="http://www.cs.tufts.edu/comp/117/style/homework.css" />
+<link rel="stylesheet" href="filecopyreport.css">
+</head>
+
+<body class="homework">
+
+
+<!-- ******************************************************
+	   YOU MUST FILL IN YOUR NAME, UTLN AND EMAIL BELOW!!
+         (You may copy this from an earlier assignment
+                         if you like)
+
+     ****************************************************** -->
+
+
+<div class="student">
+<p>
+<span class="label">Student1 name: </span>
+Lucas Campbell
+<br>
+
+<span class="label">UTLN: </span>
+lcampb03
+<br>
+
+<span class="label">E-mail: </span>
+<!-- DON'T FORGET UP UPDATE THE MAILTO: URI BELOW ALONG WITH
+     YOUR EMAIL IN THE ANCHOR.  IT SHOULD LOOK LIKE:
+ <a href="mailto:lady.gaga@cs.tufts.edu">lady.gaga@cs.tufts.edu</a>
+--> 
+
+<a href="mailto:lucas.campbell@tufts.edu">lucas.campbell@tufts.edu</a>
+<br>
+<br>
+<br>
+<span class="label">Student2 name: </span>
+Dylan Hoffmann
+<br>
+<span class="label">UTLN: </span>
+dhoffm02
+<br>
+
+<span class="label">E-mail: </span>
+<!-- DON'T FORGET UP UPDATE THE MAILTO: URI BELOW ALONG WITH
+     YOUR EMAIL IN THE ANCHOR.  IT SHOULD LOOK LIKE:
+ <a href="mailto:lady.gaga@cs.tufts.edu">lady.gaga@cs.tufts.edu</a>
+--> 
+
+<a href="mailto:dylan.hoffmann@tufts.edu">dylan.hoffmann@tufts.edu</a>
+
+<br>
+</p>
+</div>
+
+
+
+
+<div class="UpperLeftHeader">
+<p>Tufts COMP 117 (Spring 2019):
+<br>
+Internet-scale Distributed Systems
+</p>
+</div>
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - -
+		HOMEWORK TITLE
+  - -  - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+<div class="headerdiv">
+<h1>
+Tufts COMP 117:<br>
+File Copy Project Report
+</h1>
+</div>
+
+<!-- ******************************************************
+
+              PLEASE ANSWER QUESTIONS IN THE SECTIONS
+	      LABELED class="a" (for answer)
+
+     ****************************************************** -->
+
+
+
+
+<div class="main">
+
+<h2 id="questions">Questions</h2>
+<!-- - - - - - - - - - - - - - - - - - - - - - - -
+		QUESTION
+  - -  - - - - - - - - - - - - - - - - - - - - - - -->
+<div class="qa">
+
+<ol class="qa">
+<li class="q">What are the highest "nastiness" levels at which you believe your program will
+successfully copy an entire directory full of files? (We will test your programs using those levels
+on both the client and the server; if all you got working
+was the end-to-end check, then please tell us how to test your work. <em>Also: if high network nastiness messes up your ability to deal with file nastiness, you can give us two pairs: e.g. Test my client and server with networknastiness=4 and filenastiness=1 or networknastiness=0 and filenastiness=3)</em></li>
+<li class="a">
+<!-- replace XX and YY with the actual values -->
+Please test my client and server with: networknastiness=1 and filenastiness=5.
+</li>
+
+<li class="q">Is there anything else we should
+know about testing your code, or what you expect it to do
+(beyond what's explained in your report below)?</li>
+<li class="a">
+We don't do a file specific end-to-end check across the network. Our file E2E is internal to the server, while we do directory wide test to confirm with the client.
+</li>
+
+<li class="q">Did you get help from anyone other than your teammate? If "yes", then briefly explain who helped you and how.</li>
+<li class="a">
+No.
+</li>
+
+
+<li class="q">(optional) Do you have any other comments on this assignment (e.g. was it worthwhile, what did you learn from it, do you have suggestions for improvment if the course is offered again)?</li>
+<li class="a">
+...your answer here...
+</li>
+
+</ol>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * -->
+<!--            REPORT GOES HERE               -->
+<!-- * * * * * * * * * * * * * * * * * * * * * -->
+
+<h2 id="reportbody">Report</h2>
+
+<!-- Delete the entire paragraph below 
+     and replace it with your report. (Do NOT
+     keep the color:grey styling on your report! :-) -->
+
+<ul>
+  <li><h5>Overview: what did you do? What worked and what didn't?</h5></li>
+  <ul>
+	<li>We built a file copy protocol which allows a user to copy files from a client to a server.
+      #TODO: what worked and what didn't </li>
+  </ul>
+  <li><h5>Which cases do you think your code handles and why? </h5></li>
+  <ul>
+    <li>Our code handles all of the cases. $$$$$</li>
+  </ul>
+  <li><h5>Describe your protocol:</h5>
+<ul>
+  <li><h5>What is the sequence of packets you send in the normal cases and for recovery?</h5></li>
+  <ul> <li> We have 3 types of client-sent packets, and 1 type of server-sent packet. Our client sends Directory Pilot packets, File Pilot packets, and File Packets. The first sent is a Dir pilot which informs the server of the number of file to be transmitted and the end-to-end directory hash. The file pilot sets up the server to receive a file, and communicates the file name, file id, file hash, and number of packets for the server. The file pilot is then followed by a number of FilePackets which transmit the data to the server and contain the file id, packet number, and upto 480 bytes of the file data. The server sands one brpoad type of packet which is response packets which convey either success or failure to the client. The contents of the packets are either "##Ok" where ## is an abreviation of the type of packet just received, or "C # # # #..."where C is a character sentinal to the client communicating what type of ID the following list is of, and # is a packet or file ID which is missing from the server</li>
+  </ul>
+<li><h5>What is the structure of your packets? Briefly explain each significant field. You can copy/paste the actual structs
+    if you like, but include enough commentary (in the structs or below it) that we can figure out what's going on.</h5></li>
+<ul><li>
+     <h5>DirPilot Struct</h5>
+     <ul>
+       <li>D ####### HHHHHHHHHHHHHHHHHHH</li>
+       <li>D is the packet type indicator for a Directory pilot packet (Always 1 byte)</li>
+       <li># is the number of files in the directory (Up to 7 bytes = 9,999,999 files)</li>
+        <li>H is the SHA1 checksum of the directory (Always 20 bytes)</li>
+       </ul>
+  </li>
+  <li>
+   <h5>FilePilot Struct</h5>
+   <ul>
+     <li>
+       "P ####### IIIIIII HHHHHHHHHHHHHHHHHHHH F....."
+     </li>
+     <li>F is the packet type indicator for a file Pilot packet (Always 1 byte)</li>
+     <li># is the number of packets for the file == (file-size // 420) +1 (up to 7 bytes = 9,999,999 packets) (This field is padded to width 7)</li>
+     <li>I is the file ID (up to 7 bytes = 9,999,999 files)
+       (This field is also padded to width 7)</li>
+     <li>H is the SHA1 hash of the file (Always 20 bytes)</li>
+     <li>F... is a variable length field for the file name (up to 470 bytes long)</li>
+     </ul>
+  </li>
+  <li>
+    <h5>FilePacket Struct</h5>
+    <ul>
+     <li>"F ####### PPPPPPP D....."</li>
+     <li>F is the packet type indicator for a File data packet (Always 1 byte)</li>
+     <li># is the packets number of this packet (Up to 7 bytes = 9,999,999 packets)</li>
+     <li>P is the file ID (Up to 7 bytes = 9,999,999 files)</li>
+     <li>D... is a variable length field for the file data (up to 480 bytes long)</li>
+     </ul>
+</li></ul>
+  <li><h5>What's your approach to dealing with lost packets? Packets that are reordered?</h5></li>
+  <ul><li>We send a list of missing packets for data packets, and if pilot packets get lost we retry until we receive a confirmation, or timeout. If server packets are lost the client won't proceed until it receives the proper confirmation, and the server will keep resend until a timeing out or a certain number of retries has been reached. Data packets which arrive out of order for the same file are inserted into the correct place in the file, files which arrive which are not the for the current file are ignored.</li></ul>
+<li><h5>Are there any invariants that give you confidence in the correctness of
+your protocol (e.g. "My rename is done after my end-to-end check succeeds,
+    so any TARGET file without a .TMP suffix is correct")</h5></li>
+<ul>
+  <li>In additon to the above invariant, our program has the invariants that both the server and the client only ever are dealing with one file at once, that if we have proceeded to sending the next type of packet from the client we must have received confirmation from the server, and either all packets for a file have arrived, or there exists a list with length > 0 that contains the packet ids of all packets which have not been received</li>
+  </ul>
+</ul>
+  </li><li><h5>Do you expect your code to succeed when there are errors reading or writing the disk? What ensures that it will succeed, or why do you think it might not?</h5></li>
+  <ul><li>I there is an error writing to disk, we try MAX_WRITE_TRIES number of times, and if that try fails we note that the file has failed, add it to our failed list, and proceed. If reading a file fails more than 4 times our code crashes because if reading a file failes more than a couple of times it means either we were unable to open the file repeatedly, or unable to read the file repeatedly, and on the client side we could not elegantly handle that cae without adding a lot of complexity to our system. If we had more time, we could fix it to ignore that file, and copy the rest of the files. </li></ul>
+  <li><h5>Are there bugs or shortcomings you know about? Are they indicated in comments in the code with NEEDSWORK? (see <a href="#commenting">commenting and code quality</a>)</h5></li>
+  <ul><li> There are a couple of aspects which our code does not handle, but is built in such a way that we could extend it to handle relatively easily. Most importantly, our end-to-end check does not prompt any retries or attempts to fix the problems, but merely reports the number of failed files and completes. We could extend this by communicating the list of fialed files and having the client retry to send those files specifically. Additonally, we don't address the case of too much data, either trying to send a file greater than 4.8 Gb, trying to send more than 9,999,999 files. 
+  </li></ul>
+<li><h5>What should we look for in the grading logs? Please relate this to your explanation of the protocol you've invented (if you like, you can combine the two, indicating gradelog entries as you explain the protocol, or you can explain the gradelog separately).
+</h5></li>
+$$$$$$
+<li><h5>Which cases are you aware of (e.g. high nastiness levels or particular
+combinations of reordering) that you aren't trying to handle correctly?
+In such cases, will your code detect the problem and abort (OK) or
+will it silently produce incorrect results?
+</h5></li>
+<ul><li>
+    Aside from the above mentioned shortcomings we believe we handle all cases correctly and will never report incorrect results as correct.
+</li></ul>
+<li><h5>If your code has to give up copying one file, will it go on and try others? This can
+be a good thing to do. Certain protocols will tend to succeed on short files, but not on longer ones.
+If this is true of yours, can you explain why?
+If you have this problem, what file sizes do you handle at which nastiness
+    levels, and how long does it typically take for them to be copied?</h5></li>
+$$$$$$$
+<li><h5>Are there any cases for which your code doesn't do what you expect? Do you have any intuition why that might be?</h5></li>
+  <li><h5>What did you learn from this asssignment?</h5></li>
+  $$$$$$
+</ul>
+
+</div>
+</div>
+</body>
+</html>
