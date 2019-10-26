@@ -84,14 +84,14 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
     string source_name = makeFileName(source_dir, file_name);
 
     bool found_match = false;
-
+    int correct_index;
+    char *file_buffs[2];
     while (!found_match) {
-        int correct_index;
         string hashes[3];
-        char *file_buffs[2];
         int failed = 0;
+        
         for (int i = 0; i < 3; i++) {
-            if (open_failed > 4) {
+            if (failed > 4) {
                 *GRADING << "Read of  " << file_name << " failed too many "
                         << "times, exiting\n";
                 exit(-1);
@@ -161,7 +161,7 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             if (i == 2)
                 free(buffer);
             //reset, because we succeeded once
-            open_failed = 0;
+            failed = 0;
         }
         // check to see if any checksums match
         if ((hashes[0] == hashes[1]) || (hashes[0] == hashes[2])) {
