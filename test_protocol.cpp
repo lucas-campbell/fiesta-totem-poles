@@ -19,14 +19,15 @@ int main() {
     getFileChecksum(string("."), string("sha1test.cpp"), t, hash2);
     printHash(reinterpret_cast<unsigned char *>(hash2)); printf("\n");
 
-    string dirpack = makeDirPilot(DirPilot(4, string(reinterpret_cast<const char *>(hash))));
+    string dirpack = makeDirPilot(DirPilot(4, string(reinterpret_cast<const char *>(hash), 20)));
     DirPilot dir_pilot = unpackDirPilot(dirpack);
     printf("DirPilot:\n%07d ", dir_pilot.num_files);
     printHash((const unsigned char *)dir_pilot.hash.c_str());
     printf("\n");
 
     string filepilotpack =
-        makeFilePilot(FilePilot(1234567, 13, string(reinterpret_cast<const char *>(hash2)), "sha1test.cpp"));
+        makeFilePilot(FilePilot(1234567, 13, string((const char *)hash2, 20), "sha1test.cpp"));
+    cout << filepilotpack << endl;
     FilePilot file_pilot = unpackFilePilot(filepilotpack);
     printf("File Pilot:\n%07d %07d ", file_pilot.num_packets, file_pilot.file_ID);
     printHash((const unsigned char *)file_pilot.hash.c_str());

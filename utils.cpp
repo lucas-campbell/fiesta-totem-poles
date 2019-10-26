@@ -155,7 +155,7 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
 
             // Store the hash of the read file
             computeChecksum((const unsigned char *)buffer, size, hash);
-            hashes[i] = string((const char *)hash);
+            hashes[i] = string((const char *)hash, SHA1_LEN-1);
             auto occurs = counts.find(hashes[i]);
             // Increment count of that checksum
             if (occurs == counts.end()){
@@ -167,31 +167,12 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
         }
         // check to see if enough checksums match
         for (int i = 0; i < 5; i++) {
-            if (counts.count(hashes[i]) >= 3){
+            if (counts[(hashes[i])] >= 3){
                 found_match = true;
                 correct_index = i;
                 break;
             }
         }
-
-        /*
-        if ((hashes[0] == hashes[1]) || (hashes[0] == hashes[2])
-            ((hashes[0] == hashes[3])|| (hashes[0] == hashes[4]))) {
-            free(file_buffs[1]);
-            free(file_buffs[2]);
-            free(file_buffs[3]);
-            correct_index = 0;
-            found_match = true;
-        } else if (hashes[1] == hashes[2]) {
-            free(file_buffs[0]);
-            correct_index = 1;
-            found_match = true;
-        }
-        else {
-            free(file_buffs[0]);
-            free(file_buffs[1]);
-        }
-        */
     }
 
     //clean up duplicate copies
@@ -383,17 +364,4 @@ string getDirHash(map<string, string> filehash)
                     hash);
 
     return string((const char *)hash);
-//    string file = tmpnam(nullptr);
-//    ofstream stream(file);
-//    for(auto& kv : filehash) {
-//        stream << kv.second << endl;
-//    }
-//    unsigned char hash[SHA1_LEN];
-//    size_t size; //throwaway
-//    getFileChecksum(string("."), file, size, hash);
-//    string hash_str = string((const char*)hash);
-//    stream.close();
-//    cout << file << endl;
-//    remove(file.c_str());
-//    return hash_str;
 }
