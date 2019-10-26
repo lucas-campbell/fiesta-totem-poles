@@ -85,13 +85,16 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
 
     bool found_match = false;
     int correct_index;
-    char *file_buffs[2];
+    char *file_buffs[5];
     while (!found_match) {
-        string hashes[3];
+        string hashes[5];
         int failed = 0;
+        //keep a count of duplicate hashes
+        map<string, int> counts;
         
-        for (int i = 0; i < 3; i++) {
-            if (failed > 4) {
+        // Read file 5 times, check if we got the same checksum 3 times
+        for (int i = 0; i < 5; i++) {
+            if (failed > 6) {
                 *GRADING << "Read of  " << file_name << " failed too many "
                         << "times, exiting\n";
                 exit(-1);
@@ -115,9 +118,7 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             // the whole file
             src_size = statbuf.st_size;
             buffer = (char *)malloc(src_size);
-            if (i != 2) { //not the 3rd file opening
-                file_buffs[i] = buffer;
-            }
+            file_buffs[i] = buffer;
 
             NASTYFILE inputFile(FILE_NASTINESS);
 
@@ -128,9 +129,8 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
                 cerr << "Error opening input file " << source_name << 
                       " errno=" << strerror(errno) << endl;
                 failed++;
-                free(file_buffs[0]);
-                free(file_buffs[1]);
-                if (i == 2) free(buffer);
+                for (int j = i; j >=0; j--)
+                    free(file_buffs[j]);
                 break;
             }
             // Read the whole file
@@ -139,9 +139,8 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
                 cerr << "Error reading file " << source_name << 
                       "  errno=" << strerror(errno) << endl;
                 failed++;
-                free(file_buffs[0]);
-                free(file_buffs[1]);
-                if (i == 2) free(buffer);
+                for (int j = i; j >=0; j--)
+                    free(file_buffs[j]);
                 break;
             }
             // Close the file
@@ -149,23 +148,38 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
                 cerr << "Error closing input file " << source_name << 
                       " errno=" << strerror(errno) << endl;
                 failed++;
-                free(file_buffs[0]);
-                free(file_buffs[1]);
-                if (i == 2) free(buffer);
+                for (int j = i; j >=0; j--)
+                    free(file_buffs[j]);
                 break;
             }
 
+            // Store the hash of the read file
             computeChecksum((const unsigned char *)buffer, size, hash);
             hashes[i] = string((const char *)hash);
-            // Only need to store first 2 buffers
-            if (i == 2)
-                free(buffer);
+            auto occurs = counts.find(hashes[i]);
+            // Increment count of that checksum
+            if (occurs == counts.end()){
+                counts[(hashes[i])] = 1;
+            }
+            else (occurs->second)++;
             //reset, because we succeeded once
             failed = 0;
         }
-        // check to see if any checksums match
-        if ((hashes[0] == hashes[1]) || (hashes[0] == hashes[2])) {
+        // check to see if enough checksums match
+        for (int i = 0; i < 5; i++) {
+            if (counts.count(hashes[i]) >= 3){
+                found_match = true;
+                correct_index = i;
+                break;
+            }
+        }
+
+        /*
+        if ((hashes[0] == hashes[1]) || (hashes[0] == hashes[2])
+            ((hashes[0] == hashes[3])|| (hashes[0] == hashes[4]))) {
             free(file_buffs[1]);
+            free(file_buffs[2]);
+            free(file_buffs[3]);
             correct_index = 0;
             found_match = true;
         } else if (hashes[1] == hashes[2]) {
@@ -177,7 +191,15 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             free(file_buffs[0]);
             free(file_buffs[1]);
         }
+        */
     }
+
+    //clean up duplicate copies
+    for (int i = 0; i < 5; i++) {
+        if (i != correct_index)
+            free(file_buffs[i]);
+    }
+
     return file_buffs[correct_index];
 }
 
