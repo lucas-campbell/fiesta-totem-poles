@@ -84,12 +84,18 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
     string source_name = makeFileName(source_dir, file_name);
 
     bool found_match = false;
-    int correct_index;
-    string hashes[3];
-    char *file_buffs[2];
 
     while (!found_match) {
+        int correct_index;
+        string hashes[3];
+        char *file_buffs[2];
+        int failed = 0;
         for (int i = 0; i < 3; i++) {
+            if (open_failed > 4) {
+                *GRADING << "Read of  " << file_name << " failed too many "
+                        << "times, exiting\n";
+                exit(-1);
+            }
             //  Misc variables, mostly for return codes
             void *fopenretval;
             string errorString;
@@ -102,7 +108,8 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             if (lstat(source_name.c_str(), &statbuf) != 0) {
                 fprintf(stderr,"trustedFileRead: error stating supplied source"
                         "file %s\n", source_name.c_str());
-                exit(20);
+                failed++;
+                break;
             }
             // Make an input buffer large enough for
             // the whole file
@@ -118,43 +125,57 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             fopenretval = inputFile.fopen(source_name.c_str(), "rb");  
           
             if (fopenretval == NULL) {
-              cerr << "Error opening input file " << source_name << 
+                cerr << "Error opening input file " << source_name << 
                       " errno=" << strerror(errno) << endl;
-              exit(12);
+                failed++;
+                free(file_buffs[0]);
+                free(file_buffs[1]);
+                if (i == 2) free(buffer);
+                break;
             }
             // Read the whole file
             size = inputFile.fread(buffer, 1, src_size);
             if (size != src_size) {
-              cerr << "Error reading file " << source_name << 
+                cerr << "Error reading file " << source_name << 
                       "  errno=" << strerror(errno) << endl;
-              exit(16);
+                failed++;
+                free(file_buffs[0]);
+                free(file_buffs[1]);
+                if (i == 2) free(buffer);
+                break;
             }
             // Close the file
             if (inputFile.fclose() != 0 ) {
-              cerr << "Error closing input file " << source_name << 
+                cerr << "Error closing input file " << source_name << 
                       " errno=" << strerror(errno) << endl;
-              exit(16);
+                failed++;
+                free(file_buffs[0]);
+                free(file_buffs[1]);
+                if (i == 2) free(buffer);
+                break;
             }
 
             computeChecksum((const unsigned char *)buffer, size, hash);
             hashes[i] = string((const char *)hash);
             // Only need to store first 2 buffers
             if (i == 2)
-                delete buffer;
+                free(buffer);
+            //reset, because we succeeded once
+            open_failed = 0;
         }
         // check to see if any checksums match
         if ((hashes[0] == hashes[1]) || (hashes[0] == hashes[2])) {
-            delete file_buffs[1];
+            free(file_buffs[1]);
             correct_index = 0;
             found_match = true;
         } else if (hashes[1] == hashes[2]) {
-            delete file_buffs[0];
+            free(file_buffs[0]);
             correct_index = 1;
             found_match = true;
         }
         else {
-            delete file_buffs[0];
-            delete file_buffs[1];
+            free(file_buffs[0]);
+            free(file_buffs[1]);
         }
     }
     return file_buffs[correct_index];
@@ -328,7 +349,18 @@ void printHash(const unsigned char *hash)
  */ 
 string getDirHash(map<string, string> filehash)
 {
-    return ":)";
+
+    string to_hash("");
+    for (auto iter = filehash.begin(); iter != filehash.end(); iter++)
+    {
+        to_hash += iter->first + iter->second;
+    }
+    
+    unsigned char hash[SHA1_LEN];
+    computeChecksum((const unsigned char *)to_hash.c_str(), to_hash.size(),
+                    hash);
+
+    return string((const char *)hash);
 //    string file = tmpnam(nullptr);
 //    ofstream stream(file);
 //    for(auto& kv : filehash) {

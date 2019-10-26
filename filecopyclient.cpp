@@ -45,7 +45,7 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 // forward declarations
 void checkAndPrintMessage(ssize_t readlen, char *buf, ssize_t bufferlen);
 void setUpDebugLogging(const char *logname, int argc, char *argv[]);
-bool sendDirPilot(int num_files, string hash, C150DgmSocket **sock,
+void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
                   char *argv[]);
 string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
                  map<string, string> &filehash);
@@ -163,22 +163,21 @@ int main(int argc, char *argv[]) {
         // Loop through source directory, create hashtable with filenames
         // as keys and checksums as values
         map<string, string> filehash;
+        fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
 
-
-
-
+        // Send directory pilot to server
+        sendDirPilot(num_files, dir_checksum, &sock, argv);
         //NEEDSWORK check for zero length messages from server
         sendFiles(SRC, argv[SRC_ARG], sock, filehash);
 
-
-
-
         
-        fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
 
+        //TODO clean up this file, probably delete most of below
+        
+
+        /*
         int num_files = filehash.size();
         string dir_checksum = getDirHash(filehash);
-        bool dir_sent = sendDirPilot(num_files, dir_checksum, &sock, argv);
 
         *GRADING << "SRC Dir hash check sent and matches: "
                  << dir_sent << endl;
@@ -252,7 +251,7 @@ int main(int argc, char *argv[]) {
                                            " too many times");     
             }
             timedout = true; // reset for next message send
-        }
+        }*/
     
         *GRADING << "Closing dir\n";
         closedir(SRC);
@@ -430,10 +429,9 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
  *    server and the hash sent over the socket match.
  *    
  */
-bool sendDirPilot(int num_files, string hash, C150DgmSocket **sock,
+void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
                   char *argv[])
 {
-    bool dir_hash_matches = false;
     bool timedout = true;
     ssize_t readlen;              // amount of data read from socket
     char incoming_msg[512];   // received message data
@@ -441,38 +439,32 @@ bool sendDirPilot(int num_files, string hash, C150DgmSocket **sock,
     DirPilot pilot = DirPilot(num_files, hash);
     string dir_pilot_packet = makeDirPilot(pilot);
     const char * c_style_msg = dir_pilot_packet.c_str();
-    while (timedout && num_tries <= 5) {
+    while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
         // Send the message to the server
         c150debug->printf(C150APPLICATION,
                           "%s: Writing message: \"%s\"",
                           PROG_NAME, c_style_msg);
-       (*sock)->write(c_style_msg, strlen(c_style_msg)+1);
+        sock->write(c_style_msg, strlen(c_style_msg)+1);
         // Read the response from the server
         c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                           " doing read()", PROG_NAME);
-        readlen = (*sock) -> read(incoming_msg,
+        readlen = sock -> read(incoming_msg,
                                sizeof(incoming_msg));
         // Check for timeout
-        timedout = (*sock) -> timedout();
+        timedout = sock -> timedout();
         if (timedout) {
             num_tries++;
             continue;
         }
-        // Check and print the incoming message
-        checkAndPrintMessage(readlen, incoming_msg,
-                             sizeof(incoming_msg));
-        if (string(incoming_msg) == "DirHashOK")
-            dir_hash_matches = true;
-      
+        if (string(incoming_msg) == "DPOK")
+            break;
     } //we timed out or tried 5 times
 
-    if (num_tries == 5)
+    if (num_tries == MAX_SEND_TO_SERVER_TRIES)
     {
         throw C150NetworkException("Write to server timed out"
                                    " too many times");     
     }
-
-    return dir_hash_matches;
 }
 
 string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
