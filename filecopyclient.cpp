@@ -57,6 +57,7 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock);
 // server loop
 bool sendFilePilot(int num_packets, int file_ID, string hash, string fname);
 vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data);
+string receiveE2E(C150DgmSocket *sock);
 
 
 
@@ -118,11 +119,9 @@ int main(int argc, char *argv[]) {
     //
     // Variable declarations
     //
-    ssize_t readlen;              // amount of data read from socket
-    char incoming_msg[512];   // received message data
+    //ssize_t readlen;              // amount of data read from socket
+    //char incoming_msg[512];   // received message data
     DIR *SRC;                   // Unix descriptor for open directory
-    int DUMMY_PACKET_NUM = 10;
-    int DUMMY_FILE_ID = 4;
     
     checkDirectory(argv[SRC_ARG]);  //Make sure src exists
 
@@ -164,13 +163,14 @@ int main(int argc, char *argv[]) {
         // as keys and checksums as values
         map<string, string> filehash;
         fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
-
+        int num_files = filehash.size();
+        string dir_checksum = getDirHash(filehash);
         // Send directory pilot to server
-        sendDirPilot(num_files, dir_checksum, &sock, argv);
+        sendDirPilot(num_files, dir_checksum, sock, argv);
         //NEEDSWORK check for zero length messages from server
         sendFiles(SRC, argv[SRC_ARG], sock, filehash);
 
-        
+        receiveE2E(sock);
 
         //TODO clean up this file, probably delete most of below
         
@@ -433,7 +433,6 @@ void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
                   char *argv[])
 {
     bool timedout = true;
-    ssize_t readlen;              // amount of data read from socket
     char incoming_msg[512];   // received message data
     int num_tries = 0;
     DirPilot pilot = DirPilot(num_files, hash);
@@ -448,8 +447,8 @@ void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
         // Read the response from the server
         c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                           " doing read()", PROG_NAME);
-        readlen = sock -> read(incoming_msg,
-                               sizeof(incoming_msg));
+        sock -> read(incoming_msg,
+                     sizeof(incoming_msg));
         // Check for timeout
         timedout = sock -> timedout();
         if (timedout) {
@@ -627,4 +626,45 @@ vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
     data_packs.push_back(FilePacket(i, fp.file_ID,
                                     f_data_s.substr(i*PACKET_SIZE)));
     return data_packs;
+}
+
+string receiveE2E(C150DgmSocket *sock)
+{
+    bool timedout = true;
+    char incoming_msg[512];   // received message data
+    int num_tries = 0;
+    while (timedout && num_tries <= 5) {
+            sock -> read(incoming_msg, sizeof(incoming_msg));
+            // Check for timeout
+            timedout = sock -> timedout();
+            if (timedout) {
+                num_tries++;
+                continue;
+            }
+            string inc_str = string(incoming_msg);
+            if (inc_str.substr(0, 4) == "E2ES") {
+                *GRADING << "Directory E2E passed. All files copied\n";
+                break;
+            }
+            else if (inc_str.substr(0, 4) == "E2EF") {
+                string failed = inc_str.substr(4);
+                *GRADING << "Directory E2E check failed." << failed <<
+                    " files failed to be copied.\n";
+                break;
+            }
+               
+            
+            timedout = true; // If we caught the wrong packet, reset
+            
+    } //we timed out or tried 5 times
+    if (num_tries == 5)
+    {
+        *GRADING << "Did not receive E2E. Aborting...\n";
+        throw C150NetworkException("Did not receive E2E. Aborting..."); 
+    }
+    
+    c150debug->printf(C150APPLICATION, "%s: Sending E2E confirmation",
+                      PROG_NAME);
+    sock -> write("E2E received", 13);
+    return ":)";
 }
