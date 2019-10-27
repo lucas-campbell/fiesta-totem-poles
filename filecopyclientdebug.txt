@@ -1,65 +1,0 @@
-10/26/2019 22:07:11.369623 ./fileclient.exe: Creating C150DgmSocket
-10/26/2019 22:07:11.369655 ./fileclient.exe: Creating C150NastyDgmSocket(nastiness=1)
-10/26/2019 22:07:11.481679 ./fileclient.exe: ./fileclient.exe: Writing message: "D 0000011 Ã⁄Ìä˚œ≈õl+êØ.HO∞¯QJ"
-10/26/2019 22:07:11.481714 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=31 |D 0000011 ........l+...H.O..QJ.|
-10/26/2019 22:07:11.481780 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=31 |D 0000011 ........l+...H.O..QJ.|
-10/26/2019 22:07:11.481806 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:11.482234 ./fileclient.exe: C150DgmSocket::read: successful read with len=5 |DPOK.|
-10/26/2019 22:07:11.482261 ./fileclient.exe: C150NastyDgmSocket::read: delivering packet of length 5 |DPOK.|
-10/26/2019 22:07:11.483966 ./fileclient.exe: ./fileclient.exe: Sending File Pilot: "P 0000001 0000000 ÃãÕÿ—±ïmäå¯¿?+I data1"
-10/26/2019 22:07:11.483996 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 22:07:11.484045 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 22:07:11.484073 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:11.784025 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:11.784055 ./fileclient.exe: ./fileclient.exe: Sending File Pilot: "P 0000001 0000000 ÃãÕÿ—±ïmäå¯¿?+I data1"
-10/26/2019 22:07:11.784088 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 22:07:11.784147 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 22:07:11.784173 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:12.084069 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:12.084099 ./fileclient.exe: ./fileclient.exe: Sending File Pilot: "P 0000001 0000000 ÃãÕÿ—±ïmäå¯¿?+I data1"
-10/26/2019 22:07:12.084133 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 22:07:12.084201 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 22:07:12.084227 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:12.084571 ./fileclient.exe: C150DgmSocket::read: successful read with len=6 |FPOK0.|
-10/26/2019 22:07:12.084598 ./fileclient.exe: C150NastyDgmSocket::read: delivering packet of length 6 |FPOK0.|
-10/26/2019 22:07:12.084663 ./fileclient.exe: ./fileclient.exe: Sending File Data, msg: "F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
-"
-10/26/2019 22:07:12.084694 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.084741 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.084767 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:12.084794 ./fileclient.exe: ./fileclient.exe: Sending File Data, msg: "F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
-"
-10/26/2019 22:07:12.084822 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.084861 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.084893 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:12.084920 ./fileclient.exe: ./fileclient.exe: Sending File Data, msg: "F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
-"
-10/26/2019 22:07:12.084960 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.084998 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.085024 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:12.085051 ./fileclient.exe: ./fileclient.exe: Sending File Data, msg: "F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
-"
-10/26/2019 22:07:12.085079 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.085116 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.085142 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:12.085169 ./fileclient.exe: ./fileclient.exe: Sending File Data, msg: "F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
-"
-10/26/2019 22:07:12.085197 ./fileclient.exe: C150DgmSocket::write: attempting to send packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.085235 ./fileclient.exe: C150DgmSocket::write: Success writing packet with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 22:07:12.085260 ./fileclient.exe: ./fileclient.exe: Returned from write, doing read()
-10/26/2019 22:07:12.285263 ./fileclient.exe: C150DgmSocket::read: successful read with len=4 |M0 .|
-10/26/2019 22:07:12.285291 ./fileclient.exe: C150NastyDgmSocket::read: dropping packet of length 4 |M0 .|
-10/26/2019 22:07:12.285324 ./fileclient.exe: C150DgmSocket::read: successful read with len=4 |M0 .|
-10/26/2019 22:07:12.285350 ./fileclient.exe: C150NastyDgmSocket::read: delivering packet of length 4 |M0 .|
-10/26/2019 22:07:12.598053 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:12.898101 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:13.198080 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:13.498062 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:13.798075 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:14.098031 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:14.398040 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:14.698068 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:14.998073 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:15.298056 ./fileclient.exe: C150DgmSocket::read: returning timeout to application
-10/26/2019 22:07:15.298216 ./fileclient.exe: Caught C150NetworkException: C150NetworkException:  Server is unresponsive on DP. Aborting
-
