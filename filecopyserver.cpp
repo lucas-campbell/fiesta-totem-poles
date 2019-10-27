@@ -530,7 +530,7 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         string full_TMPname = makeFileName(TARGET_DIR.c_str(), TMPname);
 
         // do an fopen on the output file
-        fopenretval = outputFile.fopen(full_TMPname.c_str(), "wb");  
+        fopenretval = outputFile.fopen(full_TMPname.c_str(), "w");  
 
         if (fopenretval == NULL) {
           cerr << "Error opening output file " << full_TMPname << 
@@ -577,8 +577,11 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         unsigned char expected_hash[SHA1_LEN];
         memcpy(expected_hash, file_pilot.hash.c_str(), SHA1_LEN);
         // Compare hash of written file and hash from FilePilot
+        cout << "target file hash: "; printHash(target_file_hash); cout << endl;
+        cout << "expected hash: "; printHash(expected_hash); cout << endl;
         bool write_success = cmpChecksums(target_file_hash, expected_hash);
         if (write_success) {
+            cout << "attempting rename\n";
             string total = makeFileName(TARGET_DIR.c_str(), file_pilot.fname);
             int result = rename(full_TMPname.c_str(), total.c_str());
             if (result != 0) {
