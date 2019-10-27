@@ -2,8 +2,9 @@ TODOS
 
 * fileserver
  - receiveFile: 
-    * generally need to keep track of mapping file_IDs to filenames at some point?
-    * need to send back E2E check, either 1 by 1 or all at once, at the end
+  * log writes better
+  * why is packet readlength 499 for a small file?
+  * do we receive a second filepilot?
 * fileclient
     - chop filenames?
 
