@@ -182,13 +182,10 @@ main(int argc, char *argv[])
                 continue;
             }
             incoming_msg[readlen] = '\0'; // make sure null terminated
-            cout << "readlen" << readlen << endl;
-            printf("%s\n", incoming_msg);
             string incoming(incoming_msg); // Convert to C++ string
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
-            cout << incoming << endl;
-            cout << incoming[0] << endl;
+            cout << "incoming "<<  incoming << endl;
             // Check for FilePilot
             if (incoming[0] == 'P') {
                 cout << "Case P\n";

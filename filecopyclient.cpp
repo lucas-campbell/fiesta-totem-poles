@@ -599,19 +599,24 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
     char incoming_msg[512];   // received message data
     int num_tries = 0;
     vector<FilePacket> dps = makeDataPackets(fp, f_data);
-    while(!dps.empty()) {
+    set<int> missing_packs;
+    for (size_t i = 0; i < dps.size(); i++)
+        missing_packs.insert(i);
+    // send all packets at least once 
+   
+    do {
         cout << "dps:" << dps.size() << endl;
         cout << "In while for " << fp.fname << endl;
-        for (auto iter = dps.begin(); iter != dps.end(); iter++) {
+        for (auto iter = missing_packs.begin(); iter != missing_packs.end(); iter++) {            
             for (int i = 0; i < 5; i++) {
-                string data_pack = makeFilePacket(*iter);
+                string data_pack = makeFilePacket(dps[*iter]);
                 int pack_len = data_pack.size();
                 const char * c_style_msg = data_pack.c_str();
                 c150debug->printf(C150APPLICATION,
                                   "%s: Sending File Data, msg: \"%s\"",
                                   PROG_NAME, c_style_msg);
                 sock->write(c_style_msg, pack_len+1);
-                cout << "Sending Data Pack " << iter->packet_num << endl;
+                cout << "Sending Data Pack " << dps[*iter].packet_num << endl;
                 cout << "datapack " << data_pack << endl;
                 // Read the response from the server
                 c150debug->printf(C150APPLICATION,"%s: Returned from write,"
@@ -621,6 +626,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
 
         while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
+            printf("%s\n", incoming_msg);
             // Check for timeout
             timedout = sock -> timedout();
             (void) readlen;
@@ -629,37 +635,28 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
                 continue;
             }
             string inc_str = string(incoming_msg);
-            cout << "incoming missing fID:" << fp.file_ID << " " << inc_str << endl;
             if ((inc_str.substr(0, 1) == "M") &&
                 (stoi(inc_str.substr(1, inc_str.find(" ")-1))
                  == fp.file_ID)) {
-                cout << "received missing\n";
+                cout << "in if\n";
                 string missing = inc_str.substr(inc_str.find(" ") + 1);
                 cout << missing << endl;
                 //stringstream stream(missing);
                 stringstream in(missing);
-                set<int> missing_packs{istream_iterator<int, char>{in},
+                missing_packs = set<int>{istream_iterator<int, char>{in},
                         istream_iterator<int, char>{}};
-                for (auto iter = missing_packs.begin(); iter != missing_packs.end(); iter++)
-                    cout << "mising from set " << *iter;
-                cout << endl << endl;
-                vector<FilePacket> temp_dps = dps;
-                dps.clear();
-                for (auto iter = temp_dps.begin();
-                     iter != temp_dps.end(); iter++) {
-                    cout << "temp dps " << iter->packet_num << " ";
-                    if(missing_packs.find(iter->packet_num) !=
-                       missing_packs.end()){
-                        cout << "Pushing " << iter->packet_num << endl;
-                        dps.push_back(*iter);
+                //vector<FilePacket> temp_dps = dps;
+                // for (auto iter = temp_dps.begin();
+                //      iter != temp_dps.end(); iter++) {
+                //     //cout << "temp dps " << iter->packet_num << " ";
+                //     if(missing_packs.find(iter->packet_num) !=
+                //        missing_packs.end()){
+                //         cout << "Pushing " << iter->packet_num << endl;
+                //         dps.push_back(*iter);
 
-                    }
+                //     }
                         
-                }
-                cout << "printing dps\n";
-                for (auto iter = dps.begin(); iter != dps.end(); iter++)
-                    cout << iter->packet_num << " ";
-                cout << endl;
+                // }
                 break;
             }
                 
@@ -676,7 +673,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
         num_tries = 0;
         timedout = true;
  
-    }
+    } while(!missing_packs.empty());
     cout << "sent " << fp.fname << endl;
     return ":)";
 }
