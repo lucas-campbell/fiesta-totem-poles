@@ -52,11 +52,11 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
 bool operator<(const FilePacket& l, const FilePacket& r);
 bool operator<(int& l, const FilePacket& r);
 bool operator<(const FilePacket& l, int& r);
-string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock);
+string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock);
 //NEEDSWORK This function needs to be implemented, to shorten body of the main
 // server loop
 bool sendFilePilot(int num_packets, int file_ID, string hash, string fname);
-vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data);
+vector<FilePacket> makeDataPackets(FilePilot fp, string f_data);
 string receiveE2E(C150DgmSocket *sock);
 
 
@@ -520,9 +520,9 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
         // add {filename, checksum} to the table
         //
         unsigned char hash[SHA1_LEN];
-        // Read data, compute checksum
-        char* f_data = trustedFileRead(sourceDir, filename, size);
-        computeChecksum((const unsigned char *)f_data, size, hash);
+        // Read data, compute checksum, put size of file in 'size'
+        char *f_data_c = getFileChecksum(sourceDir, filename, size, hash);
+        string f_data(f_data_c, size);
         
         string hash_str((const char*)hash);
         filehash[filename] = hash_str;
@@ -587,7 +587,7 @@ bool operator<(const FilePacket& l, const FilePacket& r)
 bool operator<(int& l, const FilePacket& r) {return (l < r.packet_num);}
 bool operator<(const FilePacket& l, int& r) {return (l.packet_num < r);}
 
-string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
+string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
 {
     cout << "sending " << fp.fname << endl; 
     ssize_t readlen;              // amount of data read from socket
@@ -657,18 +657,17 @@ string sendFile(FilePilot fp, char* f_data,  C150DgmSocket *sock)
     return ":)";
 }
 
-vector<FilePacket> makeDataPackets(FilePilot fp, char* f_data){
+vector<FilePacket> makeDataPackets(FilePilot fp, string f_data){
     cout << "Making datapackets\n";
     vector<FilePacket> data_packs;
-    string f_data_s = string(f_data);
     int i;
     for (i = 0; i < fp.num_packets-1; i++) {
-        string data = f_data_s.substr(i*PACKET_SIZE, PACKET_SIZE);
+        string data = f_data.substr(i*PACKET_SIZE, PACKET_SIZE);
         cout << "data: " << data << endl << endl;
         data_packs.push_back(FilePacket(i, fp.file_ID, data));
     }
     data_packs.push_back(FilePacket(i, fp.file_ID,
-                                    f_data_s.substr(i*PACKET_SIZE)));
+                                    f_data.substr(i*PACKET_SIZE)));
     cout << "made data packets\n";
     return data_packs;
 }

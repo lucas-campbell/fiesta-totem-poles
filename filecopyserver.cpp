@@ -530,20 +530,19 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         // if not, try writing/checking again.
         size_t read_size;
         unsigned char target_file_hash[SHA1_LEN];
-        char* f_data = trustedFileRead(TARGET_DIR.c_str(), file_pilot.fname,
-                                       read_size);
+        getFileChecksum(TARGET_DIR.c_str(), file_pilot.fname,
+                        read_size, target_file_hash);
         if (read_size != num_bytes) {
             cerr << "Error reading file " << file_pilot.fname << 
                     " after writing to disk." << endl;
             num_tries++;
             continue;
         }
-        computeChecksum((const unsigned char *)f_data, read_size,
-                         target_file_hash);
 
         // Add checksum to table, regardless of whether it is correct.
         // This will be used later on for a full E2E directory check
-        filehash[file_pilot.fname] = string((const char *)target_file_hash);
+        filehash[file_pilot.fname] = string((const char *)target_file_hash,
+                                             SHA1_LEN-1);
 
         unsigned char expected_hash[SHA1_LEN];
         memcpy(expected_hash, file_pilot.hash.c_str(), SHA1_LEN);

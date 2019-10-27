@@ -313,7 +313,7 @@ void fillChecksumTable(map<string, string> &filehash,
             size_t size; //throwaway
             getFileChecksum(string(sourceDir), filename, size, hash);
             
-            string hash_str = string((const char*)hash);
+            string hash_str = string((const char*)hash, SHA1_LEN-1);
             filehash[filename] = hash_str;
     }
 }
@@ -363,5 +363,5 @@ string getDirHash(map<string, string> filehash)
     computeChecksum((const unsigned char *)to_hash.c_str(), to_hash.size(),
                     hash);
 
-    return string((const char *)hash);
+    return string((const char *)hash, SHA1_LEN-1);
 }
