@@ -571,7 +571,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
         
         if (num_tries == MAX_SEND_TO_SERVER_TRIES)
         {
-            throw C150NetworkException("Server is unresponsive, on FP. "
+            throw C150NetworkException("Server is unresponsive, on FilePilot. "
                                        "Aborting"); 
         }
         sendFile(fp, f_data, sock);
@@ -650,7 +650,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
         
         if (num_tries == MAX_SEND_TO_SERVER_TRIES)
         {
-            throw C150NetworkException("Server is unresponsive on DP. "
+            throw C150NetworkException("Server is unresponsive on FilePacket. "
                                        "Aborting"); 
         }
  
