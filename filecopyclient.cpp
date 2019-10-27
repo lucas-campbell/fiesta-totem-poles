@@ -164,7 +164,6 @@ int main(int argc, char *argv[]) {
         sock -> turnOnTimeouts(TIMEOUT_MS);
 
         *GRADING << "Prelim Setup Complete\n";
-        cout << "Prelim setup complete\n";
         // Loop through source directory, create hashtable with filenames
         // as keys and checksums as values
         map<string, string> filehash;
@@ -186,8 +185,6 @@ int main(int argc, char *argv[]) {
         int num_files = filehash.size();
         string dir_checksum = getDirHash(filehash);
         // Send directory pilot to server
-
-        cout << "beginning communications\n";
         
         sendDirPilot(num_files, dir_checksum, sock, argv);
         //NEEDSWORK check for zero length messages from server
@@ -600,7 +597,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
     vector<FilePacket> dps = makeDataPackets(fp, f_data);
     while(!dps.empty()) {
         cout << "dps:" << dps.size() << endl;
-        cout << "In file while\n";
+        cout << "In while for " << fp.fname << endl;
         for (auto iter = dps.begin(); iter != dps.end(); iter++) {
             for (int i = 0; i < 5; i++) {
                 string data_pack = makeFilePacket(*iter);
@@ -610,6 +607,8 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
                                   "%s: Sending File Data, msg: \"%s\"",
                                   PROG_NAME, c_style_msg);
                 sock->write(c_style_msg, pack_len+1);
+                cout << "Sending Data Pack " << iter->packet_num << endl;
+                cout << "datapack " << data_pack << endl;
                 // Read the response from the server
                 c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                                   " doing read()", PROG_NAME);              
@@ -626,6 +625,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
                 continue;
             }
             string inc_str = string(incoming_msg);
+            cout << "incoming missing fID:" << fp.file_ID << " " << inc_str << endl;
             if ((inc_str.substr(0, 1) == "M") &&
                 (stoi(inc_str.substr(1, inc_str.find(" ")-1))
                  == fp.file_ID)) {
@@ -656,6 +656,8 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
             throw C150NetworkException("Server is unresponsive on FilePacket. "
                                        "Aborting"); 
         }
+        num_tries = 0;
+        timedout = true;
  
     }
     cout << "sent " << fp.fname << endl;
@@ -668,7 +670,6 @@ vector<FilePacket> makeDataPackets(FilePilot fp, string f_data){
     int i;
     for (i = 0; i < fp.num_packets-1; i++) {
         string data = f_data.substr(i*PACKET_SIZE, PACKET_SIZE);
-        cout << "data: " << data << endl << endl;
         data_packs.push_back(FilePacket(i, fp.file_ID, data));
     }
     data_packs.push_back(FilePacket(i, fp.file_ID,

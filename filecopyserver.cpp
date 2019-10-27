@@ -455,10 +455,12 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
             if (readlen == 0) {
                 c150debug->printf(C150APPLICATION,"Read zero length message,"
                                   " trying again");
+                timedout = false;
                 continue;
             }
             incoming_msg[readlen] = '\0'; // make sure null terminated
             string incoming(incoming_msg); // Convert to C++ string
+            cout << "incoming in receive while " << incoming << endl;
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
             // Check that we got a File Pilot
@@ -491,12 +493,16 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
             if (next(iter) != packets.end())
                 missing += " ";
             //Don't overfill buffer!
-            if (missing.length() + MAX_FILENUM + 1 > 512)
+            if (missing.length() + MAX_FILENUM + 1 > 512){
+                cout << "in bad if" << endl;
                 break;
+            }
         }
+        cout << "missing " << missing << endl;
         c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                           missing.c_str());
         sock -> write(missing.c_str(), missing.length()+1);
+        timedout = false;
 
     } while (!packets.empty()); // we have received data for all packets in this file
 
