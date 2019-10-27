@@ -530,7 +530,7 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         // if not, try writing/checking again.
         size_t read_size;
         unsigned char target_file_hash[SHA1_LEN];
-        getFileChecksum(TARGET_DIR.c_str(), file_pilot.fname,
+        getFileChecksum(TARGET_DIR.c_str(), TMPname,
                         read_size, target_file_hash);
         if (read_size != num_bytes) {
             cerr << "Error reading file " << file_pilot.fname << 
