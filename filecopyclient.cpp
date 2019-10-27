@@ -708,7 +708,7 @@ string receiveE2E(C150DgmSocket *sock)
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
-    string E2EPilot = "E2E Ready";
+    string E2EPilot("E2E Ready");
         
     while (timedout && (num_tries < MAX_SEND_TO_SERVER_TRIES)) {
         cout << "in E2E while\n";

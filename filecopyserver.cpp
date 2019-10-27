@@ -183,7 +183,7 @@ main(int argc, char *argv[])
                 continue;
             }
             incoming_msg[readlen] = '\0'; // make sure null terminated
-            string incoming(incoming_msg, readlen); // Convert to C++ string
+            string incoming(incoming_msg, readlen-1); // Convert to C++ string
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
             cout << "incoming "<<  incoming << endl;
@@ -328,7 +328,7 @@ DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
             continue;
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
-        string incoming(incoming_msg, readlen); // Convert to C++ string
+        string incoming(incoming_msg, readlen-1); // Convert to C++ string
         cout << "read 330 " << incoming << endl;
         c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                           " Message=\"%s\"", readlen, incoming.c_str());
@@ -382,7 +382,7 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
             continue;
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
-        string incoming(incoming_msg, readlen); // Convert to C++ string
+        string incoming(incoming_msg, readlen-1); // Convert to C++ string
         cout << "incoming " << incoming << endl;
         c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                           " Message=\"%s\"", readlen, incoming.c_str());
@@ -482,7 +482,7 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
                 continue;
             }
             incoming_msg[readlen] = '\0'; // make sure null terminated
-            string incoming(incoming_msg, readlen); // Convert to C++ string
+            string incoming(incoming_msg, readlen-1); // Convert to C++ string
             cout << "incoming in receive while " << incoming << endl;
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
@@ -532,6 +532,8 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
     while (!client_moved_on) {
         cout << "wait for client move on while\n";
         readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
+        cout << "incoming_msg size: " << sizeof(incoming_msg) << endl;
+        cout << "readlen size: " << readlen << endl;
         timedout = sock -> timedout();
         if (timedout) {
             c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
@@ -548,7 +550,7 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
             continue;
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
-        string incoming(incoming_msg, readlen); // Convert to C++ string
+        string incoming(incoming_msg, readlen-1); // Convert to C++ string
         cout << "incoming msg in wait for client confirm while \n" << incoming << endl;
         c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                           " Message=\"%s\"", readlen, incoming.c_str());
@@ -718,7 +720,7 @@ void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
             continue;
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
-        string incoming(incoming_msg, readlen); // Convert to C++ string
+        string incoming(incoming_msg, readlen-1); // Convert to C++ string
         if (incoming == "E2E received")
             e2e_received = true;
         
