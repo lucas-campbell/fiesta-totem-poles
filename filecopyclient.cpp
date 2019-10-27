@@ -572,6 +572,8 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             throw C150NetworkException("Server is unresponsive, on FilePilot. "
                                        "Aborting"); 
         }
+        cout << "preparing to send file: " << fp.fname
+             << ", size " << size << " bytes\n";
         sendFile(fp, f_data, sock);
 
         num_tries = 0;

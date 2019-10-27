@@ -360,10 +360,14 @@ DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
 void receiveFile(C150NastyDgmSocket *sock, string incoming,
                  vector<string> &failed_e2es, map<string, string> &filehash)
 {
-    cout << "Receiving File " << incoming << endl; 
+    cout << "Receiving File Pilot\n"; 
     ssize_t readlen;             // amount of data read from socket
     char incoming_msg[512];   // received message data
     FilePilot file_pilot = unpackFilePilot(incoming);
+    cout << "FilePilot unpacked: " << incoming[0] << " "
+         << file_pilot.num_packets << " " << file_pilot.file_ID << " ";
+    printHash((const unsigned char *)file_pilot.hash.c_str());
+    cout << " " << file_pilot.fname << endl;
 
     // Loop until we get a FilePacket
     while (true) {
@@ -418,8 +422,10 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
     ssize_t readlen;             // amount of data read from socket
     bool timedout = false;
     char incoming_msg[512];
-    // To be filled with data from client
-    string file_data(PACKET_SIZE*file_pilot.num_packets, ' ');
+    // To be filled with data from client. Only fill most of the way, to
+    // account for possible incomplete final packet
+    int buffer_size = PACKET_SIZE*file_pilot.num_packets-1;
+    string file_data(buffer_size, ' ');
     set<int> packets;
     // Create set with packet_IDs of the packets we need to receive
     for (int i = 0; i < file_pilot.num_packets; i++) {
@@ -427,11 +433,16 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
     }
     // insert the first data packet we received, take it out of the set
     int loc = first_packet.packet_num*PACKET_SIZE;
-    file_data.insert(loc, first_packet.data);
+    if (file_pilot.num_packets == 1)
+        file_data = first_packet.data;
+    else 
+        file_data.replace(loc, first_packet.data.size(), first_packet.data);
     packets.erase(first_packet.packet_num);
     sock -> turnOnTimeouts(200); //TODO figure out good timeout for this
 
-    // Construct a 'missing' file IDs string for the client
+    // Construct a 'missing' file IDs string for the client.
+    // This will create an 'empty' missing message if we received all the
+    // packets needed, but the client expects it.
     string missing = "M" + to_string(file_pilot.file_ID) + " ";
     for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
         missing += to_string(*iter);
@@ -447,15 +458,18 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             timedout = sock -> timedout();
             if (timedout) {
+                //TODO remove
+                /*
                 c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                                   missing.c_str());
                 sock -> write(missing.c_str(), missing.length()+1);
+                */
+                // exit inner loop, send 'missing' message again
                 continue;
             }
             if (readlen == 0) {
                 c150debug->printf(C150APPLICATION,"Read zero length message,"
                                   " trying again");
-                timedout = false;
                 continue;
             }
             incoming_msg[readlen] = '\0'; // make sure null terminated
@@ -468,9 +482,17 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
                 FilePacket packet = unpackFilePacket(incoming);
                 // Check for correct file_ID
                 if (packet.file_ID == file_pilot.file_ID) {
+                    // Check if we need this packet
+                    if (packets.find(packet.packet_num) == packets.end())
+                        continue;
                     // Add data to buffer
                     int loc = packet.packet_num*PACKET_SIZE;
-                    file_data.insert(loc, packet.data);
+                    // If this is the last packet of the file, insert at the
+                    // end of the string buffer
+                    if (packet.packet_num == file_pilot.num_packets-1)
+                        file_data.insert(loc, packet.data);
+                    else
+                        file_data.replace(loc, packet.data.size(), packet.data);
                     // remove packet # from set to mark that we recevied it
                     packets.erase(packet.packet_num);
                     // Re-create 'missing' string
@@ -487,6 +509,7 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
             }
         } //we timed out, so client is done sending packets (for now)
         //TODO remove
+        /*
         missing = "M" + to_string(file_pilot.file_ID) + " ";
         for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
             missing += to_string(*iter);
@@ -497,11 +520,12 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
                 cout << "in bad if" << endl;
                 break;
             }
-        }
+        }*/
         cout << "missing " << missing << endl;
         c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                           missing.c_str());
         sock -> write(missing.c_str(), missing.length()+1);
+        // Reset timeout value after sending 'missing' message
         timedout = false;
 
     } while (!packets.empty()); // we have received data for all packets in this file
@@ -561,6 +585,8 @@ bool internalE2E(string file_data, FilePilot file_pilot,
           num_tries++;
           continue;
         }
+        cout << "finished writing " << full_TMPname << 
+            ", size " << len << " bytes" << endl;
 
         // check if getFileHash == what we expect from file_pilot
         // if not, try writing/checking again.
@@ -601,6 +627,7 @@ bool internalE2E(string file_data, FilePilot file_pilot,
             internal_e2e_succeeded = true;
         }
         else {
+            //TODO exit(-1);
             num_tries++;
             continue;
         }

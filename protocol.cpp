@@ -22,7 +22,7 @@ using namespace std;
  * "T ####### PPPPPPP HHHHHHHHHHHHHHHHHHHH FFFFFFF....."
  * Where:
  * T is the packet type indicator for a file Pilot packet
- * # is the number of packets for the file == (file-size // 420) +1
+ * # is the number of packets for the file == (file-size // 480) +1
  * P is the file ID
  * H is the SHA1 hash of the file
  * F... is a variable length field for the file name (up to 480 bytes long)
