@@ -109,7 +109,7 @@ int main(int argc, char *argv[]) {
         strlen(argv[NETWORK_NASTINESS_ARG])) ||
         (strspn(argv[FILE_NASTINESS_ARG], "0123456789") !=
          strlen(argv[FILE_NASTINESS_ARG]))) {
-         fprintf(stderr,"Nastiness %s is not numeric\n", argv[1]);     
+         fprintf(stderr,"Nastiness %s is not numeric\n", argv[FILE_NASTINESS_ARG]);     
          fprintf(stderr,"Correct syntxt is: %s <srvrname>"
                 " <networknasty#> <filenasty#> <src>\n", argv[0]);
          exit(4);

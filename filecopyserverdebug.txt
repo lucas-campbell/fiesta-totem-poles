@@ -1,23 +1,2 @@
-10/26/2019 18:56:26.562297 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=1)
-10/26/2019 18:56:26.565683 ./fileserver.exe:     Ready to accept messages
-10/26/2019 18:56:28.780843 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 /...67!.D........C...|
-10/26/2019 18:56:28.780875 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |D 0000011 /...67!.D........C...|
-10/26/2019 18:56:28.780904 ./fileserver.exe:     Successfully read 31 bytes. Message="D 0000011 /áý	67!ÛD æà”žÊCºñ"
-10/26/2019 18:56:28.780956 ./fileserver.exe:     Responding with message="DPOK"
-10/26/2019 18:56:28.780991 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=5 |DPOK.|
-10/26/2019 18:56:28.781058 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=5 |DPOK.|
-10/26/2019 18:56:28.782437 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 18:56:28.782468 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 18:56:28.782508 ./fileserver.exe:     Successfully read 45 bytes. Message="P 0000001 0000000 Ì‹ÍØÑ±•mŠŒøÀ?+I data1"
-10/26/2019 18:56:29.081840 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 18:56:29.081891 ./fileserver.exe:     C150NastyDgmSocket::read: dropping packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 18:56:29.381786 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 18:56:29.381829 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 18:56:29.381898 ./fileserver.exe:     Successfully read 45 bytes. Message="P 0000001 0000000 Ì‹ÍØÑ±•mŠŒøÀ?+I data1"
-10/26/2019 18:56:29.381939 ./fileserver.exe:     Responding with message="FPOK0"
-10/26/2019 18:56:29.381975 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=6 |FPOK0.|
-10/26/2019 18:56:29.382041 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=6 |FPOK0.|
-10/26/2019 18:56:29.382324 ./fileserver.exe:     C150DgmSocket::read: successful read with len=92 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 .+1.|
-10/26/2019 18:56:29.382356 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 92 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 .+1.|
-10/26/2019 18:56:29.382391 ./fileserver.exe:     Successfully read 92 bytes. Message="F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
-+1"
+10/26/2019 20:23:28.480749 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=1)
+10/26/2019 20:23:28.485612 ./fileserver.exe:     Ready to accept messages
