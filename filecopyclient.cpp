@@ -596,6 +596,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
     int num_tries = 0;
     vector<FilePacket> dps = makeDataPackets(fp, f_data);
     while(!dps.empty()) {
+        cout << "dps:" << dps.size() << endl;
         cout << "In file while\n";
         for (auto iter = dps.begin(); iter != dps.end(); iter++) {
             for (int i = 0; i < 5; i++) {
@@ -639,6 +640,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
                        missing_packs.end())
                         dps.push_back(*iter);
                 }
+                break;
             }
                 
             
