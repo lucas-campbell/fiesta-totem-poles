@@ -464,7 +464,7 @@ void sendDirPilot(int num_files, string hash, C150DgmSocket *sock,
     int pack_len = dir_pilot_packet.size();
     const char * c_style_msg = dir_pilot_packet.c_str();
     
-    while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
+    while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
         // Send the message to the server
         c150debug->printf(C150APPLICATION,
                           "%s: Writing message: \"%s\"",
@@ -538,7 +538,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
         //
         // Attempt to send File Pilot to server
         //
-        while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
+        while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
             // Send the message to the server
             c150debug->printf(C150APPLICATION,
                               "%s: Sending File Pilot: \"%s\"",
@@ -612,7 +612,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
             }
         }
 
-        while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
+        while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             // Check for timeout
             timedout = sock -> timedout();
@@ -623,7 +623,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
             }
             string inc_str = string(incoming_msg);
             if ((inc_str.substr(0, 1) == "M") &&
-                (atoi(inc_str.substr(1, inc_str.find(" ")-1).c_str())
+                (stoi(inc_str.substr(1, inc_str.find(" ")-1))
                  == fp.file_ID)) {
                 cout << "received missing\n";
                 string missing = inc_str.substr(inc_str.find(" ") + 1);
@@ -678,7 +678,7 @@ string receiveE2E(C150DgmSocket *sock)
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
-    while (timedout && num_tries <= MAX_SEND_TO_SERVER_TRIES) {
+    while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
             sock -> read(incoming_msg, sizeof(incoming_msg));
             // Check for timeout
             timedout = sock -> timedout();

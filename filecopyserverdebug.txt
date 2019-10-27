@@ -1,23 +1,115 @@
-10/26/2019 20:33:26.302196 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=1)
-10/26/2019 20:33:26.308151 ./fileserver.exe:     Ready to accept messages
-10/26/2019 20:33:28.595089 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 ........l+...H.O..QJ.|
-10/26/2019 20:33:28.595120 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |D 0000011 ........l+...H.O..QJ.|
-10/26/2019 20:33:28.595148 ./fileserver.exe:     Successfully read 31 bytes. Message="D 0000011 Ã⁄Ìä˚œ≈õl+êØ.HO∞¯QJ"
-10/26/2019 20:33:28.595208 ./fileserver.exe:     Responding with message="DPOK"
-10/26/2019 20:33:28.595283 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=5 |DPOK.|
-10/26/2019 20:33:28.595369 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=5 |DPOK.|
-10/26/2019 20:33:28.597294 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 20:33:28.597323 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 20:33:28.597361 ./fileserver.exe:     Successfully read 45 bytes. Message="P 0000001 0000000 ÃãÕÿ—±ïmäå¯¿?+I data1"
-10/26/2019 20:33:28.897500 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 20:33:28.897531 ./fileserver.exe:     C150NastyDgmSocket::read: dropping packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 20:33:29.197504 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 20:33:29.197535 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
-10/26/2019 20:33:29.197577 ./fileserver.exe:     Successfully read 45 bytes. Message="P 0000001 0000000 ÃãÕÿ—±ïmäå¯¿?+I data1"
-10/26/2019 20:33:29.197617 ./fileserver.exe:     Responding with message="FPOK0"
-10/26/2019 20:33:29.197650 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=6 |FPOK0.|
-10/26/2019 20:33:29.197706 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=6 |FPOK0.|
-10/26/2019 20:33:29.197998 ./fileserver.exe:     C150DgmSocket::read: successful read with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 20:33:29.198029 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
-10/26/2019 20:33:29.198063 ./fileserver.exe:     Successfully read 90 bytes. Message="F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
+10/26/2019 21:49:58.632524 ./fileserver.exe:     Creating C150NastyDgmSocket(nastiness=1)
+10/26/2019 21:49:58.755288 ./fileserver.exe:     Ready to accept messages
+10/26/2019 21:50:01.525339 ./fileserver.exe:     C150DgmSocket::read: successful read with len=31 |D 0000011 ........l+...H.O..QJ.|
+10/26/2019 21:50:01.525371 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 31 |D 0000011 ........l+...H.O..QJ.|
+10/26/2019 21:50:01.525399 ./fileserver.exe:     Successfully read 31 bytes. Message="D 0000011 Ã⁄Ìä˚œ≈õl+êØ.HO∞¯QJ"
+10/26/2019 21:50:01.525465 ./fileserver.exe:     Responding with message="DPOK"
+10/26/2019 21:50:01.525500 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=5 |DPOK.|
+10/26/2019 21:50:01.525582 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=5 |DPOK.|
+10/26/2019 21:50:01.528098 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
+10/26/2019 21:50:01.528127 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
+10/26/2019 21:50:01.528163 ./fileserver.exe:     Successfully read 45 bytes. Message="P 0000001 0000000 ÃãÕÿ—±ïmäå¯¿?+I data1"
+10/26/2019 21:50:01.827942 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
+10/26/2019 21:50:01.828005 ./fileserver.exe:     C150NastyDgmSocket::read: dropping packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
+10/26/2019 21:50:02.128014 ./fileserver.exe:     C150DgmSocket::read: successful read with len=45 |P 0000001 0000000 ........m.......?.+I data1.|
+10/26/2019 21:50:02.128061 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 45 |P 0000001 0000000 ........m.......?.+I data1.|
+10/26/2019 21:50:02.128638 ./fileserver.exe:     Successfully read 45 bytes. Message="P 0000001 0000000 ÃãÕÿ—±ïmäå¯¿?+I data1"
+10/26/2019 21:50:02.128684 ./fileserver.exe:     Responding with message="FPOK0"
+10/26/2019 21:50:02.128720 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=6 |FPOK0.|
+10/26/2019 21:50:02.128795 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=6 |FPOK0.|
+10/26/2019 21:50:02.129312 ./fileserver.exe:     C150DgmSocket::read: successful read with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129345 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129380 ./fileserver.exe:     Successfully read 90 bytes. Message="F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
 "
+10/26/2019 21:50:02.129473 ./fileserver.exe:     C150DgmSocket::read: successful read with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129503 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129537 ./fileserver.exe:     Successfully read 90 bytes. Message="F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
+"
+10/26/2019 21:50:02.129584 ./fileserver.exe:     C150DgmSocket::read: successful read with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129614 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129641 ./fileserver.exe:     Successfully read 90 bytes. Message="F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
+"
+10/26/2019 21:50:02.129675 ./fileserver.exe:     C150DgmSocket::read: successful read with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129710 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129737 ./fileserver.exe:     Successfully read 90 bytes. Message="F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
+"
+10/26/2019 21:50:02.129816 ./fileserver.exe:     C150DgmSocket::read: successful read with len=90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129846 ./fileserver.exe:     C150NastyDgmSocket::read: delivering packet of length 90 |F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 ..|
+10/26/2019 21:50:02.129877 ./fileserver.exe:     Successfully read 90 bytes. Message="F 0000000 0000000      0      1      2      3      4      5      6      7      8      9 
+"
+10/26/2019 21:50:02.329499 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:02.329537 ./fileserver.exe:     Responding with message="M0 "
+10/26/2019 21:50:02.329573 ./fileserver.exe:     C150DgmSocket::write: attempting to send packet with len=4 |M0 .|
+10/26/2019 21:50:02.329649 ./fileserver.exe:     C150DgmSocket::write: Success writing packet with len=4 |M0 .|
+10/26/2019 21:50:02.545538 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:02.545569 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:02.745498 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:02.745527 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:02.945487 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:02.945517 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:03.145495 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:03.145525 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:03.345484 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:03.345514 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:03.545498 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:03.545528 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:03.745508 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:03.745553 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:03.945486 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:03.945515 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:04.145496 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:04.145526 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:04.345487 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:04.345517 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:04.545493 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:04.545523 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:04.745493 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:04.745523 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:04.945487 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:04.945517 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:05.145499 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:05.145529 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:05.345480 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:05.345510 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:05.545493 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:05.545522 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:05.745650 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:05.745680 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:05.945490 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:05.945520 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:06.145486 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:06.145516 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:06.345483 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:06.345512 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:06.545491 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:06.545522 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:06.745481 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:06.745510 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:06.945467 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:06.945496 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:07.145489 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:07.145519 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:07.345469 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:07.345498 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:07.545477 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:07.545506 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:07.745486 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:07.745515 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:07.945467 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:07.945496 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:08.145495 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:08.145525 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:08.345498 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:08.345529 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:08.545496 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:08.545527 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:08.745481 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:08.745510 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:08.945486 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:08.945516 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:09.145480 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:09.145509 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:09.345481 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:09.345511 ./fileserver.exe:     Read zero length message, trying again
+10/26/2019 21:50:09.545486 ./fileserver.exe:     C150DgmSocket::read: returning timeout to application
+10/26/2019 21:50:09.545522 ./fileserver.exe:     Read zero length message, trying again

@@ -425,12 +425,26 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
     file_data.insert(loc, first_packet.data);
     packets.erase(first_packet.packet_num);
     sock -> turnOnTimeouts(200); //TODO figure out good timeout for this
+
+    // Construct a 'missing' file IDs string for the client
+    string missing = "M" + to_string(file_pilot.file_ID) + " ";
+    for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
+        missing += to_string(*iter);
+        if (next(iter) != packets.end())
+            missing += " ";
+        //Don't overfill buffer!
+        if (missing.length() + MAX_FILENUM + 1 > 512)
+            break;
+    }
     // Loop until there are no more packets left to be received
-    while (!packets.empty()) {
+    do {
         while (!timedout) {
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             timedout = sock -> timedout();
             if (timedout) {
+                c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                                  missing.c_str());
+                sock -> write(missing.c_str(), missing.length()+1);
                 continue;
             }
             if (readlen == 0) {
@@ -452,10 +466,21 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
                     file_data.insert(loc, packet.data);
                     // remove packet # from set to mark that we recevied it
                     packets.erase(packet.packet_num);
+                    // Re-create 'missing' string
+                    missing = "M" + to_string(file_pilot.file_ID) + " ";
+                    for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
+                        missing += to_string(*iter);
+                        if (next(iter) != packets.end())
+                            missing += " ";
+                        //Don't overfill buffer!
+                        if (missing.length() + MAX_FILENUM + 1 > 512)
+                            break;
+                    }
                 }
             }
         } //we timed out, so client is done sending packets (for now)
-        string missing = "M" + to_string(file_pilot.file_ID) + " ";
+        //TODO remove
+        missing = "M" + to_string(file_pilot.file_ID) + " ";
         for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
             missing += to_string(*iter);
             if (next(iter) != packets.end())
@@ -464,12 +489,11 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
             if (missing.length() + MAX_FILENUM + 1 > 512)
                 break;
         }
-        //TODO send more than once (?)
         c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                           missing.c_str());
         sock -> write(missing.c_str(), missing.length()+1);
 
-    } // we have received data for all packets in this file
+    } while (!packets.empty()); // we have received data for all packets in this file
 
     if (!internalE2E(file_data, file_pilot, filehash)) {
         failed_e2es.push_back(to_string(file_pilot.file_ID));
@@ -498,12 +522,13 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         //
         NASTYFILE outputFile(FILE_NASTINESS);
         string TMPname = file_pilot.fname + ".TMP";
+        string full_TMPname = makeFileName(TARGET_DIR.c_str(), TMPname);
 
         // do an fopen on the output file
-        fopenretval = outputFile.fopen(TMPname.c_str(), "wb");  
+        fopenretval = outputFile.fopen(full_TMPname.c_str(), "wb");  
 
         if (fopenretval == NULL) {
-          cerr << "Error opening output file " << TMPname << 
+          cerr << "Error opening output file " << full_TMPname << 
                   " errno=" << strerror(errno) << endl;
           exit(12);
         }
@@ -512,7 +537,7 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         size_t num_bytes = file_data.size();
         len = outputFile.fwrite(file_data.c_str(), 1, num_bytes);
         if (len != num_bytes) {
-          cerr << "Error writing file " << TMPname << 
+          cerr << "Error writing file " << full_TMPname << 
                   "  errno=" << strerror(errno) << endl;
           num_tries++;
           continue;
@@ -520,7 +545,7 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         }
         // Close after writing
         if (outputFile.fclose() != 0) {
-          cerr << "Error closing file " << TMPname << 
+          cerr << "Error closing file " << full_TMPname << 
                   "  errno=" << strerror(errno) << endl;
           num_tries++;
           continue;
@@ -549,9 +574,10 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         // Compare hash of written file and hash from FilePilot
         bool write_success = cmpChecksums(target_file_hash, expected_hash);
         if (write_success) {
-            int result = rename(TMPname.c_str(), file_pilot.fname.c_str());
+            string total = makeFileName(TARGET_DIR.c_str(), file_pilot.fname);
+            int result = rename(full_TMPname.c_str(), total.c_str());
             if (result != 0) {
-                string msg = "Error renaming file " + TMPname;
+                string msg = "Error renaming file " + full_TMPname;
                 perror(msg.c_str());
             }
             else 
