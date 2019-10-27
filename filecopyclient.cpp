@@ -505,7 +505,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
     int num_tries = 0;
     size_t size;
     while ((sourceFile = readdir(SRC)) != NULL) {
-        cout << "In Wwhile\n";
+        cout << "In Wwhile " << num_tries << " " << timedout << endl;
         if ( (strcmp(sourceFile->d_name, ".") == 0) ||
              (strcmp(sourceFile->d_name, "..")  == 0 ) ) 
             continue;          // never copy . or ..
@@ -539,6 +539,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
         // Attempt to send File Pilot to server
         //
         while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
+            cout << "Sending FP\n";
             // Send the message to the server
             c150debug->printf(C150APPLICATION,
                               "%s: Sending File Pilot: \"%s\"",
@@ -575,8 +576,10 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
                                        "Aborting"); 
         }
         sendFile(fp, f_data, sock);
-        
+
+        num_tries = 0;
         F_ID++;
+        timedout = true;
     }
     cout << "Files sent\n";
     return ":)";

@@ -273,7 +273,7 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
     //     of a comp 150-IDS debug stream, and names that filestreamp.
     //
     //     The third line replaces the global variable c150debug
-    //     and sets it to point to the new debugstream. Since c150debug
+   //     and sets it to point to the new debugstream. Since c150debug
     //     is what all the c150 debug routines use to find the debug stream,
     //     you've now effectively overridden the default.
     //
@@ -382,6 +382,8 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
         // If we receive the same FilePilot again, the client did not get our
         // confirmation the first time so we re-send it
         if (incoming[0] == 'P') {
+            cout << "File Pilot" << endl;
+            cout << incoming << endl;
             FilePilot fp2 = unpackFilePilot(incoming);
             if (fp2.file_ID == file_pilot.file_ID) {
                 string response = "FPOK" + to_string(fp2.file_ID);
@@ -393,10 +395,13 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
         }
         // Make sure the File Packet is for the correct file
         else if (incoming[0] == 'F') {
+            cout << "File Packet\n";
+            cout << incoming.substr(0, 16) << endl;
             FilePacket first_packet = unpackFilePacket(incoming);
             if (first_packet.file_ID == file_pilot.file_ID) {
                 receiveDataPackets(sock, first_packet, file_pilot,
                                    failed_e2es, filehash);
+                break;
             }
         }
         else
