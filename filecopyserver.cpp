@@ -175,6 +175,7 @@ main(int argc, char *argv[])
         while (received_files < num_files) {
             // Read a message
             cout << "In while\n";
+            cout << "Reading ln 178: ";
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             if (readlen == 0) {
                 c150debug->printf(C150APPLICATION,"Read zero length message,"
@@ -198,7 +199,9 @@ main(int argc, char *argv[])
                 string response = "DPOK";
                 c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                                   response.c_str());
+                cout << "writing ln 202: " << response << endl;
                 sock -> write(response.c_str(), response.length()+1);
+                cout << "wrote ln 202\n";
             }
             else
                 continue;
@@ -324,19 +327,20 @@ DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
         string incoming(incoming_msg); // Convert to C++ string
+        cout << "read 330 " << incoming << endl;
         c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                           " Message=\"%s\"", readlen, incoming.c_str());
         // Loop until we get a DirPilot
         if (incoming[0] != 'D')
             continue;
         DirPilot dir_pilot = unpackDirPilot(incoming);
-        cout << incoming << endl;
         //
         // confirm to client that we received the DirPilot
         //
         string response = string("DPOK");
         c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                           response.c_str());
+        cout << "writing ln 343 " << response << endl;
         sock -> write(response.c_str(), response.length()+1);
         cout << "Dir pilot received\n";
         return dir_pilot;
@@ -368,7 +372,7 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
 
     // Loop until we get a FilePacket
     while (true) {
-        cout << "In receive file while\n";
+        cout << "reading ln 375 ";
         readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
         if (readlen == 0) {
             c150debug->printf(C150APPLICATION,"Read zero length message,"
@@ -390,6 +394,7 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
                 string response = "FPOK" + to_string(fp2.file_ID);
                 c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                                   response.c_str());
+                cout << "writng ln 397 " << response << endl;
                 sock -> write(response.c_str(), response.length()+1);
                 continue;
             }

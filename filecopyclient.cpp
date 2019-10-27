@@ -79,7 +79,7 @@ const int TIMEOUT_MS = 300;       //ms for timeout
 extern int NETWORK_NASTINESS;
 extern int FILE_NASTINESS;
 char* PROG_NAME;
-const int MAX_SEND_TO_SERVER_TRIES = 10;
+const int MAX_SEND_TO_SERVER_TRIES = 20;
 
 
 
@@ -497,7 +497,6 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
     int F_ID = 0;
     struct dirent *sourceFile;  // Directory entry for source file
     bool timedout = true;
-    int readlen;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
     size_t size;
@@ -541,15 +540,15 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             c150debug->printf(C150APPLICATION,
                               "%s: Sending File Pilot: \"%s\"",
                               PROG_NAME, c_style_msg);
+            cout << "writing ln 544 " << f_pilot << endl; 
             sock->write(c_style_msg, pack_len+1);
             // Read the response from the server
             c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                               " doing read()", PROG_NAME);
-            readlen = sock -> read(incoming_msg,
+            sock -> read(incoming_msg,
                                    sizeof(incoming_msg));
             string incoming(incoming_msg);
-            cout << "incoming in FP loop: " << incoming << endl;
-            (void) readlen;
+            cout << "reading ln 551 " << incoming << endl;
             // Check for timeout
             timedout = sock -> timedout();
             if (timedout) {
@@ -594,8 +593,8 @@ bool operator<(const FilePacket& l, int& r) {return (l.packet_num < r);}
 string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
 {
     cout << "sending " << fp.fname << endl; 
-    ssize_t readlen;              // amount of data read from socket
     bool timedout = true;
+    size_t readlen;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
     vector<FilePacket> dps = makeDataPackets(fp, f_data);
@@ -615,6 +614,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
                 c150debug->printf(C150APPLICATION,
                                   "%s: Sending File Data, msg: \"%s\"",
                                   PROG_NAME, c_style_msg);
+                cout << "writing on 616 " << data_pack.substr(0, 18) << endl;
                 sock->write(c_style_msg, pack_len+1);
                 cout << "Sending Data Pack " << dps[*iter].packet_num << endl;
                 cout << "datapack " << data_pack << endl;
@@ -626,21 +626,24 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
 
         while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
-            printf("%s\n", incoming_msg);
+            printf("readlen %lu timedout %d incoming %s\n", readlen, timedout, incoming_msg);
             // Check for timeout
             timedout = sock -> timedout();
-            (void) readlen;
+            if (readlen > 0)
+                timedout = false;
+            string inc_str = string(incoming_msg);
+            cout << "timedout " << timedout << " reading ln 631 " << inc_str << endl;
             if (timedout) {
+                cout << "fuck me\n";
                 num_tries++;
                 continue;
             }
-            string inc_str = string(incoming_msg);
             if ((inc_str.substr(0, 1) == "M") &&
                 (stoi(inc_str.substr(1, inc_str.find(" ")-1))
                  == fp.file_ID)) {
                 cout << "in if\n";
                 string missing = inc_str.substr(inc_str.find(" ") + 1);
-                cout << missing << endl;
+                cout << "missing:" << missing << endl;
                 //stringstream stream(missing);
                 stringstream in(missing);
                 missing_packs = set<int>{istream_iterator<int, char>{in},
