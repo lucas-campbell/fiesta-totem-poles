@@ -426,8 +426,10 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
     char incoming_msg[512];
     // To be filled with data from client. Only fill most of the way, to
     // account for possible incomplete final packet
-    int buffer_size = PACKET_SIZE*file_pilot.num_packets-1;
+    int buffer_size = PACKET_SIZE*(file_pilot.num_packets-1);
+    cout << "creating INITIAL BUFFER of size " << buffer_size << endl;
     string file_data(buffer_size, ' ');
+    cout << "actual buffer size: " << file_data.size() << endl;
     set<int> packets;
     // Create set with packet_IDs of the packets we need to receive
     for (int i = 0; i < file_pilot.num_packets; i++) {
@@ -435,10 +437,18 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
     }
     // insert the first data packet we received, take it out of the set
     int loc = first_packet.packet_num*PACKET_SIZE;
-    if (file_pilot.num_packets == 1)
+    if (file_pilot.num_packets == 1) {
         file_data = first_packet.data;
-    else 
+        cout << "only 1 packet:\n" << file_data << endl;
+        cout << "buffer size now" << file_data.size() << endl;
+    }
+    else  {
+        cout << "more than 1 packet. putting \n"
+            << first_packet.data << endl << "into buffer of size "
+            << file_data.size() << ". New size is ";
         file_data.replace(loc, first_packet.data.size(), first_packet.data);
+        cout << file_data.size() << endl;
+    }
     packets.erase(first_packet.packet_num);
     sock -> turnOnTimeouts(200); //TODO figure out good timeout for this
 
@@ -609,7 +619,7 @@ bool internalE2E(string file_data, FilePilot file_pilot,
         cout << "expected hash: "; printHash(expected_hash); cout << endl;
         bool write_success = cmpChecksums(target_file_hash, expected_hash);
         if (write_success) {
-            cout << "attempting rename\n";
+            cout << "RENAMING\n";
             string total = makeFileName(TARGET_DIR.c_str(), file_pilot.fname);
             int result = rename(full_TMPname.c_str(), total.c_str());
             if (result != 0) {
