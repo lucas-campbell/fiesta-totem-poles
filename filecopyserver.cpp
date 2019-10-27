@@ -581,9 +581,9 @@ bool internalE2E(string file_data, FilePilot file_pilot,
                 perror(msg.c_str());
             }
             else 
-            // NEEDSWORK if we fail to rename the file, we will still report to
+            // NEEDSWORK if we fail to rename the file, we will not report to
             // the client that the e2e check was successful. However, the .TMP
-            // suffix will still exist.
+            // fille will techincally be correct.
             internal_e2e_succeeded = true;
         }
         else {
