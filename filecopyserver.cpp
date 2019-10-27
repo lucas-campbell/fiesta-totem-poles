@@ -183,10 +183,12 @@ main(int argc, char *argv[])
                 continue;
             }
             incoming_msg[readlen] = '\0'; // make sure null terminated
-            string incoming(incoming_msg); // Convert to C++ string
+            string incoming(incoming_msg, readlen); // Convert to C++ string
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
             cout << "incoming "<<  incoming << endl;
+            c150debug->printf(C150APPLICATION, "readlen:%lu inc size: %lu",
+                              readlen, incoming.size());
             // Check for FilePilot
             if (incoming[0] == 'P') {
                 cout << "Case P\n";
@@ -326,7 +328,7 @@ DirPilot receiveDirPilot(C150NastyDgmSocket *sock)
             continue;
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
-        string incoming(incoming_msg); // Convert to C++ string
+        string incoming(incoming_msg, readlen); // Convert to C++ string
         cout << "read 330 " << incoming << endl;
         c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                           " Message=\"%s\"", readlen, incoming.c_str());
@@ -380,7 +382,7 @@ void receiveFile(C150NastyDgmSocket *sock, string incoming,
             continue;
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
-        string incoming(incoming_msg); // Convert to C++ string
+        string incoming(incoming_msg, readlen); // Convert to C++ string
         cout << "incoming " << incoming << endl;
         c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                           " Message=\"%s\"", readlen, incoming.c_str());
@@ -421,6 +423,7 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
                         map<string, string> &filehash)
 {
     cout << "Rece3iving Data Packets\n";
+    cout << "filename: " << file_pilot.fname << endl;
     ssize_t readlen;             // amount of data read from socket
     bool timedout = false;
     char incoming_msg[512];
@@ -479,7 +482,7 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
                 continue;
             }
             incoming_msg[readlen] = '\0'; // make sure null terminated
-            string incoming(incoming_msg); // Convert to C++ string
+            string incoming(incoming_msg, readlen); // Convert to C++ string
             cout << "incoming in receive while " << incoming << endl;
             c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
                               " Message=\"%s\"", readlen, incoming.c_str());
@@ -514,19 +517,6 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
                 }
             }
         } //we timed out, so client is done sending packets (for now)
-        //TODO remove
-        /*
-        missing = "M" + to_string(file_pilot.file_ID) + " ";
-        for (auto iter  = packets.begin(); iter != packets.end(); iter++) {
-            missing += to_string(*iter);
-            if (next(iter) != packets.end())
-                missing += " ";
-            //Don't overfill buffer!
-            if (missing.length() + MAX_FILENUM + 1 > 512){
-                cout << "in bad if" << endl;
-                break;
-            }
-        }*/
         cout << "missing " << missing << endl;
         c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
                           missing.c_str());
@@ -535,6 +525,52 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
         timedout = false;
 
     } while (!packets.empty()); // we have received data for all packets in this file
+
+    // Wait for confirmation that client knows to move to the next file
+    missing = "M" + to_string(file_pilot.file_ID) + " ";
+    bool client_moved_on = false;
+    while (!client_moved_on) {
+        cout << "wait for client move on while\n";
+        readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
+        timedout = sock -> timedout();
+        if (timedout) {
+            c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                              missing.c_str());
+            sock -> write(missing.c_str(), missing.length()+1);
+            continue;
+        }
+        if (readlen == 0) {
+            c150debug->printf(C150APPLICATION,"Read zero length message,"
+                              " trying again");
+            c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                              missing.c_str());
+            sock -> write(missing.c_str(), missing.length()+1);
+            continue;
+        }
+        incoming_msg[readlen] = '\0'; // make sure null terminated
+        string incoming(incoming_msg, readlen); // Convert to C++ string
+        cout << "incoming msg in wait for client confirm while \n" << incoming << endl;
+        c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
+                          " Message=\"%s\"", readlen, incoming.c_str());
+        // Check that message is a FilePilot for the next file, or else a
+        // message that 
+        // If so, we can discard it because multiple copies/retries will come
+        // down the pipeline.
+        if (incoming[0] == 'P') {
+            FilePilot nextfp = unpackFilePilot(incoming);
+            if (nextfp.file_ID == file_pilot.file_ID + 1)
+                client_moved_on = true;
+        }
+        else if (incoming == "E2E Ready") {
+            cout << "got e2e ready\n";
+            client_moved_on = true;
+        }
+        else {
+            c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
+                              missing.c_str());
+            sock -> write(missing.c_str(), missing.length()+1);
+        }
+    }
 
     if (!internalE2E(file_data, file_pilot, filehash)) {
         failed_e2es.push_back(to_string(file_pilot.file_ID));
@@ -609,8 +645,8 @@ bool internalE2E(string file_data, FilePilot file_pilot,
 
         // Add checksum to table, regardless of whether it is correct.
         // This will be used later on for a full E2E directory check
-        filehash[file_pilot.fname] = string((const char *)target_file_hash,
-                                             SHA1_LEN-1);
+        filehash[file_pilot.fname] =
+                        string((const char *)target_file_hash, SHA1_LEN-1);
 
         unsigned char expected_hash[SHA1_LEN];
         memcpy(expected_hash, file_pilot.hash.c_str(), SHA1_LEN);
@@ -682,103 +718,10 @@ void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
             continue;
         }
         incoming_msg[readlen] = '\0'; // make sure null terminated
-        string incoming(incoming_msg); // Convert to C++ string
+        string incoming(incoming_msg, readlen); // Convert to C++ string
         if (incoming == "E2E received")
             e2e_received = true;
         
     }
     cout << "E2E confirmed\n";
-}
-
-/*
- * handleDir TODO remove
- * Handle a directory pilot packet and send response to the client
- * about if the target directory hash and given hash match.
- * Args: 
- *      incoming: a string containing file metadata from the client
- *      filehash: a map of filenames to checksums in the target directory
- *      sock: pointer to socket open for reading
- * Returns: Null
- *
- */
-void handleDir(string incoming, map<string, string> filehash,
-                C150DgmSocket *&sock)
-{
-    // Unpack into corresponding struct
-    DirPilot dir_pilot = unpackDirPilot(incoming);
-    
-    // checksum of target directory
-    string target_dir_hash = getDirHash(filehash);
-    
-    bool hashes_match = (target_dir_hash == dir_pilot.hash);
-    
-    string response;
-    if (hashes_match)
-        response = "DirHashOK";
-    else
-        response = "DirHashError";
-    
-    //
-    // write the return message
-    //
-    c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
-                      response.c_str());
-    sock -> write(response.c_str(), response.length()+1);
-    cout << "Dir Pilot Received\n";
-}
-
-/*
- * TODO remove
- * handleFilePilot
- * Send response to client indicating whether the file in the target directory
- * has the same SHA1 checksum as the checksum in the given packet.
- * Args: 
- *      incoming: a string containing file metadata from the client
- *      filehash: a map of filenames to checksums in the target directory
- *      sock: pointer to socket open for reading
- */
-void handleFilePilot(string incoming, map<string, string> filehash,
-                     C150DgmSocket *&sock)
-{
-    cerr << "HANDLING PILE PILOT\n";
-    // Unpack into struct
-    FilePilot file_pilot = unpackFilePilot(incoming);
-     //get correspnding checksum of file from target dir
-    string trg_file_hash = filehash[file_pilot.fname];
-    
-    bool hashes_match = (trg_file_hash == file_pilot.hash);
-    
-    string response;
-    if (hashes_match) {
-        *GRADING << "File: " << file_pilot.fname
-                 << " end-to-end check succeeded\n";
-        response = "FileHashOK";
-    }
-    else {
-        *GRADING << "File: " << file_pilot.fname
-                 << " end-to-end check failed\n";
-        response = "FileHashError";
-    }
-    GRADING->flush();
-    
-    //
-    // write the return message
-    //
-    c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
-                      response.c_str());
-    sock -> write(response.c_str(), response.length()+1);
-    cout << "File Pilot Handled\n";
-}
-
-/*
- * TODO remove
- * handleFilePilot
- * NEEDSWORK: document function contract, args
- */
-void handleData(string incoming, C150DgmSocket *&sock)
-{
-    //Dummy return statement for now
-    string response = "PacketReceived";
-
-    sock -> write(response.c_str(), response.length()+1);
 }

@@ -499,6 +499,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
+    ssize_t readlen;
     size_t size;
     while ((sourceFile = readdir(SRC)) != NULL) {
         cout << "In Wwhile " << num_tries << " " << timedout << endl;
@@ -519,8 +520,11 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
         // Read data, compute checksum, put size of file in 'size'
         char *f_data_c = getFileChecksum(sourceDir, filename, size, hash);
         string f_data(f_data_c, size);
+        cout << "read file " << filename << ". size: " << size
+             << " f_data_c size: " << strlen(f_data_c)
+             << " f_data size: " << f_data.size() << endl;
         
-        string hash_str((const char*)hash);
+        string hash_str((const char*)hash, SHA1_LEN-1);
         filehash[filename] = hash_str;
         int num_packs = size / PACKET_SIZE;
         if (size % PACKET_SIZE != 0)
@@ -545,9 +549,9 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
             // Read the response from the server
             c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                               " doing read()", PROG_NAME);
-            sock -> read(incoming_msg,
+            readlen = sock -> read(incoming_msg,
                                    sizeof(incoming_msg));
-            string incoming(incoming_msg);
+            string incoming(incoming_msg, readlen);
             cout << "reading ln 551 " << incoming << endl;
             // Check for timeout
             timedout = sock -> timedout();
@@ -555,7 +559,7 @@ string sendFiles(DIR* SRC, const char* sourceDir, C150DgmSocket *sock,
                 num_tries++;
                 continue;
             }
-            string inc_str = string(incoming_msg);
+            string inc_str = string(incoming_msg, readlen);
             // Confirmation from server about specific File Pilot
             if ((inc_str.substr(0, 4) == "FPOK") &&
                 (atoi(inc_str.substr(4).c_str()) == F_ID)){
@@ -594,14 +598,15 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
 {
     cout << "sending " << fp.fname << endl; 
     bool timedout = true;
-    size_t readlen;
+    ssize_t readlen;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
     vector<FilePacket> dps = makeDataPackets(fp, f_data);
     set<int> missing_packs;
+    // send all packets at least once, so 'missing' contains all packet
+    // numbers to start
     for (size_t i = 0; i < dps.size(); i++)
         missing_packs.insert(i);
-    // send all packets at least once 
    
     do {
         cout << "dps:" << dps.size() << endl;
@@ -629,6 +634,7 @@ string sendFile(FilePilot fp, string f_data,  C150DgmSocket *sock)
             printf("readlen %lu timedout %d incoming %s\n", readlen, timedout, incoming_msg);
             // Check for timeout
             timedout = sock -> timedout();
+            //TODO remove
             if (readlen > 0)
                 timedout = false;
             string inc_str = string(incoming_msg);
@@ -698,34 +704,46 @@ vector<FilePacket> makeDataPackets(FilePilot fp, string f_data){
 string receiveE2E(C150DgmSocket *sock)
 {
     cout << "In E2E\n";
+    ssize_t readlen = 0;
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
-    while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
-            sock -> read(incoming_msg, sizeof(incoming_msg));
-            // Check for timeout
-            timedout = sock -> timedout();
-            if (timedout) {
-                num_tries++;
-                continue;
-            }
-            string inc_str = string(incoming_msg);
-            if (inc_str.substr(0, 4) == "E2ES") {
-                *GRADING << "Directory E2E passed. All files copied\n";
-                cout << "E2E Passed\n";
-                break;
-            }
-            else if (inc_str.substr(0, 4) == "E2EF") {
-                string failed = inc_str.substr(4);
-                *GRADING << "Directory E2E check failed." << failed <<
-                    " files failed to be copied.\n";
-                break;
-            }
-               
-            
-            timedout = true; // If we caught the wrong packet, reset
-            
+    string E2EPilot = "E2E Ready";
+        
+    while (timedout && (num_tries < MAX_SEND_TO_SERVER_TRIES)) {
+        cout << "in E2E while\n";
+        // Send the message to the server
+        c150debug->printf(C150APPLICATION,
+                          "%s: Sending E2E ready msg: \"%s\"",
+                          PROG_NAME, E2EPilot.c_str());
+        sock->write(E2EPilot.c_str(), E2EPilot.length()+1);
+        readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
+        string inc_str = string(incoming_msg);
+        c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
+                          " Message=\"%s\"", readlen, inc_str.c_str());
+        // Check for timeout
+        timedout = sock -> timedout();
+        if (timedout) {
+            num_tries++;
+            continue;
+        }
+        cout << "timedout "<< timedout << "incoming "
+             << inc_str << endl;
+        if (inc_str.substr(0, 4) == "E2ES") {
+            *GRADING << "Directory E2E passed. All files copied\n";
+            cout << "E2E Passed\n";
+            break;
+        }
+        else if (inc_str.substr(0, 4) == "E2EF") {
+            string failed = inc_str.substr(4);
+            *GRADING << "Directory E2E check failed." << failed <<
+                " files failed to be copied.\n";
+            break;
+        }
+           
+        timedout = true; // If we caught the wrong packet, reset    
     } //we timed out or tried 5 times
+
     if (num_tries == MAX_SEND_TO_SERVER_TRIES)
     {
         *GRADING << "Did not receive E2E. Aborting...\n";
@@ -734,7 +752,9 @@ string receiveE2E(C150DgmSocket *sock)
     
     c150debug->printf(C150APPLICATION, "%s: Sending E2E confirmation",
                       PROG_NAME);
-    sock -> write("E2E received", 13);
+    // Tell server we are done
+    for (int i = 0; i < 10; i++)
+        sock -> write("E2E received", 13);
     cout << "E2E received\n";
     return ":)";
 }
