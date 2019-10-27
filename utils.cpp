@@ -85,16 +85,17 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
 
     bool found_match = false;
     int correct_index;
-    char *file_buffs[5];
+    int copies = 6;
+    char *file_buffs[copies];
     while (!found_match) {
-        string hashes[5];
+        string hashes[copies];
         int failed = 0;
         //keep a count of duplicate hashes
         map<string, int> counts;
         
         // Read file 5 times, check if we got the same checksum 3 times
-        for (int i = 0; i < 5; i++) {
-            if (failed > 6) {
+        for (int i = 0; i < copies; i++) {
+            if (failed > copies+1) {
                 *GRADING << "Read of  " << file_name << " failed too many "
                         << "times, exiting\n";
                 exit(-1);
@@ -166,8 +167,8 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             failed = 0;
         }
         // check to see if enough checksums match
-        for (int i = 0; i < 5; i++) {
-            if (counts[(hashes[i])] >= 3){
+        for (int i = 0; i < copies; i++) {
+            if (counts[(hashes[i])] == copies){
                 found_match = true;
                 correct_index = i;
                 break;
@@ -176,7 +177,7 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
     }
 
     //clean up duplicate copies
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < copies; i++) {
         if (i != correct_index)
             free(file_buffs[i]);
     }
