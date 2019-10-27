@@ -455,16 +455,10 @@ void receiveDataPackets(C150NastyDgmSocket *sock, FilePacket first_packet,
     // Loop until there are no more packets left to be received
     do {
         while (!timedout) {
+            cout << "Data while" << endl;
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             timedout = sock -> timedout();
             if (timedout) {
-                //TODO remove
-                /*
-                c150debug->printf(C150APPLICATION,"Responding with message=\"%s\"",
-                                  missing.c_str());
-                sock -> write(missing.c_str(), missing.length()+1);
-                */
-                // exit inner loop, send 'missing' message again
                 continue;
             }
             if (readlen == 0) {
