@@ -38,3 +38,8 @@
 
 # Gradelog files
 GRADELOG.*
+
+# Debug Files
+*debug.txt
+# TARGET dir
+TARGET
