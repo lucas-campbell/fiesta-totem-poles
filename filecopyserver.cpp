@@ -210,6 +210,11 @@ main(int argc, char *argv[])
         }
         // Send E2E and wait for response
         sendE2E(sock, failed_e2es, filehash, dir_pilot);
+
+        *GRADING << "Closing dir\n";
+        closedir(TRG);
+        *GRADING << flush;
+
     }
 
     catch (C150NetworkException& e) {
@@ -738,5 +743,5 @@ void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
             e2e_received = true;
         
     }
-    cout << "E2E confirmed\n";
+    *GRADING << "E2E confirmed by client\n";
 }

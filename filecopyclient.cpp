@@ -50,7 +50,7 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket *sock,
                  map<string, string> &filehash);
 void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock);
 vector<FilePacket> makeDataPackets(FilePilot fp, string f_data);
-string receiveE2E(C150NastyDgmSocket *sock);
+void receiveE2E(C150NastyDgmSocket *sock);
 
 
 
@@ -185,6 +185,7 @@ int main(int argc, char *argv[]) {
 
         *GRADING << "Closing dir\n";
         closedir(SRC);
+        *GRADING << flush;
     }
 
     
@@ -295,8 +296,8 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
  *               by getDirHash()
  *    sock:      a socket already opened/configured, to be sent over
  *    argv:      command line arguments to the program, used for error messages
- * Returns:
- *    None
+ *
+ * Returns: None
  *    
  */
 void sendDirPilot(int num_files, string hash, C150NastyDgmSocket *sock,
@@ -314,9 +315,9 @@ void sendDirPilot(int num_files, string hash, C150NastyDgmSocket *sock,
     
     while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
 
-        *GRADING << "Directory Pilot: " << string(argv[SRC_ARG])
-                 << " beginning transmission, attempt "
-                 << num_tries+1 << endl;
+        if (num_tries > 0)
+            *GRADING << "Sending DP " << "for dir " << string(argv[SRC_ARG])
+                     << " attempt #" << num_tries+1 << endl;
         // Send the message to the server
         c150debug->printf(C150APPLICATION, "%s: Writing message: \"%s\"",
                           PROG_NAME, c_style_msg);
@@ -364,7 +365,7 @@ void sendDirPilot(int num_files, string hash, C150NastyDgmSocket *sock,
 void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
                  map<string, string> &filehash)
 {
-    int F_ID = 0;
+    int F_ID = 0; // gets incremented, the nth file has file_ID == n
     struct dirent *sourceFile;  // Directory entry for source file
     bool timedout = true;
     char incoming_msg[512];   // received message data
@@ -386,7 +387,7 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
         if (!isFile(full_filename))
             continue;                     
         //
-        // Add {filename, checksum} to the table
+        // Add {filename, checksum} to the table and construct FilePilot
         //
         unsigned char hash[SHA1_LEN];
         // Read data, compute checksum, put size of file in 'size'
@@ -400,10 +401,10 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
                 num_packs++;
         
         FilePilot fp = FilePilot(num_packs, F_ID, hash_str, filename);
-        string f_pilot = makeFilePilot(fp);
+        string f_pilot = makeFilePilot(fp); //packetized
         int pack_len = f_pilot.size();
-        
         const char * c_style_msg = f_pilot.c_str();
+
         //
         // Attempt to send File Pilot to server
         //
@@ -420,7 +421,7 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
             c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                               " doing read()", PROG_NAME);
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
-            // Check for timeout
+            // Check for timeout or 0 length message (nasty socket)
             timedout = sock -> timedout();
             if (timedout) {
                 num_tries++;
@@ -435,10 +436,8 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
             string inc_str(incoming_msg, readlen-1);
             // Confirmation from server about specific File Pilot
             if ((inc_str.substr(0, 4) == "FPOK") &&
-                (atoi(inc_str.substr(4).c_str()) == F_ID)){
-                cout << "Received FPOK\n";
+                (stoi(inc_str.substr(4)) == F_ID))
                 break;
-            }
                 
             timedout = true; // If we caught the wrong packet, reset
             
@@ -450,7 +449,8 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
                                        "Aborting"); 
         }
 
-        // Send an individual file to client
+        // If we reached this point, server has received FilePilot and is
+        // ready to receive packets
         sendFile(fp, f_data, sock);
 
         // Resets/increments for next file transmission loop
@@ -473,21 +473,37 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
  */
 void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
 {
-    bool timedout = true;
+    *GRADING << "File: " << fp.fname << " beginning transmission\n";
     ssize_t readlen;
     char incoming_msg[512];   // received message data
-    int num_tries = 0;
+    int num_file_tries = 0;
+
+    // If file_ID and all packet_nums are full length, this is the maximum
+    // number of packet_ids that can fit in a buffer for our 'missing' message
+    int low_max_fIDs = ((512-2-MAX_FILENUM-1-MAX_PACKNUM)/(MAX_PACKNUM+1)) + 1;
+    int expected_tries = fp.num_packets / low_max_fIDs;
+    if (expected_tries % low_max_fIDs != 0) expected_tries++;
+
     // Break up buffer into FilePacket structs so that we can send data
     // piecemeal across the wire
     vector<FilePacket> dps = makeDataPackets(fp, f_data); //dps = data packets
-    set<int> missing_packs; // packet_ids that the server still needs from us
+
+    // packet_ids that the server still needs from us
+    set<int> missing_packs; 
     // send all packets at least once, so 'missing' contains all packet
     // numbers to start
     for (size_t i = 0; i < dps.size(); i++)
         missing_packs.insert(i);
    
     do {
-        // Send all packets that the server tells us it's missing
+        if (num_file_tries > expected_tries)
+            *GRADING << "File: " << fp.fname
+                << " sending missing data packets transmission #"
+                << num_file_tries << endl;
+        // Number of times we tried to send this iteration of missing packets
+        int num_missing_tries = 0;
+        bool timedout = true;
+        // Send all packets that the server tells us it needs
         for (auto iter = missing_packs.begin(); iter != missing_packs.end(); iter++) {
             // Send each packet 5 times, for redundancy's sake
             for (int i = 0; i < 5; i++) {
@@ -500,14 +516,21 @@ void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
                 sock->write(c_style_msg, pack_len+1);
             }
         }
-        cout << "sent missing\n";
+        if (num_file_tries > expected_tries) {
+            *GRADING << "sent packets ";
+            for (auto iter = missing_packs.begin(); iter != missing_packs.end(); iter++) {
+                *GRADING << *iter << " ";
+            }
+            *GRADING << endl;
+        }
+
         // Check for server message about which packets it still needs
-        while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
+        while (timedout && num_missing_tries < MAX_SEND_TO_SERVER_TRIES) {
 
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
             timedout = sock -> timedout();
             if (timedout) {
-                num_tries++;
+                num_missing_tries++;
                 continue;
             }
             if (readlen == 0) {
@@ -517,27 +540,13 @@ void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
             }
             string inc_str = string(incoming_msg, readlen-1);
             if ((inc_str.substr(0, 1) == "M") &&
-                (stoi(inc_str.substr(1, inc_str.find(" ")-1))
-                 == fp.file_ID)) {
-                cout << "in if\n";
+                (stoi(inc_str.substr(1, inc_str.find(" ")-1)) == fp.file_ID)) {
                 string missing = inc_str.substr(inc_str.find(" ") + 1);
-                cout << "missing:" << missing << endl;
-                //stringstream stream(missing);
+                // construct new missing_packs id set using a convenient
+                // constructor
                 stringstream in(missing);
                 missing_packs = set<int>{istream_iterator<int, char>{in},
                         istream_iterator<int, char>{}};
-                //vector<FilePacket> temp_dps = dps;
-                // for (auto iter = temp_dps.begin();
-                //      iter != temp_dps.end(); iter++) {
-                //     //cout << "temp dps " << iter->packet_num << " ";
-                //     if(missing_packs.find(iter->packet_num) !=
-                //        missing_packs.end()){
-                //         cout << "Pushing " << iter->packet_num << endl;
-                //         dps.push_back(*iter);
-
-                //     }
-                        
-                // }
                 break;
             }
                 
@@ -546,35 +555,57 @@ void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
             
         } //we timed out or tried 5 times
         
-        if (num_tries == MAX_SEND_TO_SERVER_TRIES)
+        if (num_missing_tries == MAX_SEND_TO_SERVER_TRIES)
         {
             throw C150NetworkException("Server is unresponsive on FilePacket. "
                                        "Aborting"); 
         }
-        num_tries = 0;
-        timedout = true;
+
+        num_file_tries++;
  
     } while(!missing_packs.empty());
-    cout << "sent " << fp.fname << endl;
+
+    // We don't report 'waiting for E2E' here, because our E2E is
+    // directory-level
+    *GRADING << "File: " << fp.fname << " transmission complete\n";
 }
 
+/*
+ * makeDataPackets
+ * Split a buffer containing file contents up into a vector of FilePacket
+ * structs
+ * Args:
+ * * fp: FilePilot for the file, contains necessary metadata
+ * * f_data: string containing the contents of the file
+ *
+ * Returns: vector of FilePacket structs, in the order that the data appears in
+ * the file. If each struct's .data member is concatenated in the order it
+ * appears in the vector, the resulting string will equal f_data.
+ */
 vector<FilePacket> makeDataPackets(FilePilot fp, string f_data){
-    cout << "Making datapackets\n";
     vector<FilePacket> data_packs;
     int i;
     for (i = 0; i < fp.num_packets-1; i++) {
         string data = f_data.substr(i*PACKET_SIZE, PACKET_SIZE);
         data_packs.push_back(FilePacket(i, fp.file_ID, data));
     }
+    // Last packet may not be a full 480 bytes
     data_packs.push_back(FilePacket(i, fp.file_ID,
                                     f_data.substr(i*PACKET_SIZE)));
-    cout << "made data packets\n";
     return data_packs;
 }
 
-string receiveE2E(C150NastyDgmSocket *sock)
+/*
+ * receiveE2E
+ * Wait for server to send E2E check over the network, log response
+ *
+ * Args:
+ * * sock: nasty socket for server communication
+ *
+ * Returns: None
+ */
+void receiveE2E(C150NastyDgmSocket *sock)
 {
-    cout << "In E2E\n";
     ssize_t readlen = 0;
     bool timedout = true;
     char incoming_msg[512];   // received message data
@@ -582,7 +613,6 @@ string receiveE2E(C150NastyDgmSocket *sock)
     string E2EPilot("E2E Ready");
         
     while (timedout && (num_tries < MAX_SEND_TO_SERVER_TRIES)) {
-        cout << "in E2E while\n";
         // Send the message to the server
         c150debug->printf(C150APPLICATION,
                           "%s: Sending E2E ready msg: \"%s\"",
@@ -601,15 +631,15 @@ string receiveE2E(C150NastyDgmSocket *sock)
             continue;
         }
         string inc_str = string(incoming_msg, readlen-1);
+        // Check for success or failure
         if (inc_str.substr(0, 4) == "E2ES") {
-            *GRADING << "Directory E2E passed. All files copied\n";
-            cout << "E2E Passed\n";
+            *GRADING << "Directory end-to-end check succeeded.\n";
             break;
         }
         else if (inc_str.substr(0, 4) == "E2EF") {
             string failed = inc_str.substr(4);
-            *GRADING << "Directory E2E check failed." << failed <<
-                " files failed to be copied.\n";
+            *GRADING << "Directory end-to-end check failed, " << failed <<
+                " file(s) not copied successfully.\n";
             break;
         }
            
@@ -624,9 +654,7 @@ string receiveE2E(C150NastyDgmSocket *sock)
     
     c150debug->printf(C150APPLICATION, "%s: Sending E2E confirmation",
                       PROG_NAME);
-    // Tell server we are done
+    // Blitz of messages to tell server we are done
     for (int i = 0; i < 10; i++)
         sock -> write("E2E received", 13);
-    cout << "E2E received\n";
-    return ":)";
 }
