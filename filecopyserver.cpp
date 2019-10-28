@@ -158,7 +158,7 @@ main(int argc, char *argv[])
     try {
         //TODO add GRADING messages here
         cerr << "Creating C150NastyDgmSocket(nastiness=" <<
-            NETWORK_NASTINESS <<endl;
+            NETWORK_NASTINESS << ")" << endl;
         c150debug->printf(C150APPLICATION,"Creating "
                           "C150NastyDgmSocket(nastiness=%d)",
                           NETWORK_NASTINESS);
@@ -680,10 +680,23 @@ bool internalE2E(string file_data, FilePilot file_pilot,
     return internal_e2e_succeeded;
 }
 
+/*
+ * sendE2E
+ * Get directory hash of the fully written target dir, and compare with
+ * the value originally received from client. Report to client if we succeeded
+ * or failed, and include the number of failed files if we failed.
+ * Args:
+ * * sock: socket connection with the client
+ * * filehash: map of filename -> checksum of files as they are written in
+ *             target directory
+ * * dir_pilot: original directory pilot received from client. Contains number
+ *              of files in source directory and the source directory hash
+ *
+ */
 void sendE2E(C150NastyDgmSocket *sock, vector<string> failed,
              map<string, string> filehash, DirPilot dir_pilot)
 {
-    cout << "senbding e2e\n";
+    // Get Directory hash of the fully written 
     string target_hash_str = getDirHash(filehash);
     unsigned char target_dir_hash[SHA1_LEN];
     memcpy(target_dir_hash, target_hash_str.c_str(), SHA1_LEN);
