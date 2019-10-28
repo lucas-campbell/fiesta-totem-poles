@@ -302,6 +302,7 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
 void sendDirPilot(int num_files, string hash, C150NastyDgmSocket *sock,
                   char *argv[])
 {
+    ssize_t readlen;
     bool timedout = true;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
@@ -323,15 +324,21 @@ void sendDirPilot(int num_files, string hash, C150NastyDgmSocket *sock,
         // Read the response from the server
         c150debug->printf(C150APPLICATION,"%s: Returned from write,"
                           " doing read()", PROG_NAME);
-        sock -> read(incoming_msg, sizeof(incoming_msg));
+        readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
         // Check for timeout
         timedout = sock -> timedout();
         if (timedout) {
             num_tries++;
             continue;
         }
+        if (readlen == 0) {
+            c150debug->printf(C150APPLICATION,"Read zero length message,"
+                              " trying again");
+            continue;
+        }
         // Check for acknowledgement from server
-        if (string(incoming_msg) == "DPOK")
+        string incoming(incoming_msg, readlen-1);
+        if (incoming == "DPOK")
             break;
     } //we timed out or tried 5 times
 
@@ -419,7 +426,13 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
                 num_tries++;
                 continue;
             }
-            string inc_str = string(incoming_msg, readlen);
+            if (readlen == 0) {
+                c150debug->printf(C150APPLICATION,"Read zero length message,"
+                                  " trying again");
+                continue;
+            }
+                
+            string inc_str(incoming_msg, readlen-1);
             // Confirmation from server about specific File Pilot
             if ((inc_str.substr(0, 4) == "FPOK") &&
                 (atoi(inc_str.substr(4).c_str()) == F_ID)){
@@ -464,17 +477,19 @@ void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
     ssize_t readlen;
     char incoming_msg[512];   // received message data
     int num_tries = 0;
-    vector<FilePacket> dps = makeDataPackets(fp, f_data);
-    set<int> missing_packs;
+    // Break up buffer into FilePacket structs so that we can send data
+    // piecemeal across the wire
+    vector<FilePacket> dps = makeDataPackets(fp, f_data); //dps = data packets
+    set<int> missing_packs; // packet_ids that the server still needs from us
     // send all packets at least once, so 'missing' contains all packet
     // numbers to start
     for (size_t i = 0; i < dps.size(); i++)
         missing_packs.insert(i);
    
     do {
-        cout << "dps:" << dps.size() << endl;
-        cout << "In while for " << fp.fname << endl;
-        for (auto iter = missing_packs.begin(); iter != missing_packs.end(); iter++) {            
+        // Send all packets that the server tells us it's missing
+        for (auto iter = missing_packs.begin(); iter != missing_packs.end(); iter++) {
+            // Send each packet 5 times, for redundancy's sake
             for (int i = 0; i < 5; i++) {
                 string data_pack = makeFilePacket(dps[*iter]);
                 int pack_len = data_pack.size();
@@ -482,31 +497,25 @@ void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
                 c150debug->printf(C150APPLICATION,
                                   "%s: Sending File Data, msg: \"%s\"",
                                   PROG_NAME, c_style_msg);
-                cout << "writing on 616 " << data_pack.substr(0, 18) << endl;
                 sock->write(c_style_msg, pack_len+1);
-                cout << "Sending Data Pack " << dps[*iter].packet_num << endl;
-                cout << "datapack " << data_pack << endl;
-                // Read the response from the server
-                c150debug->printf(C150APPLICATION,"%s: Returned from write,"
-                                  " doing read()", PROG_NAME);              
             }
         }
-
+        cout << "sent missing\n";
+        // Check for server message about which packets it still needs
         while (timedout && num_tries < MAX_SEND_TO_SERVER_TRIES) {
+
             readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
-            printf("readlen %lu timedout %d incoming %s\n", readlen, timedout, incoming_msg);
-            // Check for timeout
             timedout = sock -> timedout();
-            //TODO remove
-            if (readlen > 0)
-                timedout = false;
-            string inc_str = string(incoming_msg);
-            cout << "timedout " << timedout << " reading ln 631 " << inc_str << endl;
             if (timedout) {
-                cout << "fuck me\n";
                 num_tries++;
                 continue;
             }
+            if (readlen == 0) {
+                c150debug->printf(C150APPLICATION,"Read zero length message,"
+                                  " trying again");
+                continue;
+            }
+            string inc_str = string(incoming_msg, readlen-1);
             if ((inc_str.substr(0, 1) == "M") &&
                 (stoi(inc_str.substr(1, inc_str.find(" ")-1))
                  == fp.file_ID)) {
@@ -580,17 +589,18 @@ string receiveE2E(C150NastyDgmSocket *sock)
                           PROG_NAME, E2EPilot.c_str());
         sock->write(E2EPilot.c_str(), E2EPilot.length()+1);
         readlen = sock -> read(incoming_msg, sizeof(incoming_msg));
-        string inc_str = string(incoming_msg);
-        c150debug->printf(C150APPLICATION,"Successfully read %d bytes."
-                          " Message=\"%s\"", readlen, inc_str.c_str());
         // Check for timeout
         timedout = sock -> timedout();
         if (timedout) {
             num_tries++;
             continue;
         }
-        cout << "timedout "<< timedout << "incoming "
-             << inc_str << endl;
+        if (readlen == 0) {
+            c150debug->printf(C150APPLICATION,"Read zero length message,"
+                              " trying again");
+            continue;
+        }
+        string inc_str = string(incoming_msg, readlen-1);
         if (inc_str.substr(0, 4) == "E2ES") {
             *GRADING << "Directory E2E passed. All files copied\n";
             cout << "E2E Passed\n";
