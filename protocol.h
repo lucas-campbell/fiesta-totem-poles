@@ -25,7 +25,6 @@ const int PACKET_SIZE = 480;
  * * int file_ID: numerical id of this file (incrememntal)
  * * string hash: SHA1 hash of file contents
  * * string fname: name of the file
- * Assumptions: TODO
  */  
 struct FilePilot {
     int num_packets;
@@ -56,7 +55,6 @@ FilePilot unpackFilePilot(std::string packet);
  * Constructor args:
  * * int num_files: # files in this directory
  * * string hash: SHA1 hash of the directory
- * Assumptions: TODO
  */  
 struct DirPilot {
     int num_files;
@@ -87,7 +85,6 @@ DirPilot unpackDirPilot(std::string packet);
  *                   the rest of the file data
  * * int file_ID: numerical id of this file (incrememntal)
  * * string data: file data payload -- 480 bytes except final packet
- * Assumptions: TODO
  * Additional info: the data payload is always 480 bytes except for the
  * final packet for a file, which may be shorter
  */  
@@ -97,14 +94,6 @@ struct FilePacket {
     std::string data;
     FilePacket(int p, int f, std::string d) :
     packet_num(p), file_ID(f), data(d) {}
-
-    FilePacket& operator= (const FilePacket &fp){
-        packet_num = fp.packet_num;
-        file_ID = fp.file_ID;
-        data = fp.data;
-        return *this;
-    }
- 
 };
 
 /*

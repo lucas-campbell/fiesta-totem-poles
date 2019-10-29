@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <cstring>                // for errno string formatting
 #include <cerrno>
-#include <iostream>               // for cout
+#include <iostream>
 #include <fstream>                // for input files 
 
 int FILE_NASTINESS;
@@ -322,7 +322,9 @@ void fillChecksumTable(map<string, string> &filehash,
             // add {filename, checksum} to the table
             unsigned char hash[SHA1_LEN];
             size_t size; //throwaway
-            getFileChecksum(string(sourceDir), filename, size, hash);
+            char * to_free = 
+                getFileChecksum(string(sourceDir), filename, size, hash);
+            free(to_free); //malloc'd data
             
             string hash_str = string((const char*)hash, SHA1_LEN-1);
             filehash[filename] = hash_str;

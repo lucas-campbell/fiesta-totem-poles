@@ -13,10 +13,6 @@
 
 using namespace std;
 
-// NEEDSWORK: - All of the below functions must have field size checks enforced
-//            - instead of using magic numbers for substring indices, use
-//              global constants
-
 /*
  * Our UDP File Pilot packet is in the following format
  * "T ####### PPPPPPP HHHHHHHHHHHHHHHHHHHH FFFFFFF....."
@@ -35,21 +31,17 @@ string makeFilePilot(FilePilot pilot_packet)
     int zeros = MAX_PACKNUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
-    cout << "pack num " << pack << endl;
     // Pack File ID of corresponding file
     num = to_string(pilot_packet.file_ID);
     zeros = MAX_FILENUM - num.length();
     pack += string(zeros, '0').append(num);
     pack += " ";
-    cout << "file num " << pack << endl;
     // Pack File Hash
     pack += pilot_packet.hash;
     pack += " ";
-    cout << "hash " << pack << endl;
     // Pack File Name
     pack += pilot_packet.fname;
     pack[0] = 'P';
-    cout << "type indicator " << pack << endl;
     return pack;
 }
 

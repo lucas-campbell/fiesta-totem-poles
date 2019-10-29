@@ -3,7 +3,6 @@
 //                        filecopyclient.cpp
 //
 //        Author: Dylan Hoffmann & Lucas Campbell       
-//        Based on pieces from ping code written by Noah Mendelsohn
 //   
 //
 //        COMMAND LINE
@@ -13,15 +12,16 @@
 //
 //        OPERATION
 //
-//              As of end-to-end check: gets a hash of given directory, sends
-//              to server, and awaits response. Quits after receiving response.
+//              Given a server, file and network nastiness levels, and a
+//              directory, sends the contents of the directory to the server.
+//              Quits after receiving an end-to-end response or if the server
+//              times out.
 //
 //
 //        LIMITATIONS
 //
-//              This version only sends a Directory Pilot packet, which
-//              contains a representative hash for the folder. It does not send
-//              information on individual files.
+//              Works with file nastiness level up to 4 and network nastiness
+//              level up to 4.
 //
 //
 //     
@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
         // Tell the DGMSocket which server to talk to
         sock -> setServerName(argv[SERVER_ARG]);  
         
-        // Timeout of 3 seconds
+        // Timeout of .3 seconds
         sock -> turnOnTimeouts(TIMEOUT_MS);
 
         *GRADING << "Prelim Setup Complete\n";
@@ -160,8 +160,9 @@ int main(int argc, char *argv[]) {
         // as keys and  individual file checksums as values
         map<string, string> filehash;
         fillChecksumTable(filehash, SRC, argv[SRC_ARG]);
-
         closedir(SRC);
+
+        // Open directory again because we loop through it in fillChecksumTable
         SRC = opendir(argv[SRC_ARG]);
         *GRADING << "Opening Directory again:" << argv[SRC_ARG] << endl;
         if (SRC == NULL) {
@@ -186,6 +187,7 @@ int main(int argc, char *argv[]) {
         *GRADING << "Closing dir\n";
         closedir(SRC);
         *GRADING << flush;
+        delete sock;
     }
 
     
@@ -393,6 +395,8 @@ void sendFiles(DIR* SRC, const char* sourceDir, C150NastyDgmSocket* sock,
         // Read data, compute checksum, put size of file in 'size'
         char *f_data_c = getFileChecksum(sourceDir, filename, size, hash);
         string f_data(f_data_c, size);
+        //free malloc'd data
+        free(f_data_c);
         
         string hash_str((const char*)hash, SHA1_LEN-1);
         filehash[filename] = hash_str;
@@ -631,9 +635,12 @@ void receiveE2E(C150NastyDgmSocket *sock)
             break;
         }
         else if (inc_str.substr(0, 4) == "E2EF") {
-            string failed = inc_str.substr(4);
-            *GRADING << "Directory end-to-end check failed, " << failed <<
-                " file(s) not copied successfully.\n";
+            size_t files_start_index = inc_str.find(" ");
+            string num_failed = inc_str.substr(4, files_start_index-4);
+            string files_failed = inc_str.substr(files_start_index);
+            *GRADING << "Directory end-to-end check failed. "<< num_failed <<
+                " file(s) not copied successfully:\n"
+                << files_failed << endl;
             break;
         }
            

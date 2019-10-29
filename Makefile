@@ -45,49 +45,49 @@ INCLUDES = $(C150LIB)c150dgmsocket.h $(C150LIB)c150nastydgmsocket.h $(C150LIB)c1
 
 UTILS = utils.o protocol.o
 
-all: protocoltest.exe shatest.exe fileserver.exe fileclient.exe nastyfiletest.exe datafilemake.exe sha1test.exe
+all: protocoltest shatest fileserver fileclient nastyfiletest datafilemake sha1test
 
-protocoltest.exe: test_protocol.cpp $(UTILS) $(C150AR) $(INCLUDES)
-	$(CPP) -o protocoltest.exe $(CPPFLAGS) test_protocol.cpp $(UTILS) -lssl -lcrypto $(C150AR)
+protocoltest: test_protocol.cpp $(UTILS) $(C150AR) $(INCLUDES)
+	$(CPP) -o protocoltest $(CPPFLAGS) test_protocol.cpp $(UTILS) -lssl -lcrypto $(C150AR)
 
-shatest.exe: shatest.cpp $(UTILS) $(C150AR) $(INCLUDES)
-	$(CPP) -o shatest.exe $(CPPFLAGS) shatest.cpp $(UTILS) -lssl -lcrypto $(C150AR)
-
-#
-# Build the filecopy client
-#
-fileserver.exe: filecopyserver.cpp $(UTILS) $(C150AR) $(INCLUDES)
-	$(CPP) -o fileserver.exe $(CPPFLAGS) filecopyserver.cpp $(UTILS) -lssl -lcrypto $(C150AR)
+shatest: shatest.cpp $(UTILS) $(C150AR) $(INCLUDES)
+	$(CPP) -o shatest $(CPPFLAGS) shatest.cpp $(UTILS) -lssl -lcrypto $(C150AR)
 
 #
 # Build the filecopy client
 #
-fileclient.exe: filecopyclient.cpp $(UTILS) $(C150AR) $(INCLUDES)
-	$(CPP) -o fileclient.exe $(CPPFLAGS) filecopyclient.cpp $(UTILS) -lssl -lcrypto $(C150AR)
+fileserver: filecopyserver.cpp $(UTILS) $(C150AR) $(INCLUDES)
+	$(CPP) -o fileserver $(CPPFLAGS) filecopyserver.cpp $(UTILS) -lssl -lcrypto $(C150AR)
+
+#
+# Build the filecopy client
+#
+fileclient: filecopyclient.cpp $(UTILS) $(C150AR) $(INCLUDES)
+	$(CPP) -o fileclient $(CPPFLAGS) filecopyclient.cpp $(UTILS) -lssl -lcrypto $(C150AR)
 
 #
 # Build the sha1test
 #
-#sha1.exe: sha1.cpp
-#	$(CPP) -o sha1.exe sha1.cpp -lssl -lcrypto
+#sha1: sha1.cpp
+#	$(CPP) -o sha1 sha1.cpp -lssl -lcrypto
 
 #
 # Build the nastyfiletest sample
 #
-nastyfiletest.exe: nastyfiletest.cpp  $(C150AR) $(INCLUDES)
-	$(CPP) -o nastyfiletest.exe  $(CPPFLAGS) nastyfiletest.cpp $(C150AR)
+nastyfiletest: nastyfiletest.cpp  $(C150AR) $(INCLUDES)
+	$(CPP) -o nastyfiletest  $(CPPFLAGS) nastyfiletest.cpp $(C150AR)
 
 #
 # Build the sha1test
 #
-sha1test.exe: sha1test.cpp
-	$(CPP) -o sha1test.exe sha1test.cpp -lssl -lcrypto
+sha1test: sha1test.cpp
+	$(CPP) -o sha1test sha1test.cpp -lssl -lcrypto
 
 #
 # Build the makedatafile 
 #
-datafilemake.exe: datafilemake.cpp
-	$(CPP) -o datafilemake.exe datafilemake.cpp 
+datafilemake: datafilemake.cpp
+	$(CPP) -o datafilemake datafilemake.cpp 
 
 #
 # To get any .o, compile the corresponding .cpp
@@ -101,6 +101,6 @@ datafilemake.exe: datafilemake.cpp
 # for forcing complete rebuild#
 
 clean:
-	 rm -f protocoltest.exe shatest.exe fileclient.exe fileserver.exe nastyfiletest.exe sha1test.exe datafilemake.exe *.o *~ GRADELOG.*
+	 rm -f protocoltest shatest fileclient fileserver nastyfiletest sha1test datafilemake *.o *~ GRADELOG.*
 
 

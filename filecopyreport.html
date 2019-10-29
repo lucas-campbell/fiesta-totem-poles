@@ -126,7 +126,7 @@ on both the client and the server; if all you got working
 was the end-to-end check, then please tell us how to test your work. <em>Also: if high network nastiness messes up your ability to deal with file nastiness, you can give us two pairs: e.g. Test my client and server with networknastiness=4 and filenastiness=1 or networknastiness=0 and filenastiness=3)</em></li>
 <li class="a">
 <!-- replace XX and YY with the actual values -->
-Please test my client and server with: networknastiness=1 and filenastiness=5.
+Please test my client and server with: networknastiness=4 and filenastiness=4.
 </li>
 
 <li class="q">Is there anything else we should
@@ -163,11 +163,17 @@ No.
   <li><h5>Overview: what did you do? What worked and what didn't?</h5></li>
   <ul>
 	<li>We built a file copy protocol which allows a user to copy files from a client to a server.
-      #TODO: what worked and what didn't </li>
+            The client sends data over to the server, the data is checksummed server-side, and the
+            results are then sent back to the client we believe that all parts of this assignment work on 
+            the indicated nastiness levels.</li>
   </ul>
   <li><h5>Which cases do you think your code handles and why? </h5></li>
   <ul>
-    <li>Our code handles all of the cases. $$$$$</li>
+    <li>Our code handles up to network nastiness=4 and file nastiness=4. At the highest level of file nastiness,
+        our implementation of a 'trusted' file read is susceptible to believing that multiple
+        erroneous reads that are incorrect in the same way indicate a correct file read from disk.
+        Otherwise, we have implemented a combination of retries and multiple packet sends that 
+        overcomes network nastiness.</li>
   </ul>
   <li><h5>Describe your protocol:</h5>
 <ul>
@@ -210,7 +216,7 @@ No.
      </ul>
 </li></ul>
   <li><h5>What's your approach to dealing with lost packets? Packets that are reordered?</h5></li>
-  <ul><li>We send a list of missing packets for data packets, and if pilot packets get lost we retry until we receive a confirmation, or timeout. If server packets are lost the client won't proceed until it receives the proper confirmation, and the server will keep resend until a timeing out or a certain number of retries has been reached. Data packets which arrive out of order for the same file are inserted into the correct place in the file, files which arrive which are not the for the current file are ignored.</li></ul>
+  <ul><li>We send a list of missing packets for data packets, and if pilot packets get lost we retry until we receive a confirmation, or timeout. If server packets are lost the client won't proceed until it receives the proper confirmation, and the server will keep resending until a timeout or a certain number of retries has been reached. Data packets which arrive out of order for the same file are inserted into the correct place in the file, packets which arrive which are not the for the current file are ignored.</li></ul>
 <li><h5>Are there any invariants that give you confidence in the correctness of
 your protocol (e.g. "My rename is done after my end-to-end check succeeds,
     so any TARGET file without a .TMP suffix is correct")</h5></li>
