@@ -159,13 +159,13 @@ main(int argc, char *argv[])
     // Create socket, loop receiving and responding
     //
     try {
-        cerr << "Creating C150NastyDgmSocket(nastiness=" <<
+        *GRADING << "Creating C150NastyDgmSocket(nastiness=" <<
             NETWORK_NASTINESS << ")" << endl;
         c150debug->printf(C150APPLICATION,"Creating "
                           "C150NastyDgmSocket(nastiness=%d)",
                           NETWORK_NASTINESS);
         C150NastyDgmSocket *sock = new C150NastyDgmSocket(NETWORK_NASTINESS);
-        cerr << "Ready to accept messages\n";
+        *GRADING << "Ready to accept messages\n";
         c150debug->printf(C150APPLICATION,"Ready to accept messages");
 
         // Timeout of .3 seconds

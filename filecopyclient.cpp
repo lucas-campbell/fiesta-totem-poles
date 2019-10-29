@@ -587,7 +587,7 @@ vector<FilePacket> makeDataPackets(FilePilot fp, string f_data){
         string data = f_data.substr(i*PACKET_SIZE, PACKET_SIZE);
         data_packs.push_back(FilePacket(i, fp.file_ID, data));
     }
-    // Last packet may not be a full 480 bytes
+    // Last packet may not be a full packet
     data_packs.push_back(FilePacket(i, fp.file_ID,
                                     f_data.substr(i*PACKET_SIZE)));
     return data_packs;

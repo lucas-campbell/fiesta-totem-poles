@@ -142,11 +142,6 @@ No.
 </li>
 
 
-<li class="q">(optional) Do you have any other comments on this assignment (e.g. was it worthwhile, what did you learn from it, do you have suggestions for improvment if the course is offered again)?</li>
-<li class="a">
-...your answer here...
-</li>
-
 </ol>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * -->
@@ -178,7 +173,7 @@ No.
   <li><h5>Describe your protocol:</h5>
 <ul>
   <li><h5>What is the sequence of packets you send in the normal cases and for recovery?</h5></li>
-  <ul> <li> We have 3 types of client-sent packets, and 1 type of server-sent packet. Our client sends Directory Pilot packets, File Pilot packets, and File Packets. The first sent is a Dir pilot which informs the server of the number of file to be transmitted and the end-to-end directory hash. The file pilot sets up the server to receive a file, and communicates the file name, file id, file hash, and number of packets for the server. The file pilot is then followed by a number of FilePackets which transmit the data to the server and contain the file id, packet number, and upto 480 bytes of the file data. The server sands one brpoad type of packet which is response packets which convey either success or failure to the client. The contents of the packets are either "##Ok" where ## is an abreviation of the type of packet just received, or "C # # # #..."where C is a character sentinal to the client communicating what type of ID the following list is of, and # is a packet or file ID which is missing from the server</li>
+  <ul> <li> We have 3 main types of client-sent packets, and 3 primary types of server-sent packets. Our client sends Directory Pilot packets, File Pilot packets, and File Packets. The first sent is a Dir pilot which informs the server of the number of files to be transmitted and the end-to-end directory hash. The file pilot sets up the server to receive a file, and communicates the file name, file id, file hash, and number of packets for the server. The file pilot is then followed by a number of FilePackets which transmit the data to the server and contain the file id, packet number, and up to 480 bytes of file data. The client also sends the server the single response "E2E Ready" when it is ready to receive the E2E report. The server sends one broad type of packet, response packets, which convey successful reception of a Directory Pilot or File Pilot to the client, 'missing' packets, which are lists of missing packet ids for a particular file, and end-to-end result packets. The contents of the response packets are "##OK" where ## is an abbreviation of the type of packet just received. The 'missing' packets are of the form "M{ID} # # # #..." where {ID} is the file_ID of the file whose packets are still missing. The E2E checks take the form of "E2ES" for success or "E2EF# * * * *..." where # is the number of files that failed, and each * is a filename of a failed file. </li> 
   </ul>
 <li><h5>What is the structure of your packets? Briefly explain each significant field. You can copy/paste the actual structs
     if you like, but include enough commentary (in the structs or below it) that we can figure out what's going on.</h5></li>
@@ -202,7 +197,7 @@ No.
      <li>I is the file ID (up to 7 bytes = 9,999,999 files)
        (This field is also padded to width 7)</li>
      <li>H is the SHA1 hash of the file (Always 20 bytes)</li>
-     <li>F... is a variable length field for the file name (up to 470 bytes long)</li>
+     <li>F... is a variable length field for the file name (up to 472 bytes long)</li>
      </ul>
   </li>
   <li>
@@ -216,22 +211,23 @@ No.
      </ul>
 </li></ul>
   <li><h5>What's your approach to dealing with lost packets? Packets that are reordered?</h5></li>
-  <ul><li>We send a list of missing packets for data packets, and if pilot packets get lost we retry until we receive a confirmation, or timeout. If server packets are lost the client won't proceed until it receives the proper confirmation, and the server will keep resending until a timeout or a certain number of retries has been reached. Data packets which arrive out of order for the same file are inserted into the correct place in the file, packets which arrive which are not the for the current file are ignored.</li></ul>
+  <ul><li>We send a list of missing packet numbers for data packets, and if pilot packets get lost we retry until we receive a confirmation, or timeout. If server packets are lost the client won't proceed until it receives the proper confirmation, and the server will keep resending until a timeout or a certain number of retries has been reached. Data packets which arrive out of order for the same file are inserted into the correct place in the file, packets which arrive which are not the for the current file are ignored.</li></ul>
 <li><h5>Are there any invariants that give you confidence in the correctness of
 your protocol (e.g. "My rename is done after my end-to-end check succeeds,
     so any TARGET file without a .TMP suffix is correct")</h5></li>
 <ul>
-  <li>In additon to the above invariant, our program has the invariants that both the server and the client only ever are dealing with one file at once, that if we have proceeded to sending the next type of packet from the client we must have received confirmation from the server, and either all packets for a file have arrived, or there exists a list with length > 0 that contains the packet ids of all packets which have not been received</li>
+  <li>In additon to the above invariant, our program has the invariants that both the server and the client only ever are dealing with one file at once, that if we have proceeded to sending the next type of packet from the client we must have received confirmation from the server, and either all packets for a file have arrived, or there exists a list with length > 0 that contains the packet ids of all packets which have not been received. </li>
   </ul>
 </ul>
   </li><li><h5>Do you expect your code to succeed when there are errors reading or writing the disk? What ensures that it will succeed, or why do you think it might not?</h5></li>
-  <ul><li>I there is an error writing to disk, we try MAX_WRITE_TRIES number of times, and if that try fails we note that the file has failed, add it to our failed list, and proceed. If reading a file fails more than 4 times our code crashes because if reading a file failes more than a couple of times it means either we were unable to open the file repeatedly, or unable to read the file repeatedly, and on the client side we could not elegantly handle that cae without adding a lot of complexity to our system. If we had more time, we could fix it to ignore that file, and copy the rest of the files. </li></ul>
+  <ul><li>If there is an error writing to disk, we try MAX_WRITE_TRIES number of times, and if that try fails we note that the file has failed, add it to our failed list, and proceed. If reading a file fails more than a set number of times our code crashes because if reading a file failes more than a couple of times it means either we were unable to open the file repeatedly, or unable to read the file repeatedly, and on the client side we could not elegantly handle that case without adding a lot of complexity to our system. If we had more time, we could fix it to ignore that file, and copy the rest of the files. </li></ul>
   <li><h5>Are there bugs or shortcomings you know about? Are they indicated in comments in the code with NEEDSWORK? (see <a href="#commenting">commenting and code quality</a>)</h5></li>
-  <ul><li> There are a couple of aspects which our code does not handle, but is built in such a way that we could extend it to handle relatively easily. Most importantly, our end-to-end check does not prompt any retries or attempts to fix the problems, but merely reports the number of failed files and completes. We could extend this by communicating the list of fialed files and having the client retry to send those files specifically. Additonally, we don't address the case of too much data, either trying to send a file greater than 4.8 Gb, trying to send more than 9,999,999 files. 
+  <ul><li> There are a couple of aspects which our code does not handle, but is built in such a way that we could extend it to handle relatively easily. Most importantly, our end-to-end check does not prompt any retries or attempts to fix the problems, but merely reports the number of failed files and their names and completes. We could extend this by communicating the list of failed files and having the client retry to send those files specifically. Additonally, we don't address the case of too much data, either trying to send a file greater than 4.8 Gb, trying to send more than 9,999,999 files.
+      A final bug that only appears on level 5 file nastiness is that of incorrectly copying files. The trustedFileRead method reads a file multiple times, and if it calculates the same checksum each time, it declares that file to have been read sucessfully. It keeps trying to do so until it has found a matching checksum. On higher levels of nastiness, this introduces the possibility that the file was read is the same faulty way each time, and thus a faulty read was declared successful. Unfortunately, this is what seems to happen, in a very deterministic way (the files in SRC and TRG are different in the same way each time and are still reported as having been copied correctly).
   </li></ul>
 <li><h5>What should we look for in the grading logs? Please relate this to your explanation of the protocol you've invented (if you like, you can combine the two, indicating gradelog entries as you explain the protocol, or you can explain the gradelog separately).
 </h5></li>
-$$$$$$
+Instead of the normal file end-to-end checks, we implemented a directory-level end-to-end check, along with a server-side internal check that feels somewhat like an end-to-end check. We report both of these on the server side, but only the results of the directory check on teh client side. Further error reporting includes retries for writing a file to disk on the server side, sending missing packet_id lists from the server side, and any time the client has to re-try to send a packet.
 <li><h5>Which cases are you aware of (e.g. high nastiness levels or particular
 combinations of reordering) that you aren't trying to handle correctly?
 In such cases, will your code detect the problem and abort (OK) or
@@ -245,10 +241,11 @@ be a good thing to do. Certain protocols will tend to succeed on short files, bu
 If this is true of yours, can you explain why?
 If you have this problem, what file sizes do you handle at which nastiness
     levels, and how long does it typically take for them to be copied?</h5></li>
-$$$$$$$
+When our code has to give up on a file, it will fail or abort the process, and not move on to others. This is because it will time out and then raise an exception, or if an attempt at file reading fails too many times, the program will simply call exit().
+
 <li><h5>Are there any cases for which your code doesn't do what you expect? Do you have any intuition why that might be?</h5></li>
   <li><h5>What did you learn from this asssignment?</h5></li>
-  $$$$$$
+  No cases that we are aware of! We learned a lot about patience and our capacity for debugging, mostly.
 </ul>
 
 </div>
