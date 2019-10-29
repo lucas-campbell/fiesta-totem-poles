@@ -478,12 +478,6 @@ void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
     char incoming_msg[512];   // received message data
     int num_file_tries = 0;
 
-    // If file_ID and all packet_nums are full length, this is the maximum
-    // number of packet_ids that can fit in a buffer for our 'missing' message
-    int low_max_fIDs = ((512-2-MAX_FILENUM-1-MAX_PACKNUM)/(MAX_PACKNUM+1)) + 1;
-    int expected_tries = fp.num_packets / low_max_fIDs;
-    if (expected_tries % low_max_fIDs != 0) expected_tries++;
-
     // Break up buffer into FilePacket structs so that we can send data
     // piecemeal across the wire
     vector<FilePacket> dps = makeDataPackets(fp, f_data); //dps = data packets
@@ -496,7 +490,7 @@ void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
         missing_packs.insert(i);
    
     do {
-        if (num_file_tries > expected_tries)
+        if (num_file_tries > 1)
             *GRADING << "File: " << fp.fname
                 << " sending missing data packets transmission #"
                 << num_file_tries << endl;
@@ -516,7 +510,7 @@ void sendFile(FilePilot fp, string f_data,  C150NastyDgmSocket *sock)
                 sock->write(c_style_msg, pack_len+1);
             }
         }
-        if (num_file_tries > expected_tries) {
+        if (num_file_tries > 1) {
             *GRADING << "sent packets ";
             for (auto iter = missing_packs.begin(); iter != missing_packs.end(); iter++) {
                 *GRADING << *iter << " ";

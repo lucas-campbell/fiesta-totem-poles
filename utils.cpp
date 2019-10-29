@@ -1,5 +1,5 @@
 /*
- * endtoend.cpp: Implements a function for directory checksum comparison
+ * utils.cpp: Common utilities for client and server in the file copy protocol
  * Written by: Dylan Hoffmann and Lucas Campbell
  */
 
@@ -68,9 +68,10 @@ bool cmpChecksums(unsigned char hash1[SHA1_LEN], unsigned char hash2[SHA1_LEN])
 /*
  * trustedFileRead
  * Reads a desired file and returns its contents. Checks the authenticity of
- * the contents via voting method.
+ * the contents by making sure the same checksum is returned a certain number
+ * of times in a row.
  * Args: 
- * * source_dir: name of the source directory of the file
+ * * dirname: name of the source directory of the file
  * * file_name: name of the file to be read
  * * size: pass-by-reference size_t that will be filled with the number of
  *         bytes read from the file
@@ -78,22 +79,28 @@ bool cmpChecksums(unsigned char hash1[SHA1_LEN], unsigned char hash2[SHA1_LEN])
  * Returns: pointer to a malloc'd array of bytes that contains the contents of
  *          the desired file.
  */
-char *trustedFileRead(string source_dir, string file_name, size_t &size)
+char *trustedFileRead(string dirname, string file_name, size_t &size)
 {
     // Put together directory and filenames SRC/file TARGET/file
-    string source_name = makeFileName(source_dir, file_name);
+    string full_path = makeFileName(dirname, file_name);
 
     bool found_match = false;
     int correct_index;
     int copies = 6;
     char *file_buffs[copies];
+    int num_tries = 0;
     while (!found_match) {
+        if (num_tries > 0)
+            *GRADING << "File: " << full_path << " re-trying trustedFileRead, "
+                     << "attempt #" << num_tries+1 << endl;
+
         string hashes[copies];
+        // File read/write/stat errors
         int failed = 0;
         //keep a count of duplicate hashes
         map<string, int> counts;
         
-        // Read file 5 times, check if we got the same checksum 3 times
+        // Read file repeatedly/check to see if we got the same thing each time
         for (int i = 0; i < copies; i++) {
             if (failed > copies+1) {
                 *GRADING << "Read of  " << file_name << " failed too many "
@@ -109,9 +116,9 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             size_t src_size;
 
             // Read whole input file 
-            if (lstat(source_name.c_str(), &statbuf) != 0) {
+            if (lstat(full_path.c_str(), &statbuf) != 0) {
                 fprintf(stderr,"trustedFileRead: error stating supplied source"
-                        "file %s\n", source_name.c_str());
+                        "file %s\n", full_path.c_str());
                 failed++;
                 break;
             }
@@ -124,10 +131,10 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             NASTYFILE inputFile(FILE_NASTINESS);
 
             // do an fopen on the input file
-            fopenretval = inputFile.fopen(source_name.c_str(), "rb");  
+            fopenretval = inputFile.fopen(full_path.c_str(), "rb");  
           
             if (fopenretval == NULL) {
-                cerr << "Error opening input file " << source_name << 
+                cerr << "Error opening input file " << full_path << 
                       " errno=" << strerror(errno) << endl;
                 failed++;
                 for (int j = i; j >=0; j--)
@@ -137,7 +144,7 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             // Read the whole file
             size = inputFile.fread(buffer, 1, src_size);
             if (size != src_size) {
-                cerr << "Error reading file " << source_name << 
+                cerr << "Error reading file " << full_path << 
                       "  errno=" << strerror(errno) << endl;
                 failed++;
                 for (int j = i; j >=0; j--)
@@ -146,7 +153,7 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             }
             // Close the file
             if (inputFile.fclose() != 0 ) {
-                cerr << "Error closing input file " << source_name << 
+                cerr << "Error closing input file " << full_path << 
                       " errno=" << strerror(errno) << endl;
                 failed++;
                 for (int j = i; j >=0; j--)
@@ -182,6 +189,8 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
             free(file_buffs[i]);
     }
 
+    *GRADING << "Successfully read " << full_path << endl;
+
     return file_buffs[correct_index];
 }
 
@@ -191,7 +200,7 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
  * char array. Returns a pointer to the contents of the file. It is the
  * caller's responsibility to free the memory malloc'd by this function.
  * Args:
- * * source_name: the name of a directory that exists
+ * * dirname: the name of a directory that exists
  * * file_name: the name of a file that exists in that directory
  * * size:      pass-by-reference size_t that will store the number of bytes
  *              of data pointed to by the return value of the function
@@ -202,10 +211,10 @@ char *trustedFileRead(string source_dir, string file_name, size_t &size)
  *          and contains the contents of the desired file
  *
  */
-char *getFileChecksum(string source_name, string file_name, size_t &size,
+char *getFileChecksum(string dirname, string file_name, size_t &size,
                         unsigned char (&hash)[SHA1_LEN])
 {
-    char *file_data = trustedFileRead(source_name, file_name, size);
+    char *file_data = trustedFileRead(dirname, file_name, size);
     computeChecksum((const unsigned char *)file_data, size, hash);
     return file_data;
 }
@@ -287,11 +296,12 @@ string makeFileName(string dir, string name)
  * fillChecksumTable
  * Flls a directory checksum table mapping file names to SHA1 hashs
  * Args:
- * * map<string, string> &filehash: PBR An empty map\
+ * * map<string, string> &filehash: An empty map to be filled with
+ *                                  {filename, checksum} pairs
  * * DIR* SRC: Pointer to the source dir
  * * const char* sourceDir: name of the source directory
  *
- * Return: None the map is pass-by-reference 
+ * Return: None
  */
 void fillChecksumTable(map<string, string> &filehash,
                         DIR *SRC, const char* sourceDir)
@@ -336,18 +346,12 @@ void printHash(const unsigned char *hash)
 }
 
 /*
- *  NB: While the use of tmpname generates compiler warnings, we have elected
- *  to use it because the preferred alternative, 'mkstemp' is less broadly
- *  portable. We plan to engineer this check to use a different method for the
- *  final iteration of this assignment.
- *
  * getDirHash
- * Writes the file checksum map to a file (outside src) and calculates
- * the SHA1 checksum of that file, which equates to the SHA1 checksum of
- * the source directory
+ * Given a map of {filename, checksum} pairs, create and return an overall SHA1
+ * hash based upon the filenames and checksums together.
  *
  * Args:
- * * &unordered_map<str, str>: the hashmap of filename:SHA1hash pairs
+ * * filehash: the hashmap of filename:SHA1hash pairs
  *
  * Return: string which is the directory hash
  */ 
